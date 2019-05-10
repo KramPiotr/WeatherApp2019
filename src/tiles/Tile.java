@@ -1,7 +1,6 @@
-package Skeletons;
+package tiles;
 
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
+import skeletons.Panel;
 import javafx.scene.layout.Pane;
 
 public abstract class Tile extends Pane {

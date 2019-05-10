@@ -1,4 +1,4 @@
-package Skeletons;
+package skeletons;
 
 public class Controller {
     private Panel main;
@@ -7,7 +7,6 @@ public class Controller {
 
     private Panel activePanel;
 
-    private APIGetter apiGetter;
 
     //TODO: Implement
     public void switchToPanel(String panel){}

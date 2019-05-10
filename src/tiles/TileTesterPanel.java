@@ -1,30 +1,41 @@
 package tiles;
 
-import Skeletons.APIGetter;
-import Skeletons.Panel;
+import skeletons.Panel;
+import uk.ac.cam.cl.dgk27.interactive.RequestType;
+import uk.ac.cam.cl.dgk27.interactive.Weather;
+import uk.ac.cam.cl.dgk27.interactive.WeatherAPI;
+
+import java.io.IOException;
 
 public class TileTesterPanel extends Panel {
-    public TileTesterPanel(APIGetter apiGetter) {
-        super(apiGetter);
+    Weather weather;
+
+    {
+        try {
+            weather = WeatherAPI.makeRequest(RequestType.Current,"Cambridge","GBR")[0];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public float getTemperature() {
+    public double getTemperature() {
+        return weather.getTemp();
+    }
+
+    @Override
+    public double getTemperature(int placeHolderForDate_Time) {
         return 0;
     }
 
     @Override
-    public float getTemperature(int placeHolderForDate_Time) {
-        return 0;
+    public double getRealTemperature() {
+        //TODO Stop fudging this
+        return weather.getTemp()-Math.random()*(weather.getTemp()-weather.getTemp_min());
     }
 
     @Override
-    public float getRealTemperature() {
-        return 0;
-    }
-
-    @Override
-    public float getRealTemperature(int placeHolderForDate_Time) {
+    public double getRealTemperature(int placeHolderForDate_Time) {
         return 0;
     }
 }

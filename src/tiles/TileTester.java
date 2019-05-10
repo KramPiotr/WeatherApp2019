@@ -11,7 +11,7 @@ public class TileTester extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = new Group(new RealTempTile(new TileTesterPanel(new TileTesterAPI())));
+        Parent root = new Group(new RealFeelTile(new TileTesterPanel()));
         primaryStage.setTitle("Tile Tester");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
