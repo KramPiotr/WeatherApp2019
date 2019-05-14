@@ -18,9 +18,7 @@ public class HeaderTile extends Tile{
     public void update() {
         temperature = parent.getTemperature();
         weather_main = parent.getWeatherCondition();
-        weather_description = parent.getWeatherDescription();
-        System.out.println(weather_main);
-        System.out.println(weather_description);
+
 
     }
 }

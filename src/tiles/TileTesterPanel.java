@@ -1,5 +1,6 @@
 package tiles;
 
+import eu.hansolo.tilesfx.weather.DarkSky;
 import skeletons.Panel;
 import uk.ac.cam.cl.dgk27.interactive.RequestType;
 import uk.ac.cam.cl.dgk27.interactive.Weather;
@@ -40,12 +41,8 @@ public class TileTesterPanel extends Panel {
     }
 
     @Override
-    public String getWeatherCondition() {
-        return weather.getWeather_main();
+    public DarkSky.ConditionAndIcon getWeatherCondition() {
+        return null;
     }
 
-    @Override
-    public String getWeatherDescription() {
-        return weather.getWeather_description();
-    }
 }

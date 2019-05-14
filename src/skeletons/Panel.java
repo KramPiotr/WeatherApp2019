@@ -1,5 +1,6 @@
 package skeletons;
 
+import eu.hansolo.tilesfx.weather.DarkSky;
 import javafx.scene.Parent;
 import tiles.Tile;
 
@@ -22,9 +23,7 @@ public abstract class Panel extends Parent {
     //TODO: Change from int for date/time
     public abstract double getRealTemperature(int placeHolderForDate_Time);
 
-    public abstract String getWeatherCondition();
-
-    public abstract String getWeatherDescription();
+    public abstract DarkSky.ConditionAndIcon getWeatherCondition();
 
     //TODO
     public void update(){
