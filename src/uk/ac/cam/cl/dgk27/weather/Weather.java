@@ -1,4 +1,6 @@
-package uk.ac.cam.cl.dgk27.interactive;
+package uk.ac.cam.cl.dgk27.weather;
+
+import eu.hansolo.tilesfx.weather.DarkSky;
 
 public class Weather {
     private double lon, lat;
@@ -96,5 +98,24 @@ public class Weather {
 
     public double getTimestamp() {
         return timestamp;
+    }
+
+    public DarkSky.ConditionAndIcon getIcon() {
+        DarkSky.ConditionAndIcon ret;
+
+        switch (getWeather_main()) {
+            case "clear sky": ret = DarkSky.ConditionAndIcon.CLEAR_DAY; break;
+            case "few clouds": ret = DarkSky.ConditionAndIcon.PARTLY_CLOUDY_DAY; break;
+            case "scattered clouds": ret = DarkSky.ConditionAndIcon.CLOUDY; break;
+            case "broken clouds": ret = DarkSky.ConditionAndIcon.CLOUDY; break;
+            case "shower rain": ret = DarkSky.ConditionAndIcon.RAIN; break;
+            case "rain": ret = DarkSky.ConditionAndIcon.RAIN; break;
+            case "thunderstorm": ret = DarkSky.ConditionAndIcon.THUNDERSTORM; break;
+            case "snow": ret = DarkSky.ConditionAndIcon.SNOW; break;
+            case "mist": ret = DarkSky.ConditionAndIcon.FOG; break;
+            default: ret = DarkSky.ConditionAndIcon.NONE;
+        }
+
+        return ret;
     }
 }

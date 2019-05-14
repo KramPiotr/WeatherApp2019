@@ -1,16 +1,25 @@
-package uk.ac.cam.cl.dgk27.interactive;
+package uk.ac.cam.cl.dgk27.weather;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Scanner;
-import org.json.*;
-
-import javax.swing.text.html.HTMLDocument;
 
 public class WeatherAPI {
     private final static String api_key = "d699ac01b2fa5c83c4e5286be12fa325"; // built-in
     private static  boolean metric = true;
+
+    private static double safeGetDouble(JSONObject o, String s) {
+        try {
+            return o.getDouble(s);
+        } catch(Exception e) {
+            System.out.println("JSON missing elements");
+            return 0d;
+        }
+    }
 
     private static Weather[] extractJSON(String url) throws IOException {
         // ccleve @ https://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code
@@ -36,9 +45,9 @@ public class WeatherAPI {
                 String datetime = jo.getString("dt_txt");
 
                 rtn[i] = new Weather(
-                        coordObj.getDouble("lon"), coordObj.getDouble("lat"), weather.getString("main"), weather.getString("description"),
-                        main.getDouble("temp"), main.getDouble("pressure"), main.getDouble("humidity"), main.getDouble("temp_min"), main.getDouble("temp_max"),
-                        0d, wind.getDouble("speed"), wind.getDouble("deg"), clouds.getDouble("all"), city.getString("name"), datetime, dt
+                        safeGetDouble(coordObj, "lon"), safeGetDouble(coordObj,"lat"), weather.getString("main"), weather.getString("description"),
+                        safeGetDouble(main,"temp"), safeGetDouble(main,"pressure"), safeGetDouble(main,"humidity"), safeGetDouble(main,"temp_min"), safeGetDouble(main,"temp_max"),
+                        0d, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), city.getString("name"), datetime, dt
                 );
                 i++;
             }
@@ -50,16 +59,16 @@ public class WeatherAPI {
         JSONObject coordObj = obj.getJSONObject("coord");
         JSONObject weather = obj.getJSONArray("weather").getJSONObject(0);
         JSONObject main = obj.getJSONObject("main");
-        double vis = obj.getDouble("visibility");
+        double vis = safeGetDouble(obj,"visibility");
         JSONObject wind = obj.getJSONObject("wind");
         JSONObject clouds = obj.getJSONObject("clouds");
         double dt = obj.getDouble("dt");
         String name = obj.getString("name");
 
         w1 = new Weather(
-                coordObj.getDouble("lon"), coordObj.getDouble("lat"), weather.getString("main"), weather.getString("description"),
-                main.getDouble("temp"), main.getDouble("pressure"), main.getDouble("humidity"), main.getDouble("temp_min"), main.getDouble("temp_max"),
-                vis, wind.getDouble("speed"), wind.getDouble("deg"), clouds.getDouble("all"), name, "", dt
+                safeGetDouble(coordObj, "lon"), safeGetDouble(coordObj,"lat"), weather.getString("main"), weather.getString("description"),
+                safeGetDouble(main,"temp"), safeGetDouble(main,"pressure"), safeGetDouble(main,"humidity"), safeGetDouble(main,"temp_min"), safeGetDouble(main,"temp_max"),
+                vis, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), name, "", dt
         );
 
         return new Weather[] {w1};
