@@ -22,6 +22,9 @@ public abstract class Panel extends Parent {
     //TODO: Change from int for date/time
     public abstract double getRealTemperature(int placeHolderForDate_Time);
 
+    public abstract String getWeatherCondition();
+
+    public abstract String getWeatherDescription();
 
     //TODO
     public void update(){

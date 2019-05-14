@@ -38,4 +38,14 @@ public class TileTesterPanel extends Panel {
     public double getRealTemperature(int placeHolderForDate_Time) {
         return 0;
     }
+
+    @Override
+    public String getWeatherCondition() {
+        return weather.getWeather_main();
+    }
+
+    @Override
+    public String getWeatherDescription() {
+        return weather.getWeather_description();
+    }
 }
