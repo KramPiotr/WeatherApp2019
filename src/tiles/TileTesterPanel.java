@@ -2,9 +2,9 @@ package tiles;
 
 import eu.hansolo.tilesfx.weather.DarkSky;
 import skeletons.Panel;
-import uk.ac.cam.cl.dgk27.interactive.RequestType;
-import uk.ac.cam.cl.dgk27.interactive.Weather;
-import uk.ac.cam.cl.dgk27.interactive.WeatherAPI;
+import uk.ac.cam.cl.dgk27.weather.RequestType;
+import uk.ac.cam.cl.dgk27.weather.Weather;
+import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
 

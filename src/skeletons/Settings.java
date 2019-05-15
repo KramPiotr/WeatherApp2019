@@ -8,7 +8,7 @@ public class Settings {
     private static double fadeConstant = 2;
     private static Color secondary = Color.BLACK;
     private static Color tertiary = Color.RED;
-    private static boolean celcius = false;
+    private static boolean celsius = false;
 
 
     private static String font = "Gill Sans MT";
@@ -48,12 +48,12 @@ public class Settings {
         Settings.tertiary = tertiary;
     }
 
-    public static boolean isCelcius() {
-        return celcius;
+    public static boolean isCelsius() {
+        return celsius;
     }
 
-    public static void setCelcius(boolean celcius) {
-        Settings.celcius = celcius;
+    public static void setCelsius(boolean celsius) {
+        Settings.celsius = celsius;
     }
 
     public static String colorString(Color c){
