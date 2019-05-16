@@ -1,7 +1,5 @@
-package tiles;
+package settings;
 
-import javafx.scene.paint.Color;
-import skeletons.Settings;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SwitchGraphics extends SwitchTile{

@@ -1,15 +1,11 @@
-package tiles;
+package settings;
 
 import items.AutoSizeText;
 import org.controlsfx.control.ToggleSwitch;
-import skeletons.Settings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
+import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
-
-import java.text.NumberFormat;
-import java.util.List;
 
 import static javafx.geometry.Pos.CENTER_LEFT;
 

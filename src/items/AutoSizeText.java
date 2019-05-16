@@ -1,12 +1,12 @@
 package items;
 
 import javafx.scene.paint.Color;
-import skeletons.Settings;
+import settings.Settings;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class AutoSizeText extends Text {
-    private static double increment = 0.1;
+    private static double increment = 0.01;
 
     double size = 1000;
     double prefWidth=-1;
@@ -24,12 +24,16 @@ public class AutoSizeText extends Text {
     public void setSize(double width,double height){
         this.prefWidth = width;
         this.prefHeight = height;
+        this.minWidth(width);
+        this.minHeight(height);
         super.prefHeight(height);
         super.prefWidth(width);
+        resizeText();
     }
 
     public double setTextWidth(double width) {
         this.prefWidth = width;
+        this.minWidth(width);
         resizeText();
         double ret = super.prefWidth(width);
         return ret;
@@ -37,6 +41,8 @@ public class AutoSizeText extends Text {
 
     public double setTextHeight(double height){
         this.prefHeight = height;
+        this.minHeight(height);
+
         resizeText();
         double ret = super.prefHeight(height);
         return ret;
