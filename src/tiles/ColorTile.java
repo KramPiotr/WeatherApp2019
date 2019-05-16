@@ -67,9 +67,8 @@ public class ColorTile extends Tile {
         column4.setPercentWidth(30);
         defaultButton = new Button();
         defaultButton.setText("Set default");
-        defaultButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"
-                                +"-fx-font: 10"+Settings.getFontString());
-        defaultButton.setFont(Font.font(null, FontWeight.BOLD, 15));
+        defaultButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";");
+        defaultButton.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 15));
         grid.getColumnConstraints().addAll(column1, column2, column3, column4);
         grid.add(this.label, 0, 0);
         grid.add(defaultButton, 1, 0);

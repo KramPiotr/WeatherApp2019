@@ -29,9 +29,8 @@ public class BackButton extends Tile {
         super(parent);
         button = new Button();
         button.setText("Back");
-        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"
-                +"-fx-font:"+Settings.getFontString());
-        button.setFont(Font.font(null, FontWeight.BOLD, 50));
+        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";");
+        button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
         button.setPrefSize(600, 100);
 
         button.setOnMouseClicked(e->{
