@@ -3,6 +3,14 @@ package skeletons;
 import javafx.scene.paint.Color;
 
 public class Settings {
+    private static Color defaultPrimary = Color.ORANGE;
+    private static Color defaultSecondary = Color.BLACK;
+    private static Color defaultTertiary = Color.RED;
+    private static boolean defaultCelsius = true;
+    private static boolean defaultKilometers = true;
+    private static boolean defaultGraphical = false;
+    private static boolean defaultLocation = true;
+
     private static Color primary = Color.ORANGE;
     private static Color fadedPrimary;
     private static double fadeConstant = 2;
@@ -79,7 +87,11 @@ public class Settings {
         Settings.location = location;
     }
 
-
+    public static void setDefaultColors(){
+        primary = defaultPrimary;
+        secondary = defaultSecondary;
+        tertiary = defaultTertiary;
+    }
 
     public static String colorString(Color c){
         return "rgb("+(c.getRed()*255)+","+(c.getGreen()*255)+","+(c.getBlue()*255)+")";
