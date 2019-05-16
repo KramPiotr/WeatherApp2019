@@ -1,30 +1,33 @@
 package tiles;
 
 import items.AutoSizeText;
+import javafx.geometry.Insets;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Line;
 import skeletons.Panel;
 import skeletons.Settings;
-import javafx.geometry.Insets;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
 import skeletons.WeatherPanel;
+import uk.ac.cam.cl.dgk27.weather.Weather;
 
 import java.text.NumberFormat;
 
 import static javafx.geometry.Pos.CENTER_LEFT;
 
-public class RealFeelTile extends Tile {
+public class WindTile extends Tile{
     AutoSizeText label;
-    double realTemperature;
+    double windSpeed;
     AutoSizeText value;
     NumberFormat nf;
 
     @Override
     public void update() {
-        realTemperature = ((WeatherPanel) parent).getRealTemperature();
+        windSpeed = ((WeatherPanel) parent).getRealTemperature();
         value.resizeText();
     }
 
-    public RealFeelTile(WeatherPanel parent){
+    public WindTile(WeatherPanel parent){
         super(parent);
 
         //Create number format for temperature
@@ -36,12 +39,12 @@ public class RealFeelTile extends Tile {
         this.setPrefSize(300,150);
 
         //Set text in label and value
-        label = new AutoSizeText("Real Feel:",Settings.getFadedPrimary());
-        if(Settings.isCelsius()){
-            value = new AutoSizeText(nf.format(realTemperature)+"°C",Settings.getPrimary());
+        label = new AutoSizeText("Wind Speed:", Settings.getFadedPrimary());
+        if(Settings.isKilometers()){
+            //value = new AutoSizeText(nf.format(realTemperature)+"Km/h",Settings.getPrimary());
         }
         else{
-            value = new AutoSizeText(nf.format(realTemperature*9.0/5.0+32.0)+"°F",Settings.getPrimary());
+            //value = new AutoSizeText(nf.format()+"MPH",Settings.getPrimary());
         }
 
         //Position label and value
@@ -79,5 +82,4 @@ public class RealFeelTile extends Tile {
         update();
 
     }
-
 }
