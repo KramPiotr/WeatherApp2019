@@ -17,6 +17,10 @@ public class AutoSizeText extends Text {
         this.setFill(color);
     }
 
+    public void update(String newText){
+        super.setText(newText);
+    }
+
     public void setSize(double width,double height){
         this.prefWidth = width;
         this.prefHeight = height;
