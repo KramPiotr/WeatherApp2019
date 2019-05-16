@@ -36,7 +36,7 @@ public class RealFeelTile extends Tile {
 
         //Set text in label and value
         label = new AutoSizeText("Real Feel:",Settings.getFadedPrimary());
-        if(Settings.isCelcius()){
+        if(Settings.isCelsius()){
             value = new AutoSizeText(nf.format(realTemperature)+"°C",Settings.getPrimary());
         }
         else{

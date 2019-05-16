@@ -24,7 +24,7 @@ public class AutoSizeText extends Text {
         return ret;
     }
 
-    //Fills out the avalible space in the prefered width
+    //Fills out the available space in the preferred width
     private void resizeText() {
         //The setFont call calls resizeText again
         setFont(Font.font(Settings.getFontString(), size));
