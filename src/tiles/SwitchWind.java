@@ -10,7 +10,7 @@ public class SwitchWind extends SwitchTile{
     String secondarySwitchValue = "mph";
 
     public SwitchWind(State parent) {
-        super(parent, "Windspeed", "km/h");
+        super(parent, "Wind speed", "km/h");
         tSwitch.setOnMouseClicked( e-> {
             if (tSwitch.isSelected()) {
                 Settings.setKilometers(true);

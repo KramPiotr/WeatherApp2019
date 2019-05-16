@@ -4,16 +4,44 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import tiles.*;
+import uk.ac.cam.cl.dgk27.stateful.State;
 
-public class SettingsScene extends Scene {
-    public static class MyVBox extends VBox {
-        public MyVBox() {
-            //vbox.getChildren().addAll(button, label, new Slider(0,10,4));
-            getChildren().add(new Label("Hello World"));
-        }
+public class SettingsScene extends State {
+    private final double WIDTH = 600, HEIGHT = 800;
+    @Override
+    protected void initialise() {
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(new SwitchTemperature(this),
+                new SwitchWind(this),
+                new SwitchGraphics(this),
+                new SwitchLocation(this),
+                new ColorPrimary(this),
+                new ColorSecondary(this),
+                new ColorTertiary(this),
+                new BackButton(this));
+        scene = new Scene(vBox, WIDTH, HEIGHT);
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
     }
 
-    public SettingsScene(){
-        super(new MyVBox(), 1000, 600);
+    @Override
+    protected void enable() {
+
+    }
+
+    @Override
+    protected void disable() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    public SettingsScene(String name){
+        super(name);
+        initialise();
     }
 }

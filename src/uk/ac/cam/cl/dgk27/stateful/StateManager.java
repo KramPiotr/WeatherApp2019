@@ -3,6 +3,7 @@ package uk.ac.cam.cl.dgk27.stateful;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
+import scenes.SettingsScene;
 import skeletons.WeatherScene;
 import ycl62.IntDesign.RouteScene;
 
@@ -54,7 +55,7 @@ public class StateManager extends Application {
         primaryStage.setWidth(600d);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
-        switchTo("Main");
+        switchTo("Settings");
     }
     
     public static void main(String[] args) throws IOException{
@@ -66,7 +67,7 @@ public class StateManager extends Application {
         new YetAnotherWeatherScene("Weather");
         new WeatherScene("Main");
         new RouteScene("Route");
-        //new SettingsState("Settings"); // extends State.java
+        new SettingsScene("Settings"); // extends State.java
         
         launch(args);
     }

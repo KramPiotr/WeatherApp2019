@@ -1,13 +1,18 @@
 package tiles;
 
 import items.AutoSizeText;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import skeletons.Panel;
 import skeletons.Settings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import uk.ac.cam.cl.dgk27.stateful.State;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -18,13 +23,15 @@ public class ColorTile extends Tile {
     AutoSizeText label;
     ColorPicker colorPicker;
     Circle circle;
+    Button defaultButton;
+    Color defaultColor;
 
     @Override
     public void update() {
 
     }
 
-    public ColorTile(Panel parent, String label){
+    public ColorTile(State parent, String label){
         super(parent);
         update();
 
@@ -35,7 +42,8 @@ public class ColorTile extends Tile {
         this.label = new AutoSizeText(label,Settings.getPrimary());
         this.colorPicker = new ColorPicker();
         this.circle = new Circle(25);
-
+        circle.setStrokeWidth(2);
+        circle.setStroke(Settings.getFadedPrimary());
         //Position label and value
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -43,22 +51,30 @@ public class ColorTile extends Tile {
         grid.minHeight(150);
         grid.minWidth(300);
 
-        this.label.setTextWidth(150);
+        this.label.setStyle("-fx-font-size: 35");
         grid.setAlignment(CENTER_LEFT);
         grid.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
 
         ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(60);
+        column1.setPercentWidth(40);
         ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(10);
+        column2.setPercentWidth(20);
         ColumnConstraints column3 = new ColumnConstraints();
-        column3.setPercentWidth(30);
-        grid.getColumnConstraints().addAll(column1, column2, column3);
+        column3.setPercentWidth(10);
+        ColumnConstraints column4 = new ColumnConstraints();
+        column4.setPercentWidth(30);
+        defaultButton = new Button();
+        defaultButton.setText("Set default");
+        defaultButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"
+                                +"-fx-font: 10"+Settings.getFontString());
+        defaultButton.setFont(Font.font(null, FontWeight.BOLD, 15));
+        grid.getColumnConstraints().addAll(column1, column2, column3, column4);
         grid.add(this.label, 0, 0);
-        grid.add(this.circle, 1, 0);
-        grid.add(this.colorPicker, 2, 0);
+        grid.add(defaultButton, 1, 0);
+        grid.add(this.circle, 2, 0);
+        grid.add(this.colorPicker, 3, 0);
         grid.setMinSize(this.getPrefWidth(),this.getPrefHeight());
 
 
