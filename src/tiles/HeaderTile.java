@@ -6,9 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import skeletons.Panel;
 import skeletons.Settings;
-import skeletons.WeatherPanel;
+import skeletons.WeatherScene;
 import util.ImageColorer;
 
 public class HeaderTile extends Tile{
@@ -23,7 +22,7 @@ public class HeaderTile extends Tile{
     Button menuButton;
     Button searchButton;
 
-    public HeaderTile(Panel parent) {
+    public HeaderTile(WeatherScene parent) {
         super(parent);
 
         BorderPane pane = new BorderPane();
@@ -75,7 +74,7 @@ public class HeaderTile extends Tile{
 
     @Override
     public void update() {
-        temperature = ((WeatherPanel) parent).getTemperature();
+        temperature = ((WeatherScene) parent).getTemperature();
 
 
     }

@@ -12,10 +12,6 @@
       <entry name="!?*.clj" />
       <entry name="*.png" />
     </wildcardResourcePatterns>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Interactive_Design_Group11_1819" options="--add-exports=javafx.graphics/com.sun.scenario.effect=ALL-UNNAMED" />
-    </option>
+    <bytecodeTargetLevel target="10" />
   </component>
 </project>

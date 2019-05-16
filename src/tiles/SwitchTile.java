@@ -2,11 +2,11 @@ package tiles;
 
 import items.AutoSizeText;
 import org.controlsfx.control.ToggleSwitch;
-import skeletons.Panel;
 import skeletons.Settings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import uk.ac.cam.cl.dgk27.stateful.State;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -23,7 +23,7 @@ public class SwitchTile extends Tile {
 
     }
 
-    public SwitchTile(Panel parent, String label, String defaultValue){
+    public SwitchTile(State parent, String label, String defaultValue){
         super(parent);
         update();
 

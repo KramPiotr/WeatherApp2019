@@ -10,23 +10,59 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import skeletons.Settings;
+import skeletons.WeatherScene;
 import tiles.Tile;
+import uk.ac.cam.cl.dgk27.weather.RequestType;
+import uk.ac.cam.cl.dgk27.weather.Weather;
+import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
+/**
+ * Forecast graph tile. Shows the temperature highs and lows for 5-6 days starting today.
+ */
 public class GraphTile extends Tile {
+    private final double WIDTH = 600.0, HEIGHT = 200.0;
     private eu.hansolo.tilesfx.Tile chart;
-    private final double prefWidth = 600.0, prefHeight = 150.0;
+    private String cityName;
+    private double[] data = {-273.15}; //Placeholder value
+    private String[] timestamp = {"2012 AD"}; //Placeholder value
     
-    public GraphTile(ForecastPanel parent){
+    public GraphTile(WeatherScene parent){
         super(parent);
+        cityName = "Cambridge";
+        update();
+    }
+    
+    public GraphTile(WeatherScene parent, String cityName){
+        super(parent);
+        this.cityName = cityName;
+        update();
+    }
+    
+    @Override
+    public void update(){
+        try{
+            Weather[] weather = WeatherAPI.makeRequest(RequestType.FiveDay, cityName);
+            data = Arrays.stream(weather).mapToDouble(Weather::getTemp).toArray();
+            timestamp = Arrays.stream(weather).map(Weather::getDatetime).toArray(String[]::new);
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.out.println();
+            System.out.println("Location (" + cityName + ") not found in weather service.");
+        }
         
-        //TODO: shift to update below, merge/fix panel implementations
-        double[] data = parent.get5DayTemp();
-        String[] timestamp = parent.get5DayTimestamp();
         Series<Node, Double> lows = new Series();
         Series<Node, Double> highs = new Series();
-        int offset = LocalDateTime.parse(timestamp[0].replace(" ", "T")).getHour() / 3;
+        int offset;
+        try{
+            offset = LocalDateTime.parse(timestamp[0].replace(" ", "T")).getHour() / 3;
+        } catch(DateTimeParseException e) {
+            offset = 0;
+        }
         int N;
         //System.out.println(data.length);
         //System.out.println(offset);
@@ -48,7 +84,7 @@ public class GraphTile extends Tile {
         
         chart = TileBuilder.create()
                 .skinType(SkinType.SMOOTHED_CHART)
-                .prefSize(prefWidth, prefHeight)
+                .prefSize(WIDTH, HEIGHT)
                 .title("Temp Highs/Lows")
                 .chartType(ChartType.AREA)
                 .smoothing(true)
@@ -57,20 +93,12 @@ public class GraphTile extends Tile {
                 .textSize(TextSize.BIGGER)
                 .decimals(1)
                 .tilesFxSeries(
-                        new TilesFXSeries(highs, Settings.getFadedPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getFadedPrimary()), new Stop(0.7, Color.TRANSPARENT))),
-                        new TilesFXSeries(lows, Settings.getPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getPrimary()), new Stop(0.6, Color.TRANSPARENT))))
+                        new TilesFXSeries(lows, Settings.getPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getPrimary()), new Stop(0.6, Color.TRANSPARENT))),
+                        new TilesFXSeries(highs, Settings.getFadedPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getFadedPrimary()), new Stop(0.7, Color.TRANSPARENT))))
                 .backgroundColor(Settings.getSecondary())
                 .tooltipTimeout(1000.0)
                 .build();
         
         this.getChildren().add(chart);
-        //TODO: shift to update below
-        
-        update();
-    }
-    
-    @Override
-    public void update(){
-    
     }
 }

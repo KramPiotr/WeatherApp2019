@@ -2,6 +2,8 @@
   <library name="json-20180813">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/resources/json-20180813.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/json-simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/tilesfx-1.6.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
