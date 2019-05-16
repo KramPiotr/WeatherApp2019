@@ -27,7 +27,7 @@ public class DemoWeatherDarkSky extends Application {
 
     public void start(Stage stage) {
         long start = System.currentTimeMillis();
-        FlowGridPane pane = new FlowGridPane(8, 5, new Node[]{this.weatherTile});
+        FlowGridPane pane = new FlowGridPane(1, 1, new Node[]{this.weatherTile});
         pane.setHgap(5.0D);
         pane.setVgap(5.0D);
         pane.setAlignment(Pos.CENTER);
