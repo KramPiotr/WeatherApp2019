@@ -8,7 +8,8 @@ public class Settings {
     private static double fadeConstant = 2;
     private static Color secondary = Color.BLACK;
     private static Color tertiary = Color.RED;
-    private static boolean celsius = false;
+    private static boolean celsius = true;
+    private static boolean kilometers = true;
 
 
     private static String font = "Gill Sans MT";
@@ -52,8 +53,10 @@ public class Settings {
         return celsius;
     }
 
-    public static void setCelsius(boolean celsius) {
-        Settings.celsius = celsius;
+    public static boolean isKilometers(){return kilometers;}
+
+    public static void setCelcius(boolean celcius) {
+        Settings.celsius = celcius;
     }
 
     public static String colorString(Color c){

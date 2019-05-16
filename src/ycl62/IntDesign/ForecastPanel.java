@@ -2,6 +2,7 @@ package ycl62.IntDesign;
 
 import eu.hansolo.tilesfx.weather.DarkSky;
 import skeletons.Panel;
+import skeletons.WeatherPanel;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
@@ -9,7 +10,7 @@ import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class ForecastPanel extends Panel {
+public class ForecastPanel extends WeatherPanel {
     
     private Weather[] weather;
     private String city = "Cambridge";
