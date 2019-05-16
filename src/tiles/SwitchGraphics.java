@@ -1,15 +1,15 @@
 package tiles;
 
 import javafx.scene.paint.Color;
-import skeletons.Panel;
 import skeletons.Settings;
+import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SwitchGraphics extends SwitchTile{
 
     String defaultSwitchValue = "123";
     String secondarySwitchValue = "GUI";
 
-    public SwitchGraphics(Panel parent) {
+    public SwitchGraphics(State parent) {
         super(parent, "Graphics", "123");
         tSwitch.setOnMouseClicked( e-> {
             if (tSwitch.isSelected()) {

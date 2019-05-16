@@ -1,13 +1,13 @@
 package tiles;
-import skeletons.Panel;
 import skeletons.Settings;
+import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SwitchLocation extends SwitchTile{
 
     String defaultSwitchValue = "On";
     String secondarySwitchValue = "Off";
 
-    public SwitchLocation(Panel parent) {
+    public SwitchLocation(State parent) {
         super(parent, "Location", "On");
         tSwitch.setSelected(true);
         tSwitch.setOnMouseClicked( e-> {
