@@ -1,10 +1,11 @@
-package scenes;
+package settings;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import tiles.*;
+import settings.BackButton;
+import settings.ColorPrimary;
+import settings.ColorSecondary;
+import settings.ColorTertiary;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SettingsScene extends State {

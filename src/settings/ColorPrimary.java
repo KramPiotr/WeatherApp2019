@@ -1,10 +1,5 @@
-package tiles;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+package settings;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import skeletons.Panel;
-import skeletons.Settings;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class ColorPrimary extends ColorTile{
