@@ -1,12 +1,11 @@
 package tiles;
 
 import items.AutoSizeText;
-import skeletons.Panel;
 import skeletons.Settings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
-import skeletons.WeatherPanel;
+import skeletons.WeatherScene;
 
 import java.text.NumberFormat;
 
@@ -20,11 +19,11 @@ public class RealFeelTile extends Tile {
 
     @Override
     public void update() {
-        realTemperature = ((WeatherPanel) parent).getRealTemperature();
+        realTemperature = ((WeatherScene) parent).getRealTemperature();
         value.resizeText();
     }
 
-    public RealFeelTile(WeatherPanel parent){
+    public RealFeelTile(WeatherScene parent){
         super(parent);
 
         //Create number format for temperature

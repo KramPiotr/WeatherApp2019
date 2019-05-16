@@ -10,6 +10,8 @@ public class Settings {
     private static Color tertiary = Color.RED;
     private static boolean celsius = true;
     private static boolean kilometers = true;
+    private static boolean graphical = false;
+    private static boolean location = true;
 
 
     private static String font = "Gill Sans MT";
@@ -55,9 +57,29 @@ public class Settings {
 
     public static boolean isKilometers(){return kilometers;}
 
+    public static void setKilometers(boolean kilometers){
+        Settings.kilometers = kilometers;
+    }
+
     public static void setCelcius(boolean celcius) {
         Settings.celsius = celcius;
     }
+
+    public static boolean isGraphical(){
+        return graphical;
+    }
+
+    public static void setGraphical(boolean graphical){
+        Settings.graphical = graphical;
+    }
+
+    public static boolean isLocation(){return location;}
+
+    public static void setLocation(boolean location){
+        Settings.location = location;
+    }
+
+
 
     public static String colorString(Color c){
         return "rgb("+(c.getRed()*255)+","+(c.getGreen()*255)+","+(c.getBlue()*255)+")";
