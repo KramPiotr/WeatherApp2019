@@ -8,7 +8,6 @@ public class SwitchTemperature extends SwitchTile{
 
     public SwitchTemperature(Panel parent) {
         super(parent, "Temperature", "°C");
-        tSwitch.setTextFill(Color.ORANGE);
         tSwitch.setOnMouseClicked( e-> {
             if (tSwitch.isSelected()) {
                 Settings.setCelcius(false);
