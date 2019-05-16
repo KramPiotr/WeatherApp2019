@@ -30,14 +30,18 @@ public class StateManager extends Application {
                 System.out.println(e.getKey());
                 if (e.getKey().equals(name)) {
                     found = e.getValue();
-                    found.enable();
-                } else
+                } else if (e.getValue().enabled) {
                     e.getValue().disable();
+                    found.enabled = false;
+                }
             }
 
             if (found != null){
                 primary.setScene(found.getScene());
                 primary.show();
+
+                found.enable();
+                found.enabled = true;
             }
     }
 
@@ -50,12 +54,13 @@ public class StateManager extends Application {
         primaryStage.setWidth(600d);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
 
-        switchTo("Weather");
+        switchTo("Search");
     }
 
     public static void main(String[] args) {
         // TODO: Add states here
         new YetAnotherWeatherScene("Weather");
+        new YetAnotherSearch("Search");
         //new SettingsState("Settings"); // extends State.java
 
         launch(args);
