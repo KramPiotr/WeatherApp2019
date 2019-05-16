@@ -22,6 +22,7 @@ public class AutoSizeText extends Text {
         this.prefHeight = height;
         super.prefHeight(height);
         super.prefWidth(width);
+        resizeText();
     }
 
     public double setTextWidth(double width) {
