@@ -3,6 +3,7 @@ package uk.ac.cam.cl.dgk27.stateful;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
+import scenes.mainscreen.MainScreen;
 import skeletons.WeatherScene;
 import ycl62.IntDesign.RouteScene;
 
@@ -12,6 +13,8 @@ import java.util.Map;
 
 public class StateManager extends Application {
     static Stage primary;
+    public static final double WIDTH=600;
+    public static final double HEIGHT=900;
     
     /**
      * Stores all created states
@@ -50,8 +53,8 @@ public class StateManager extends Application {
         primary = primaryStage;
         primaryStage.setTitle("Weather App");
         primaryStage.setResizable(false);
-        primaryStage.setHeight(1000d);
-        primaryStage.setWidth(600d);
+        primaryStage.setHeight(WIDTH);
+        primaryStage.setWidth(HEIGHT);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
         switchTo("Main");
@@ -64,7 +67,7 @@ public class StateManager extends Application {
         
         // TODO: Add states here
         new YetAnotherWeatherScene("Weather");
-        new WeatherScene("Main");
+        new MainScreen("Main");
         new RouteScene("Route");
         //new SettingsState("Settings"); // extends State.java
         

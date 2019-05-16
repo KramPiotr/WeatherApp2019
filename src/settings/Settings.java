@@ -1,4 +1,4 @@
-package skeletons;
+package settings;
 
 import javafx.scene.paint.Color;
 

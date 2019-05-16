@@ -9,9 +9,10 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import skeletons.Panel;
-import skeletons.Settings;
-import skeletons.WeatherPanel;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import settings.Settings;
+import skeletons.WeatherScene;
 import util.ImageColorer;
 
 
@@ -29,11 +30,18 @@ public class HeaderTile extends Tile{
     Button menuButton;
     Button searchButton;
 
-    public HeaderTile(Panel parent) {
+    public HeaderTile(WeatherScene parent) {
         super(parent);
 
         BorderPane pane = new BorderPane();
+        this.setPrefSize(590,250);
+        pane.setPrefSize(590,250);
+
         pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+
+        pane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
 
         //Construct header bar
 
@@ -80,6 +88,8 @@ public class HeaderTile extends Tile{
         dateLabel.setSize(50,headerSize);
         topBar.getChildren().add(dateLabel);
 
+        //TODO:TEST
+        topBar.getChildren().add(new Rectangle(headerSize,headerSize, Color.BLUEVIOLET));
 
         String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
         conditionImage = new Image(iconUrl);
@@ -97,7 +107,7 @@ public class HeaderTile extends Tile{
 
     @Override
     public void update() {
-        temperature = ((WeatherPanel) parent).getTemperature();
+        temperature = ((WeatherScene) parent).getTemperature();
         city = "Placeholder";
         date = "-1/-1";
         cityLabel.setText(city);

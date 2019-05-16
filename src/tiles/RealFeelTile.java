@@ -1,7 +1,7 @@
 package tiles;
 
 import items.AutoSizeText;
-import skeletons.Settings;
+import settings.Settings;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
@@ -32,7 +32,8 @@ public class RealFeelTile extends Tile {
         nf.setMaximumFractionDigits(1);
 
         //Set prefered size of tile
-        this.setPrefSize(300,150);
+        this.setPrefSize(295,150);
+
 
         //Set text in label and value
         label = new AutoSizeText("Real Feel:",Settings.getFadedPrimary());
@@ -48,8 +49,8 @@ public class RealFeelTile extends Tile {
         hbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setSpacing(10);
         hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
-        hbox.minHeight(150);
-        hbox.minWidth(300);
+
+
 
         Line divider = new Line();
         divider.setStartX(0);
@@ -59,10 +60,8 @@ public class RealFeelTile extends Tile {
         divider.setStrokeWidth(5);
         divider.setStroke(Settings.getPrimary());
 
-
-
-        label.setTextWidth(150);
-        value.setTextWidth(150);
+        label.setTextWidth(150-17);
+        value.setTextWidth(150-33);
         hbox.setAlignment(CENTER_LEFT);
 
         //hbox.setBorder(new Border(new BorderStroke(Settings.getTertiary(),BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderWidths.DEFAULT)));
