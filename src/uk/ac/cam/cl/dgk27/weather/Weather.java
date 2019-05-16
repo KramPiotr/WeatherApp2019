@@ -1,6 +1,7 @@
 package uk.ac.cam.cl.dgk27.weather;
 
-import eu.hansolo.tilesfx.weather.DarkSky;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Weather {
     private double lon, lat;
@@ -100,20 +101,25 @@ public class Weather {
         return timestamp;
     }
 
-    public DarkSky.ConditionAndIcon getIcon() {
-        DarkSky.ConditionAndIcon ret;
+    /**
+     * @return Returns the OpenWeatherMap-specified icon codes, account for night (6pm to 6am)
+     */
+    public String getIcon() {
+        int hours = Integer.parseInt(new SimpleDateFormat("HH").format(new Date()));
+        boolean dayTime = hours > 5 && hours < 18;
+        String ret;
 
         switch (getWeather_main()) {
-            case "clear sky": ret = DarkSky.ConditionAndIcon.CLEAR_DAY; break;
-            case "few clouds": ret = DarkSky.ConditionAndIcon.PARTLY_CLOUDY_DAY; break;
-            case "scattered clouds": ret = DarkSky.ConditionAndIcon.CLOUDY; break;
-            case "broken clouds": ret = DarkSky.ConditionAndIcon.CLOUDY; break;
-            case "shower rain": ret = DarkSky.ConditionAndIcon.RAIN; break;
-            case "rain": ret = DarkSky.ConditionAndIcon.RAIN; break;
-            case "thunderstorm": ret = DarkSky.ConditionAndIcon.THUNDERSTORM; break;
-            case "snow": ret = DarkSky.ConditionAndIcon.SNOW; break;
-            case "mist": ret = DarkSky.ConditionAndIcon.FOG; break;
-            default: ret = DarkSky.ConditionAndIcon.NONE;
+            case "clear sky": ret = "01" + (dayTime ? "d" : "n"); break;
+            case "few clouds": ret = "02" + (dayTime ? "d" : "n"); break;
+            case "scattered clouds": ret = "03" + (dayTime ? "d" : "n"); break;
+            case "broken clouds": ret = "04" + (dayTime ? "d" : "n"); break;
+            case "shower rain": ret = "09" + (dayTime ? "d" : "n"); break;
+            case "rain": ret = "10" + (dayTime ? "d" : "n"); break;
+            case "thunderstorm": ret = "11" + (dayTime ? "d" : "n"); break;
+            case "snow": ret = "13" + (dayTime ? "d" : "n"); break;
+            case "mist": ret = "50" + (dayTime ? "d" : "n"); break;
+            default: ret = "01" + (dayTime ? "d" : "n");
         }
 
         return ret;

@@ -1,24 +1,81 @@
 package tiles;
 
-import eu.hansolo.tilesfx.weather.DarkSky;
-import eu.hansolo.tilesfx.weather.WeatherSymbol;
+import items.AutoSizeText;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import skeletons.Panel;
+import skeletons.Settings;
+import skeletons.WeatherPanel;
+import util.ImageColorer;
 
 public class HeaderTile extends Tile{
-    double temperature;
-    DarkSky.ConditionAndIcon weather_main;
-    String weather_description;
-    WeatherSymbol symbol;
+    private static int headerSize = 20;
+    private double temperature;
+    private String iconCode = "09d";
+    private String city;
+    private AutoSizeText cityLabel;
+    private Image conditionImage;
+    private ImageView conditionView;
+
+    Button menuButton;
+    Button searchButton;
 
     public HeaderTile(Panel parent) {
         super(parent);
+
+        BorderPane pane = new BorderPane();
+
+        //Construct header bar
+
+        HBox topBar = new HBox();
+        pane.setTop(topBar);
+
+        //Add menu button
+        menuButton = new Button();
+
+        Image menuIcon = new Image("/icons/hamburger.png");
+        ImageView menuIconView = new ImageView(menuIcon);
+
+        menuIconView.setPreserveRatio(true);
+        menuIconView.setFitHeight(headerSize);
+
+        menuButton.setGraphic(ImageColorer.recolor(menuIconView, Settings.getPrimary()));
+        menuButton.setStyle("-fx-focus-color: transparent;");
+
+        topBar.getChildren().add(menuButton);
+
+
+        //Add city label
+        cityLabel = new AutoSizeText("Placeholder",Settings.getPrimary());
+        cityLabel.setSize(400,20);
+        topBar.getChildren().add(cityLabel);
+
+        //Add search button
+        searchButton = new Button();
+
+
+
+
+
+        String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        conditionImage = new Image(iconUrl);
+        conditionView = new ImageView(conditionImage);
+        conditionView.setPreserveRatio(true);
+        conditionView.setFitWidth(100);
+
+
+
+
+        this.getChildren().add(pane);
         update();
     }
 
     @Override
     public void update() {
-        temperature = parent.getTemperature();
-        weather_main = parent.getWeatherCondition();
+        temperature = ((WeatherPanel) parent).getTemperature();
 
 
     }
