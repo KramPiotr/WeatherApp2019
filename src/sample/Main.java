@@ -12,9 +12,6 @@ import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        // State SettingsState = new SettingsState(); // extends State.java
-        // State.addToMap(SettingsState, states); // to add to states map (to allow lookup by name)
-
         Parent root = FXMLLoader.load(getClass().getResource("sample2.fxml"));
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(new Scene(root, 300, 275));
