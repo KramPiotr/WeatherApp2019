@@ -1,5 +1,4 @@
-package tiles;
-import skeletons.Settings;
+package settings;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SwitchLocation extends SwitchTile{

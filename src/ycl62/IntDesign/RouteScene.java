@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import skeletons.Settings;
+import settings.Settings;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 import java.util.ArrayList;

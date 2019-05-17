@@ -1,7 +1,5 @@
-package tiles;
+package settings;
 
-import javafx.scene.paint.Color;
-import skeletons.Settings;
 import uk.ac.cam.cl.dgk27.stateful.State;
 
 public class SwitchWind extends SwitchTile{
@@ -10,7 +8,7 @@ public class SwitchWind extends SwitchTile{
     String secondarySwitchValue = "mph";
 
     public SwitchWind(State parent) {
-        super(parent, "Windspeed", "km/h");
+        super(parent, "Wind speed", "km/h");
         tSwitch.setOnMouseClicked( e-> {
             if (tSwitch.isSelected()) {
                 Settings.setKilometers(true);

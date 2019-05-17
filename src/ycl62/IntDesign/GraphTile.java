@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import skeletons.Settings;
+import settings.Settings;
 import skeletons.WeatherScene;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
