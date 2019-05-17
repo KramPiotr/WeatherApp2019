@@ -22,7 +22,7 @@ public class YetAnotherWeatherScene extends State {
     }
 
     @Override
-    protected void initialise() {
+    void initialise() {
         DarkSky darkSky = new DarkSky("418d19282d20c33a25a314a5af6ffb5a", DarkSky.Unit.CA, DarkSky.Language.ENGLISH, 51.911858D, 7.632815D);
         darkSky.update(51.911858D, 7.632815D);
         this.weatherTile = TileBuilder.create().skinType(Tile.SkinType.WEATHER).prefSize(150.0D, 150.0D).darkSky(darkSky).build();
@@ -43,12 +43,12 @@ public class YetAnotherWeatherScene extends State {
     }
 
     @Override
-    protected void enable() {
+    void enable() {
         System.out.println("I've just been enabled!");
     }
 
     @Override
-    protected void disable() {
+    void disable() {
         System.out.println("I've just been disable!");
     }
 

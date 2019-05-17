@@ -5,30 +5,28 @@ import javafx.scene.Scene;
 public abstract class State {
     String name;
     protected Scene scene;
-    protected boolean enabled = false;
+    private boolean enabled = false;
 
     public State(String name) {
         this.name = name;
-//        initialise();
-        //TODO: Removed as initialisation cannot be done before weather field is set.
-        //TODO: Maybe shuffle the order of initialisation around to move it back here.
+        initialise();
         StateManager.addToMap(this);
     }
 
     /**
      * Is called when the state is initially created
      */
-    protected abstract void initialise();
+    abstract void initialise();
 
     /**
      * Is called when the state is enabled (but not when state is already enabled)
      */
-    protected abstract void enable();
+    abstract void enable();
 
     /**
      * Is called when the state is disabled (but not when state is already disabled)
      */
-    protected abstract void disable();
+    abstract void disable();
 
     /**
      * Is called when state is updated
