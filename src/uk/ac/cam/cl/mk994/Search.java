@@ -18,11 +18,13 @@ public class Search extends State {
 
     static final Path cities = Paths.get("resources/cityNames");
 
+    private String c;
     private String city;
     private Weather[] weather;
 
     public Search(String name) {
         super(name);
+        c = name;
     }
 
     @Override
@@ -30,19 +32,24 @@ public class Search extends State {
         //Parent root = FXMLLoader.load(getClass().getResource("sample2.fxml"));
         //scene = new Scene(root);
 
+        //file with list of cities and other information about the cities
         File file = cities.toFile();
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
 
+        //go through each line in cities file
         while ((st = br.readLine()) != null) {
             String[] parts = st.split(",");
+            //there should only be 4 parts, checking in case a city has a comma in its name and so accidentally got split
             if (parts.length > 5) {
                 for (int i=5; i<parts.length; i++) {
+                    //combine the parts of the city name if it got split
                     parts[4] = parts[4] + "," + parts[i];
                 }
             }
-            if (parts[4] == name) {
-                city = name;
+            //checking if the city searched is in the cities file
+            if (parts[4].equals(c)) {
+                city = c;
                 break;
             }
         }

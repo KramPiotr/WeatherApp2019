@@ -2,6 +2,8 @@ package uk.ac.cam.cl.dgk27.stateful;
 
 import javafx.scene.Scene;
 
+import java.io.IOException;
+
 public abstract class State {
     String name;
     protected Scene scene;
@@ -16,17 +18,17 @@ public abstract class State {
     /**
      * Is called when the state is initially created
      */
-    abstract void initialise();
+    public abstract void initialise() throws IOException;
 
     /**
      * Is called when the state is enabled (but not when state is already enabled)
      */
-    abstract void enable();
+    public abstract void enable();
 
     /**
      * Is called when the state is disabled (but not when state is already disabled)
      */
-    abstract void disable();
+    public abstract void disable();
 
     /**
      * Is called when state is updated

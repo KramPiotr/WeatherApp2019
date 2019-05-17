@@ -29,7 +29,7 @@ public class YetAnotherSearch extends State {
     }
 
     @Override
-    protected void initialise() {
+    public void initialise() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("SimpleSearch.fxml"));
             scene = new Scene(root);
@@ -40,7 +40,7 @@ public class YetAnotherSearch extends State {
     }
 
     @Override
-    protected void enable() {
+    public void enable() {
         ListView lv = (ListView) scene.lookup("#list"); // WARNING: Will only work after scene is shown.
         lv.setItems(FXCollections.<String>observableArrayList("Apple", "Banana", "Orange", "Mango"));
 
@@ -58,7 +58,7 @@ public class YetAnotherSearch extends State {
 
 
     @Override
-    protected void disable() {
+    public void disable() {
         System.out.println("I've just been disable!");
     }
 
