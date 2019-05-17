@@ -2,6 +2,7 @@ package util;
 
 import javafx.scene.Group;
 import javafx.scene.effect.BlendMode;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +28,10 @@ public class ImageColorer {
         g.getChildren().add(img);
         g.getChildren().add(colorer);
 
+
         return g;
     }
+
+
+
 }

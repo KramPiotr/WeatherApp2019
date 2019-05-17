@@ -2,30 +2,36 @@ package tiles;
 
 import items.AutoSizeText;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import settings.Settings;
 import skeletons.WeatherScene;
 import util.ImageColorer;
+
+import java.text.NumberFormat;
 
 
 public class HeaderTile extends Tile{
     private static int headerSize = 40;
     private double temperature;
-    private String iconCode = "09d";
+    private String iconCode = "00d";
     private String city = "_placeholder_";
     private AutoSizeText cityLabel;
     private String date = "_pl_";
     private AutoSizeText dateLabel;
+    private AutoSizeText temperatureLabel;
     private Image conditionImage;
     private ImageView conditionView;
+    private NumberFormat nf;
+
+    private HBox cityPaddingLeft;
+    private HBox cityPaddingRight;
+
 
     Button menuButton;
     Button searchButton;
@@ -34,8 +40,8 @@ public class HeaderTile extends Tile{
         super(parent);
 
         BorderPane pane = new BorderPane();
-        this.setPrefSize(590,250);
-        pane.setPrefSize(590,250);
+        this.setPrefSize(600,250);
+        pane.setPrefSize(600,250);
 
         pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
@@ -47,6 +53,8 @@ public class HeaderTile extends Tile{
 
         HBox topBar = new HBox();
         pane.setTop(topBar);
+
+        topBar.setSpacing(20);
 
         //Add menu button
         menuButton = new Button();
@@ -68,7 +76,13 @@ public class HeaderTile extends Tile{
         //Add city label
         cityLabel = new AutoSizeText(city,Settings.getPrimary());
         cityLabel.setSize(300,headerSize);
-        topBar.getChildren().add(cityLabel);
+        cityLabel.setTextAlignment(TextAlignment.CENTER);
+        cityPaddingLeft = new HBox();
+        cityPaddingRight = new HBox();
+        cityPaddingLeft.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
+        cityPaddingRight.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
+
+        topBar.getChildren().addAll(cityPaddingLeft,cityLabel,cityPaddingRight);
 
         //Add search button
         searchButton = new Button();
@@ -85,20 +99,39 @@ public class HeaderTile extends Tile{
 
         //Add date text
         dateLabel = new AutoSizeText(date,Settings.getPrimary());
-        dateLabel.setSize(50,headerSize);
+        dateLabel.setSize(100,headerSize);
+        dateLabel.setTextAlignment(TextAlignment.RIGHT);
         topBar.getChildren().add(dateLabel);
 
-        //TODO:TEST
-        topBar.getChildren().add(new Rectangle(headerSize,headerSize, Color.BLUEVIOLET));
 
-        String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-        conditionImage = new Image(iconUrl);
+        //Create center box
+
+        HBox center = new HBox();
+        center.setSpacing(100);
+        center.setPadding(new Insets(0,40,40,04));
+
+        //Create icon
+        iconCode = parent.getCondition();
+        //String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        conditionImage = new Image("/icons/chance0.png");
         conditionView = new ImageView(conditionImage);
+        conditionView.setFitWidth(200);
+        conditionView.setViewport(new Rectangle2D(100,100,100,100));
         conditionView.setPreserveRatio(true);
-        conditionView.setFitWidth(100);
+        center.getChildren().add(conditionView);
+
+        //Create temperature display
+        nf = NumberFormat.getInstance();
+        nf.setMinimumFractionDigits(1);
+        nf.setMaximumFractionDigits(1);
 
 
+        temperatureLabel = new AutoSizeText("Temp",Settings.getPrimary());
+        temperatureLabel.setSize(200,215-headerSize);
+        center.getChildren().add(temperatureLabel);
+        center.setAlignment(Pos.CENTER_LEFT);
 
+        pane.setCenter(center);
 
         update();
         this.getChildren().add(pane);
@@ -108,12 +141,34 @@ public class HeaderTile extends Tile{
     @Override
     public void update() {
         temperature = ((WeatherScene) parent).getTemperature();
-        city = "Placeholder";
-        date = "-1/-1";
+        city  = ((WeatherScene) parent).getLocation();
+        date = ((WeatherScene) parent).getDate();
+
+        iconCode = ((WeatherScene) parent).getCondition();
+        String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        conditionImage = new Image(iconUrl);
+        conditionView.setImage(conditionImage);
+        conditionView.setViewport(new Rectangle2D(conditionImage.getWidth()*0.2,conditionImage.getHeight()*0.2,
+                conditionImage.getWidth()*0.6,conditionImage.getHeight()*0.6));
+        conditionView.setPreserveRatio(true);
+        conditionView.setFitWidth(200);
+
+
         cityLabel.setText(city);
         dateLabel.setText(date);
+
+        if(Settings.isCelsius()){
+            temperatureLabel.setText(nf.format(temperature)+"°C");
+        }
+        else{
+            temperatureLabel.setText(nf.format(temperature*9.0/5.0+32.0)+"°F");
+        }
         cityLabel.resizeText();
+        cityPaddingLeft.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
+        cityPaddingRight.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
+
         dateLabel.resizeText();
+        temperatureLabel.resizeText();
 
     }
 }

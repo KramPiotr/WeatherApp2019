@@ -20,6 +20,12 @@ public class RealFeelTile extends Tile {
     @Override
     public void update() {
         realTemperature = ((WeatherScene) parent).getRealTemperature();
+        if(Settings.isCelsius()){
+            value.setText(nf.format(realTemperature)+"°C");
+        }
+        else{
+            value.setText(nf.format(realTemperature*9.0/5.0+32.0)+"°F");
+        }
         value.resizeText();
     }
 
@@ -32,7 +38,7 @@ public class RealFeelTile extends Tile {
         nf.setMaximumFractionDigits(1);
 
         //Set prefered size of tile
-        this.setPrefSize(295,150);
+        this.setPrefSize(300,125);
 
 
         //Set text in label and value
@@ -48,6 +54,7 @@ public class RealFeelTile extends Tile {
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setSpacing(10);
+        hbox.setPrefSize(300,125);
         hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
 
@@ -55,13 +62,14 @@ public class RealFeelTile extends Tile {
         Line divider = new Line();
         divider.setStartX(0);
         divider.setEndX(0);
-        divider.setStartY(0);
-        divider.setEndY(150);
+        divider.setStartY(20);
+        divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getPrimary());
+        divider.setStroke(Settings.getFadedPrimary());
 
-        label.setTextWidth(150-17);
-        value.setTextWidth(150-33);
+        label.setTextWidth(150-25);
+        value.setTextWidth(150-40);
+
         hbox.setAlignment(CENTER_LEFT);
 
         //hbox.setBorder(new Border(new BorderStroke(Settings.getTertiary(),BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderWidths.DEFAULT)));

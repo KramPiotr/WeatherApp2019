@@ -47,6 +47,32 @@ public class MainScreen extends WeatherScene {
         return city.getWind_speed();
     }
 
+    //TODO
+    @Override
+    public double getChanceOfRain() {
+        return -1;
+    }
+
+    @Override
+    public double getLow() {
+        return city.getTemp_min();
+    }
+
+    @Override
+    public double getHigh() {
+        return city.getTemp_max();
+    }
+
+    @Override
+    public String getCondition() {
+        return city.getIcon();
+    }
+
+    @Override
+    public double getHumidity() {
+        return city.getHumidity();
+    }
+
     @Override
     public double getRealTemperature() {
         return city.getTemp()-city.getWind_speed()*0.3;

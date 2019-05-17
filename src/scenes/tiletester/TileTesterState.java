@@ -1,13 +1,14 @@
 package scenes.tiletester;
 
-import eu.hansolo.tilesfx.weather.DarkSky;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import settings.Settings;
 import skeletons.WeatherScene;
-import tiles.HeaderTile;
-import tiles.RealFeelTile;
-import tiles.WindTile;
+import tiles.*;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
@@ -21,6 +22,9 @@ public class TileTesterState extends WeatherScene {
     WindTile windTile;
     HeaderTile headerTile;
     RealFeelTile realFeelTile;
+    ChanceOfRainTile chanceOfRainTile;
+    HighLowTile highLowTile;
+    HumidityTile humidityTile;
 
     public TileTesterState(String name) throws IOException {
         super(name);
@@ -38,12 +42,25 @@ public class TileTesterState extends WeatherScene {
     protected void initialise() {
         VBox mainPanel = new VBox();
         HBox horizontal = new HBox();
+        HBox horizontal1 = new HBox();
+        HBox horizontal2 = new HBox();
+        mainPanel.setSpacing(0);
+        horizontal.setSpacing(0);
+        horizontal.setSpacing(0);
+        horizontal2.setSpacing(0);
         windTile = new WindTile(this);
         realFeelTile = new RealFeelTile(this);
         headerTile = new HeaderTile(this);
+        chanceOfRainTile = new ChanceOfRainTile(this);
+        highLowTile = new HighLowTile(this);
+        humidityTile = new HumidityTile(this);
 
-        horizontal.getChildren().addAll(realFeelTile,windTile);
-        mainPanel.getChildren().addAll(headerTile,horizontal);
+
+        horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
+        horizontal1.getChildren().addAll(realFeelTile,windTile);
+        horizontal2.getChildren().addAll(humidityTile);
+
+        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
 
 
 
@@ -75,6 +92,31 @@ public class TileTesterState extends WeatherScene {
         return weather.getWind_speed();
     }
 
+    @Override
+    public double getChanceOfRain() {
+        return 30;
+    }
+
+    @Override
+    public double getLow() {
+        return weather.getTemp_min();
+    }
+
+    @Override
+    public double getHigh() {
+        return weather.getTemp_max();
+    }
+
+    @Override
+    public String getCondition() {
+        return weather.getIcon();
+    }
+
+    @Override
+    public double getHumidity() {
+        return weather.getHumidity();
+    }
+
 
     @Override
     public double getRealTemperature() {
@@ -88,6 +130,9 @@ public class TileTesterState extends WeatherScene {
 
     @Override
     public String getDate() {
+        if(weather.getDatetime().equals("")){
+            return "00/00";
+        }
         return weather.getDatetime();
     }
 

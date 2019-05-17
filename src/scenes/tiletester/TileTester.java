@@ -10,6 +10,9 @@ import skeletons.WeatherScene;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 public class TileTester extends Application {
 
     @Override
@@ -23,7 +26,6 @@ public class TileTester extends Application {
         primaryStage.setResizable(false);
         primaryStage.setHeight(StateManager.HEIGHT);
         primaryStage.setWidth(StateManager.WIDTH);
-
 
         primaryStage.setScene(state.getScene());
 
