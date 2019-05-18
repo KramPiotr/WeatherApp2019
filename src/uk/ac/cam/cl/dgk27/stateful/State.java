@@ -7,7 +7,7 @@ import java.io.IOException;
 public abstract class State {
     String name;
     protected Scene scene;
-    private boolean enabled = false;
+    protected boolean enabled = false;
 
     public State(String name) {
         this.name = name;
@@ -18,17 +18,17 @@ public abstract class State {
     /**
      * Is called when the state is initially created
      */
-    public abstract void initialise() throws IOException;
+    protected abstract void initialise();
 
     /**
      * Is called when the state is enabled (but not when state is already enabled)
      */
-    public abstract void enable();
+    protected abstract void enable();
 
     /**
      * Is called when the state is disabled (but not when state is already disabled)
      */
-    public abstract void disable();
+    protected abstract void disable();
 
     /**
      * Is called when state is updated
