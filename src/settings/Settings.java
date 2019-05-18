@@ -29,13 +29,11 @@ public class Settings {
     }
     public static Color getFadedPrimary(){
         //Set fadedPrimary as weighted average of primary and secondary colors
-        if(fadedPrimary==null){
-            double red = (primary.getRed()*fadeConstant+secondary.getRed())/(1+fadeConstant);
-            double green = (primary.getGreen()*fadeConstant+secondary.getRed())/(1+fadeConstant);
-            double blue = (primary.getBlue()*fadeConstant+secondary.getRed())/(1+fadeConstant);
-            fadedPrimary = new Color(red,green,blue,1);
+        double red = (primary.getRed()*fadeConstant+secondary.getRed())/(1+fadeConstant);
+        double green = (primary.getGreen()*fadeConstant+secondary.getRed())/(1+fadeConstant);
+        double blue = (primary.getBlue()*fadeConstant+secondary.getRed())/(1+fadeConstant);
+        fadedPrimary = new Color(red,green,blue,1);
 
-        }
         return fadedPrimary;
     }
 
