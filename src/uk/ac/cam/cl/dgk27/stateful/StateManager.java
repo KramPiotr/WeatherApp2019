@@ -48,8 +48,8 @@ public class StateManager extends Application {
             primary.hide();
             primary.setScene(found.getScene());
             primary.show();
-
             found.enable();
+            found.update();//Don't change this. It helps all the colors to be updated after the values in settings are changed
             found.enabled = true;
         }
     }
@@ -63,7 +63,7 @@ public class StateManager extends Application {
         primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
-        switchTo("Main");
+        switchTo("Search");
     }
     
     public static void main(String[] args) throws IOException{

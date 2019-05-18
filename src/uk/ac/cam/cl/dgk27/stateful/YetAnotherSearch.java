@@ -6,9 +6,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
+import settings.Settings;
 import util.JaroWinklerDistance;
 
 import java.io.BufferedReader;
@@ -21,6 +25,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class YetAnotherSearch extends State {
+    TextField searchBar;
+    ListView citiesList;
     // For location finding
     class Location {
         int id;
@@ -113,23 +119,23 @@ public class YetAnotherSearch extends State {
     @Override
     protected void enable() {
         if (!inited) {
-            ListView lv = (ListView) scene.lookup("#list"); // WARNING: Will only work after scene is shown.
+            citiesList = (ListView) scene.lookup("#list"); // WARNING: Will only work after scene is shown.
 
-            TextField tf = (TextField) scene.lookup("#search");
-            tf.textProperty().addListener(new ChangeListener<String>() {
+            searchBar = (TextField) scene.lookup("#search");
+            searchBar.textProperty().addListener(new ChangeListener<String>() {
                   @Override
                   public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                      var items = lv.getItems();
+                      var items = citiesList.getItems();
                       items.clear();
                       if (newValue.compareTo("") != 0)
                           items.addAll(searchCities(newValue));
                   }
             });
 
-            lv.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            citiesList.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    var item = lv.getSelectionModel().getSelectedItem();
+                    var item = citiesList.getSelectionModel().getSelectedItem();
                     if (item != null) {
                         selectedCityID = ((CityIDPair)item).id;
                         // TODO: implement going to routing (getSelected)
@@ -150,5 +156,54 @@ public class YetAnotherSearch extends State {
 
     @Override
     public void update() {
+        SplitPane splitPane = (SplitPane) scene.lookup("#splitPane");
+        splitPane.setStyle("-fx-background-color: "+Settings.colorString(Settings.getTertiary()));
+        searchBar.setStyle("-fx-background-color: "+ Settings.colorString(Settings.getSecondary())+";"
+                            + "-fx-text-fill: "+Settings.colorString(Settings.getPrimary()));
+
+
+        citiesList.setStyle("-fx-background-color: "+ Settings.colorString(Settings.getSecondary()));;
+        ListCell cityCell = new ListCell<CityIDPair>() {
+            @Override
+            protected void updateItem(CityIDPair item, boolean empty) {
+                if(!empty)
+                    setText(item.toString());
+                super.updateItem(item, empty);
+                setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";"+
+                        "-fx-text-fill: "+Settings.colorString(Settings.getPrimary())+";"+
+                        "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+            }
+        };
+
+        citiesList.setCellFactory(new Callback<ListView<CityIDPair>, ListCell<CityIDPair>>() {
+            @Override
+            public ListCell<CityIDPair> call(ListView<CityIDPair> param) {
+                return new ListCell<>() {
+                    @Override
+                    protected void updateItem(CityIDPair item, boolean empty) {
+                        if(!empty)
+                            setText(item.toString());
+                        super.updateItem(item, empty);
+                        if(isFocused()){
+                            setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getPrimary()) + ";"+
+                                    "-fx-background-color: " + Settings.colorString(Settings.getPrimary()) + ";"+
+                                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                                    "-fx-border-style: solid inside;"
+                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+                                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+                        }
+                        else {
+                            setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";" +
+                                    "-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";" +
+                                    "-fx-border-style: solid inside;"
+                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+                                    + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+                        }
+                    }
+                };
+            }
+        });
     }
 }
