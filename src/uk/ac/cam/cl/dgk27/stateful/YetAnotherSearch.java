@@ -89,7 +89,6 @@ public class YetAnotherSearch extends State {
 
     public YetAnotherSearch(String name) {
         super(name);
-        initialise();
     }
 
     /**
@@ -115,7 +114,6 @@ public class YetAnotherSearch extends State {
     protected void enable() {
         if (!inited) {
             ListView lv = (ListView) scene.lookup("#list"); // WARNING: Will only work after scene is shown.
-            //lv.setItems(FXCollections.<String>observableArrayList("Apple", "Banana", "Orange", "Mango"));
 
             TextField tf = (TextField) scene.lookup("#search");
             tf.textProperty().addListener(new ChangeListener<String>() {
@@ -133,6 +131,7 @@ public class YetAnotherSearch extends State {
                 public void handle(MouseEvent event) {
                     var item = lv.getSelectionModel().getSelectedItem();
                     if (item != null) {
+                        selectedCityID = ((CityIDPair)item).id;
                         // TODO: implement going to routing (getSelected)
                         System.out.println("clicked on " + item);
                     }
@@ -147,11 +146,9 @@ public class YetAnotherSearch extends State {
 
     @Override
     protected void disable() {
-        System.out.println("I've just been disable!");
     }
 
     @Override
     public void update() {
-        System.out.println("I've just been forced to update!");
     }
 }

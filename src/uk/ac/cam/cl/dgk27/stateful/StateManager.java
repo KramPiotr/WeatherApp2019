@@ -32,22 +32,23 @@ public class StateManager extends Application {
     /**
      * @param name The name of the scene to switch to
      */
-    public static void switchTo(String name){
+    public static void switchTo(String name) {
+        System.out.println("Switching to " + name);
         State found = null;
-        for(Map.Entry<String, State> e : states.entrySet()){
-            System.out.println(e.getKey());
-            if(e.getKey().equals(name)){
+        for (Map.Entry<String, State> e : states.entrySet()) {
+            if (e.getKey().equals(name)) {
                 found = e.getValue();
-            } else{
+            } else if (e.getValue().enabled) {
                 e.getValue().disable();
                 e.getValue().enabled = false;
             }
-
         }
-        
-        if(found != null){
+
+        if (found != null){
+            primary.hide();
             primary.setScene(found.getScene());
             primary.show();
+
             found.enable();
             found.enabled = true;
         }
