@@ -26,15 +26,23 @@ public class ColorTile extends Tile {
     Circle circle;
     Button defaultButton;
     Color defaultColor;
+    GridPane grid;
 
     @Override
     public void update() {
+        label.setFill(Settings.getPrimary());
+        circle.setStroke(Settings.getFadedPrimary());
+        grid.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+        grid.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        defaultButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary()));
 
     }
 
     public ColorTile(State parent, String label){
         super(parent);
-        update();
 
         //Set prefered size of tile
         this.setPrefSize(600,100);
@@ -46,7 +54,7 @@ public class ColorTile extends Tile {
         circle.setStrokeWidth(2);
         circle.setStroke(Settings.getFadedPrimary());
         //Position label and value
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
         grid.minHeight(150);

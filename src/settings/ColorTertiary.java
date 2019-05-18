@@ -12,11 +12,13 @@ public class ColorTertiary extends ColorTile{
         super.colorPicker.setOnAction(e->{
             Settings.setTertiary(colorPicker.getValue());
             circle.setFill(colorPicker.getValue());
+            parent.update();
         });
         defaultButton.setOnMouseClicked(e->{
             Settings.setTertiary(defaultColor);
             circle.setFill(defaultColor);
             colorPicker.setValue(defaultColor);
+            parent.update();
         });
     }
 

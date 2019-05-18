@@ -23,14 +23,27 @@ public class BackButton extends Tile {
 
     @Override
     public void update() {
-
+        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                       "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                        "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                        + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        button.setOnMouseClicked(e->{
+            //get back to the homepage
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";" +
+                            "-fx-text-fill: "+Settings.colorString(Settings.getSecondary()));
+        });
     }
 
     public BackButton(State parent){
         super(parent);
         button = new Button();
         button.setText("Back");
-        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";");
+        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
         button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
         button.setPrefSize(600, 100);
 

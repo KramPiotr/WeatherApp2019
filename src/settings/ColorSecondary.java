@@ -13,11 +13,13 @@ public class ColorSecondary extends ColorTile{
         super.colorPicker.setOnAction(e->{
             Settings.setSecondary(colorPicker.getValue());
             circle.setFill(colorPicker.getValue());
+            parent.update();
         });
         defaultButton.setOnMouseClicked(e->{
             Settings.setSecondary(defaultColor);
             circle.setFill(defaultColor);
             colorPicker.setValue(defaultColor);
+            parent.update();
         });
     }
 

@@ -13,15 +13,20 @@ public class SwitchTile extends Tile {
     AutoSizeText label;
     AutoSizeText value;
     ToggleSwitch tSwitch;
+    GridPane grid;
 
     @Override
     public void update() {
-
-    }
+        label.setFill(Settings.getPrimary());
+        value.setFill(Settings.getPrimary());
+        grid.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+        grid.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+}
 
     public SwitchTile(State parent, String label, String defaultValue){
         super(parent);
-        update();
 
         //Set prefered size of tile
         this.setPrefSize(600,100);
@@ -36,7 +41,7 @@ public class SwitchTile extends Tile {
         tSwitch.setScaleY(2.0);
 
         //Position label and value
-        GridPane grid = new GridPane();
+        grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
         grid.minHeight(150);

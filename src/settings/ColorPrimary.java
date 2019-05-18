@@ -12,11 +12,13 @@ public class ColorPrimary extends ColorTile{
         super.colorPicker.setOnAction(e->{
             Settings.setPrimary(colorPicker.getValue());
             circle.setFill(colorPicker.getValue());
+            parent.update();
         });
         defaultButton.setOnMouseClicked(e->{
             Settings.setPrimary(defaultColor);
             circle.setFill(defaultColor);
             colorPicker.setValue(defaultColor);
+            parent.update();
         });
     }
 
