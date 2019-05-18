@@ -70,7 +70,6 @@ public class HeaderTile extends Tile{
         menuButton.setStyle("-fx-focus-color: transparent;");
         menuButton.setPadding(new Insets(0, 0, 0, 0));
         menuButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
-        menuButton.setOnMouseClicked(e-> StateManager.switchTo("Settings"));
 
         menuButton.setOnAction(e->{
             StateManager.switchTo("Settings");
