@@ -7,7 +7,7 @@ import java.io.IOException;
 public abstract class State {
     String name;
     protected Scene scene;
-    protected boolean enabled = false;
+    boolean enabled = false;
 
     public State(String name) {
         this.name = name;

@@ -24,33 +24,40 @@ public class BackButton extends Tile {
 
     @Override
     public void update() {
-        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
-                       "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                        "-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                        + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";"
-                        + "-fx-focus-color: transparent;");
-        button.setOnMouseClicked(e->{
-            StateManager.switchTo("Main");
-        });
-        button.setOnMousePressed(e->{
-            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
-                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                    "-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                    + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";"
-                    + "-fx-focus-color: transparent;");
-        });
     }
 
     public BackButton(State parent){
         super(parent);
         button = new Button();
-        update();
         button.setText("Back");
+        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
         button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
         button.setPrefSize(600, 100);
 
+        button.setOnMousePressed(e -> {
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+        button.setOnMouseReleased(e -> {
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+
+        button.setOnAction(e->{
+            StateManager.switchTo("Main");
+        });
+
+        //Set prefered size of tile
         this.setPrefSize(600,100);
         this.getChildren().addAll(button);
     }

@@ -53,6 +53,5 @@ public class SettingsScene extends State {
 
     public SettingsScene(String name){
         super(name);
-        initialise();
     }
 }
