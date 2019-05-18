@@ -3,7 +3,8 @@ package uk.ac.cam.cl.dgk27.stateful;
 import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
-import settings.SettingsScene;
+import scenes.mainscreen.MainScreen;
+import skeletons.WeatherScene;
 import ycl62.IntDesign.RouteScene;
 
 import java.io.IOException;
@@ -12,8 +13,8 @@ import java.util.Map;
 
 public class StateManager extends Application {
     static Stage primary;
-    public static int WIDTH = 600;
-    public static int HEIGHT = 1000;
+    public static final double WIDTH=612; //Javafx seems to include the windows border in this, the extra 12 pixels correct for that
+    public static final double HEIGHT=900;
     
     /**
      * Stores all created states
@@ -30,20 +31,23 @@ public class StateManager extends Application {
     /**
      * @param name The name of the scene to switch to
      */
-    public static void switchTo(String name){
+    public static void switchTo(String name) {
         State found = null;
-        for(Map.Entry<String, State> e : states.entrySet()){
-            System.out.println(e.getKey());
-            if(e.getKey().equals(name)){
+        for (Map.Entry<String, State> e : states.entrySet()) {
+            if (e.getKey().equals(name)) {
                 found = e.getValue();
-                found.enable();
-            } else
+            } else if (e.getValue().enabled) {
                 e.getValue().disable();
+                found.enabled = false;
+            }
         }
-        
-        if(found != null){
+
+        if (found != null){
             primary.setScene(found.getScene());
             primary.show();
+
+            found.enable();
+            found.enabled = true;
         }
     }
     
@@ -52,11 +56,11 @@ public class StateManager extends Application {
         primary = primaryStage;
         primaryStage.setTitle("Weather App");
         primaryStage.setResizable(false);
-        primaryStage.setHeight(1000d);
-        primaryStage.setWidth(600d);
+        primaryStage.setHeight(HEIGHT);
+        primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
-        switchTo("Settings");
+        switchTo("Main");
     }
     
     public static void main(String[] args) throws IOException{
@@ -65,10 +69,11 @@ public class StateManager extends Application {
         JFXPanel fxPanel = new JFXPanel();
         
         // TODO: Add states here
-        new YetAnotherWeatherScene("Weather");
-        //new WeatherScene("Main");
+        //new YetAnotherWeatherScene("Weather");
+        new MainScreen("Main");
         new RouteScene("Route");
-        new SettingsScene("Settings"); // extends State.java
+        new YetAnotherSearch("Search");
+        //new SettingsState("Settings"); // extends State.java
         
         launch(args);
     }

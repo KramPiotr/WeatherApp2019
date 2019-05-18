@@ -32,6 +32,16 @@ public abstract class WeatherScene extends State {
 
     public abstract double getWindSpeed();
 
+    public abstract double getChanceOfRain();
+
+    public abstract double getLow();
+
+    public abstract double getHigh();
+
+    public abstract String getCondition();
+
+    public abstract double getHumidity();
+
     public abstract double getRealTemperature();
 
     public abstract String getLocation();

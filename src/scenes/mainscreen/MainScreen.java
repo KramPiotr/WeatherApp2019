@@ -34,7 +34,13 @@ public class MainScreen extends WeatherScene {
     public MainScreen(String name) throws IOException {
         super(name);
         this.city = WeatherAPI.makeRequest(RequestType.Current, "Paris")[0];
-        initialise();
+        init();
+    }
+
+    public MainScreen(String name, Weather city){
+        super(name);
+        this.city = city;
+        init();
     }
 
     @Override
@@ -45,6 +51,32 @@ public class MainScreen extends WeatherScene {
     @Override
     public double getWindSpeed() {
         return city.getWind_speed();
+    }
+
+    //TODO
+    @Override
+    public double getChanceOfRain() {
+        return -1;
+    }
+
+    @Override
+    public double getLow() {
+        return city.getTemp_min();
+    }
+
+    @Override
+    public double getHigh() {
+        return city.getTemp_max();
+    }
+
+    @Override
+    public String getCondition() {
+        return city.getIcon();
+    }
+
+    @Override
+    public double getHumidity() {
+        return city.getHumidity();
     }
 
     @Override
@@ -62,17 +94,9 @@ public class MainScreen extends WeatherScene {
         return city.getDatetime();
     }
 
-
-    public MainScreen(String name, Weather city){
-        super(name);
-        this.city = city;
-        initialise();
-    }
-
-    @Override
-    protected void initialise(){
+    // instead of using initialise - not all data available at creation
+    private void init() {
         tiles = new ArrayList<>();
-
         //TODO: Add new tiles here
         HeaderTile headerTile = new HeaderTile(this);
         tiles.add(headerTile);
@@ -97,8 +121,11 @@ public class MainScreen extends WeatherScene {
     }
 
     @Override
-    protected void enable() {
+    protected void initialise(){
+    }
 
+    @Override
+    protected void enable() {
     }
 
     @Override
