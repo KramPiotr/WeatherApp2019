@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 import scenes.mainscreen.MainScreen;
+import settings.SettingsScene;
 import skeletons.WeatherScene;
 import ycl62.IntDesign.RouteScene;
 
@@ -69,7 +70,7 @@ public class StateManager extends Application {
         new YetAnotherWeatherScene("Weather");
         new MainScreen("Main");
         new RouteScene("Route");
-        //new SettingsState("Settings"); // extends State.java
+        new SettingsScene("Settings"); // extends State.java
         
         launch(args);
     }
