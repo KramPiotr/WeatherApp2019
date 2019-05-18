@@ -32,10 +32,14 @@ public class BackButton extends Tile {
                         + "-fx-focus-color: transparent;");
         button.setOnMouseClicked(e->{
             StateManager.switchTo("Main");
-            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";");
         });
         button.setOnMousePressed(e->{
-            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";");
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";"
+                    + "-fx-focus-color: transparent;");
         });
     }
 
