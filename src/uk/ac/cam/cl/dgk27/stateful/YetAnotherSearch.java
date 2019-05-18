@@ -89,6 +89,7 @@ public class YetAnotherSearch extends State {
 
     public YetAnotherSearch(String name) {
         super(name);
+        initialise();
     }
 
     /**

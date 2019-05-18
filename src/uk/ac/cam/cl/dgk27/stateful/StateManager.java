@@ -38,14 +38,18 @@ public class StateManager extends Application {
             System.out.println(e.getKey());
             if(e.getKey().equals(name)){
                 found = e.getValue();
-                found.enable();
-            } else
+            } else{
                 e.getValue().disable();
+                e.getValue().enabled = false;
+            }
+
         }
         
         if(found != null){
             primary.setScene(found.getScene());
             primary.show();
+            found.enable();
+            found.enabled = true;
         }
     }
     
@@ -54,8 +58,8 @@ public class StateManager extends Application {
         primary = primaryStage;
         primaryStage.setTitle("Weather App");
         primaryStage.setResizable(false);
-        primaryStage.setHeight(WIDTH);
-        primaryStage.setWidth(HEIGHT);
+        primaryStage.setHeight(HEIGHT);
+        primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
         switchTo("Main");
@@ -67,6 +71,7 @@ public class StateManager extends Application {
         JFXPanel fxPanel = new JFXPanel();
         
         // TODO: Add states here
+        new YetAnotherSearch("Search");
         new YetAnotherWeatherScene("Weather");
         new MainScreen("Main");
         new RouteScene("Route");
