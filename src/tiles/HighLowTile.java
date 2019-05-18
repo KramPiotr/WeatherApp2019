@@ -1,6 +1,6 @@
 package tiles;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -68,7 +68,7 @@ public class HighLowTile extends Tile{
         divider.setStartY(20);
         divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getPrimary());
+        divider.setStroke(Settings.getFadedPrimary());
 
         label.setTextWidth(150-15);
 

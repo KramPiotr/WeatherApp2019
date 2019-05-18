@@ -13,6 +13,7 @@ import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
+import util.Pollen;
 
 import java.io.IOException;
 
@@ -25,21 +26,19 @@ public class TileTesterState extends WeatherScene {
     ChanceOfRainTile chanceOfRainTile;
     HighLowTile highLowTile;
     HumidityTile humidityTile;
+    PollenTile pollenTile;
 
     public TileTesterState(String name) throws IOException {
         super(name);
+    }
+
+    @Override
+    protected void initialise() {
         try {
             weather = WeatherAPI.makeRequest(RequestType.Current,"London","GBR")[0];
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-       initialise();
-
-    }
-
-    @Override
-    protected void initialise() {
         VBox mainPanel = new VBox();
         HBox horizontal = new HBox();
         HBox horizontal1 = new HBox();
@@ -54,11 +53,12 @@ public class TileTesterState extends WeatherScene {
         chanceOfRainTile = new ChanceOfRainTile(this);
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
+        pollenTile = new PollenTile(this);
 
 
         horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
         horizontal1.getChildren().addAll(realFeelTile,windTile);
-        horizontal2.getChildren().addAll(humidityTile);
+        horizontal2.getChildren().addAll(humidityTile,pollenTile);
 
         mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
 
@@ -90,6 +90,11 @@ public class TileTesterState extends WeatherScene {
     @Override
     public double getWindSpeed() {
         return weather.getWind_speed();
+    }
+
+    @Override
+    public Pollen getPollen() {
+        return Pollen.getRandomPollen();
     }
 
     @Override

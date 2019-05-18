@@ -19,6 +19,7 @@ import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
+import util.Pollen;
 import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
@@ -51,6 +52,11 @@ public class MainScreen extends WeatherScene {
     @Override
     public double getWindSpeed() {
         return city.getWind_speed();
+    }
+
+    @Override
+    public Pollen getPollen() {
+        return Pollen.getRandomPollen();
     }
 
     //TODO

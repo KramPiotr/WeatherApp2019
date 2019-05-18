@@ -12,6 +12,7 @@ import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
+import util.Pollen;
 import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
@@ -31,6 +32,8 @@ public abstract class WeatherScene extends State {
     public abstract double getTemperature();
 
     public abstract double getWindSpeed();
+
+    public abstract Pollen getPollen();
 
     public abstract double getChanceOfRain();
 

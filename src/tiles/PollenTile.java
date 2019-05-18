@@ -12,26 +12,24 @@ import javafx.scene.shape.Line;
 import settings.Settings;
 import skeletons.WeatherScene;
 import util.ImageColorer;
-
-import java.text.NumberFormat;
+import util.Pollen;
 
 import static javafx.geometry.Pos.CENTER_LEFT;
 
-public class ChanceOfRainTile extends Tile {
+public class PollenTile extends Tile {
     AutoSizeText label;
-    double chanceOfRain;
+    Pollen pollen;
     AutoSizeText value;
     Group conditionView;
-    NumberFormat nf;
     Line divider;
     HBox hbox;
 
     @Override
     public void update() {
-        chanceOfRain = ((WeatherScene) parent).getChanceOfRain();
-        value.setText(nf.format(chanceOfRain)+"%");
-        setWeatherIcon();
+        pollen = ((WeatherScene) parent).getPollen();
+        value.setText(pollen.toString());
         hbox.getChildren().clear();
+        setPollenIcon();
         if(Settings.isGraphical()){
             hbox.getChildren().addAll(label,divider,conditionView);
         }
@@ -47,55 +45,48 @@ public class ChanceOfRainTile extends Tile {
                 + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
     }
 
-    private void setWeatherIcon(){
-        Image rainIcon;
-        if(chanceOfRain<1){
-            rainIcon = new Image("/icons/chance0.png");
-        }
-        else if(chanceOfRain<20){
-            rainIcon = new Image("/icons/chance1.png");
-        }
-        else if(chanceOfRain<40){
-            rainIcon = new Image("/icons/chance2.png");
-        }
-        else if(chanceOfRain<60){
-            rainIcon = new Image("/icons/chance3.png");
-        }
-        else if(chanceOfRain<80){
-            rainIcon = new Image("/icons/chance4.png");
-        }
-        else{
-            rainIcon = new Image("/icons/chance5.png");
+
+    private void setPollenIcon(){
+        Image pollenLevel;
+
+        switch (pollen){
+            case LOW:
+                pollenLevel = new Image("/icons/pollenL.png");
+                break;
+            case MEDIUM:
+                pollenLevel = new Image("/icons/pollenM.png");
+                break;
+            case HIGH:
+                pollenLevel = new Image("/icons/pollenH.png");
+                break;
+            default:
+                pollenLevel = new Image("/icons/pollenN.png");
         }
 
-        ImageView iconView = new ImageView(rainIcon);
+        ImageView iconView = new ImageView(pollenLevel);
         iconView.setPreserveRatio(true);
         iconView.setFitWidth(110);
         conditionView = ImageColorer.recolor(iconView,Settings.getPrimary());
-
     }
-
-    public ChanceOfRainTile(WeatherScene parent){
+    public PollenTile(WeatherScene parent){
         super(parent);
 
-        //Create number format for temperature
-        nf = NumberFormat.getInstance();
-        nf.setMinimumFractionDigits(1);
-        nf.setMaximumFractionDigits(1);
 
         //Set prefered size of tile
         this.setPrefSize(300,125);
         this.setMinSize(300,125);
 
 
+        pollen = ((WeatherScene) parent).getPollen();
+
         //Set text in label and value
-        label = new AutoSizeText("Chance of Rain:",Settings.getFadedPrimary());
-        value = new AutoSizeText(chanceOfRain+"%",Settings.getPrimary());
+        label = new AutoSizeText("Pollen Levels:",Settings.getFadedPrimary());
+        value = new AutoSizeText(pollen.toString(),Settings.getPrimary());
 
         //Position label and value
         hbox = new HBox();
         hbox.setPrefSize(300,125);
-        hbox.setPadding(new Insets(10, 10, 10, 10));
+        hbox.setPadding(new Insets(10, 0, 10, 10));
         hbox.setSpacing(10);
 
 
@@ -107,16 +98,13 @@ public class ChanceOfRainTile extends Tile {
         divider.setEndY(125);
         divider.setStrokeWidth(5);
 
-        label.setTextWidth(150-25);
-        value.setTextWidth(120-40);
+        label.setTextWidth(150-15);
+        value.setTextWidth(150-40);
 
         hbox.setAlignment(CENTER_LEFT);
 
 
-        //hbox.setBorder(new Border(new BorderStroke(Settings.getTertiary(),BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-
-        chanceOfRain = ((WeatherScene) parent).getChanceOfRain();
-        setWeatherIcon();
+        setPollenIcon();
 
         hbox.setMinSize(this.getPrefWidth(),this.getPrefHeight());
 

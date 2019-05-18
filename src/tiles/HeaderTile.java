@@ -1,6 +1,6 @@
 package tiles;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;

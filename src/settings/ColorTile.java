@@ -1,6 +1,6 @@
 package settings;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;

@@ -1,6 +1,6 @@
 package settings;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import org.controlsfx.control.ToggleSwitch;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;

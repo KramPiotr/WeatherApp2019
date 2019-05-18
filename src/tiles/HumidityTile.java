@@ -1,11 +1,10 @@
 package tiles;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import settings.Settings;
 import skeletons.WeatherScene;
@@ -41,12 +40,12 @@ public class HumidityTile extends Tile{
         value = new AutoSizeText(nf.format(humidity)+"°%",Settings.getPrimary());
 
 
-        value.setSize(110,125);
+
 
         //Position label and value
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(10, 0, 10, 10));
-        hbox.setSpacing(10);
+        hbox.setSpacing(20);
         hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
 
 
@@ -56,9 +55,10 @@ public class HumidityTile extends Tile{
         divider.setStartY(20);
         divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getPrimary());
+        divider.setStroke(Settings.getFadedPrimary());
 
-        label.setTextWidth(150-15);
+        value.setTextWidth(150-35);
+        label.setTextWidth(150-35);
 
         hbox.setAlignment(CENTER_LEFT);
 

@@ -1,4 +1,4 @@
-package items;
+package util;
 
 import javafx.scene.paint.Color;
 import settings.Settings;
@@ -24,16 +24,20 @@ public class AutoSizeText extends Text {
     public void setSize(double width, double height) {
         this.prefWidth = width;
         this.prefHeight = height;
+        this.minWidth(width);
+        this.minHeight(height);
         resizeText();
     }
 
     public void setTextWidth(double width) {
         this.prefWidth = width;
+        this.minWidth(width);
         resizeText();
     }
 
     public void setTextHeight(double height) {
         this.prefHeight = height;
+        this.minHeight(height);
         resizeText();
     }
 

@@ -1,6 +1,6 @@
 package tiles;
 
-import items.AutoSizeText;
+import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
