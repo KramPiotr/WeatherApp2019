@@ -2,6 +2,8 @@ package uk.ac.cam.cl.dgk27.stateful;
 
 import javafx.scene.Scene;
 
+import java.io.IOException;
+
 public abstract class State {
     String name;
     protected Scene scene;
@@ -9,9 +11,7 @@ public abstract class State {
 
     public State(String name) {
         this.name = name;
-//        initialise();
-        //TODO: Removed as initialisation cannot be done before weather field is set.
-        //TODO: Maybe shuffle the order of initialisation around to move it back here.
+        initialise();
         StateManager.addToMap(this);
     }
 
