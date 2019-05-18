@@ -9,9 +9,7 @@ public abstract class State {
 
     public State(String name) {
         this.name = name;
-//        initialise();
-        //TODO: Removed as initialisation cannot be done before weather field is set.
-        //TODO: Maybe shuffle the order of initialisation around to move it back here.
+        initialise();
         StateManager.addToMap(this);
     }
 

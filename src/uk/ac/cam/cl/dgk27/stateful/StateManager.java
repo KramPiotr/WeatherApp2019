@@ -31,20 +31,23 @@ public class StateManager extends Application {
     /**
      * @param name The name of the scene to switch to
      */
-    public static void switchTo(String name){
+    public static void switchTo(String name) {
         State found = null;
-        for(Map.Entry<String, State> e : states.entrySet()){
-            System.out.println(e.getKey());
-            if(e.getKey().equals(name)){
+        for (Map.Entry<String, State> e : states.entrySet()) {
+            if (e.getKey().equals(name)) {
                 found = e.getValue();
-                found.enable();
-            } else
+            } else if (e.getValue().enabled) {
                 e.getValue().disable();
+                found.enabled = false;
+            }
         }
-        
-        if(found != null){
+
+        if (found != null){
             primary.setScene(found.getScene());
             primary.show();
+
+            found.enable();
+            found.enabled = true;
         }
     }
     
@@ -53,8 +56,8 @@ public class StateManager extends Application {
         primary = primaryStage;
         primaryStage.setTitle("Weather App");
         primaryStage.setResizable(false);
-        primaryStage.setHeight(WIDTH);
-        primaryStage.setWidth(HEIGHT);
+        primaryStage.setHeight(HEIGHT);
+        primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
         switchTo("Main");
@@ -66,9 +69,10 @@ public class StateManager extends Application {
         JFXPanel fxPanel = new JFXPanel();
         
         // TODO: Add states here
-        new YetAnotherWeatherScene("Weather");
+        //new YetAnotherWeatherScene("Weather");
         new MainScreen("Main");
         new RouteScene("Route");
+        new YetAnotherSearch("Search");
         //new SettingsState("Settings"); // extends State.java
         
         launch(args);

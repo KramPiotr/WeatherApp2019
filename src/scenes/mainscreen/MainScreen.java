@@ -34,7 +34,13 @@ public class MainScreen extends WeatherScene {
     public MainScreen(String name) throws IOException {
         super(name);
         this.city = WeatherAPI.makeRequest(RequestType.Current, "Paris")[0];
-        initialise();
+        init();
+    }
+
+    public MainScreen(String name, Weather city){
+        super(name);
+        this.city = city;
+        init();
     }
 
     @Override
@@ -88,17 +94,9 @@ public class MainScreen extends WeatherScene {
         return city.getDatetime();
     }
 
-
-    public MainScreen(String name, Weather city){
-        super(name);
-        this.city = city;
-        initialise();
-    }
-
-    @Override
-    protected void initialise(){
+    // instead of using initialise - not all data available at creation
+    private void init() {
         tiles = new ArrayList<>();
-
         //TODO: Add new tiles here
         HeaderTile headerTile = new HeaderTile(this);
         tiles.add(headerTile);
@@ -123,8 +121,11 @@ public class MainScreen extends WeatherScene {
     }
 
     @Override
-    protected void enable() {
+    protected void initialise(){
+    }
 
+    @Override
+    protected void enable() {
     }
 
     @Override
