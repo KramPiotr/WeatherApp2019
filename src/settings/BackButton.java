@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
+import uk.ac.cam.cl.dgk27.stateful.StateManager;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -27,33 +28,25 @@ public class BackButton extends Tile {
                        "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
                         "-fx-padding: 10;" + "-fx-border-style: solid inside;"
                         + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";"
+                        + "-fx-focus-color: transparent;");
         button.setOnMouseClicked(e->{
-            //get back to the homepage
-            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";" +
-                            "-fx-text-fill: "+Settings.colorString(Settings.getSecondary()));
+            StateManager.switchTo("Main");
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";");
+        });
+        button.setOnMousePressed(e->{
+            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";");
         });
     }
 
     public BackButton(State parent){
         super(parent);
         button = new Button();
+        update();
         button.setText("Back");
-        button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
-                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                "-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
         button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
         button.setPrefSize(600, 100);
 
-        button.setOnMouseClicked(e->{
-            //get back to the homepage
-            button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";");
-        });
-        update();
-
-        //Set prefered size of tile
         this.setPrefSize(600,100);
         this.getChildren().addAll(button);
     }

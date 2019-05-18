@@ -46,6 +46,7 @@ public class StateManager extends Application {
         }
         
         if(found != null){
+            found.update();
             primary.setScene(found.getScene());
             primary.show();
             found.enable();
@@ -62,7 +63,7 @@ public class StateManager extends Application {
         primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
-        switchTo("Main");
+        switchTo("Settings");
     }
     
     public static void main(String[] args) throws IOException{
