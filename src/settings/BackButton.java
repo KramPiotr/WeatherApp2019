@@ -24,20 +24,11 @@ public class BackButton extends Tile {
 
     @Override
     public void update() {
-    }
-
-    public BackButton(State parent){
-        super(parent);
-        button = new Button();
-        button.setText("Back");
         button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
-                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                "-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
-        button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
-        button.setPrefSize(600, 100);
-
+            "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+            "-fx-padding: 10;" + "-fx-border-style: solid inside;"
+            + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+            + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
         button.setOnMousePressed(e -> {
             button.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
                     "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
@@ -56,10 +47,17 @@ public class BackButton extends Tile {
         button.setOnAction(e->{
             StateManager.switchTo("Main");
         });
+    }
 
-        //Set prefered size of tile
+    public BackButton(State parent){
+        super(parent);
+        button = new Button();
+        button.setText("Back");
+        button.setFont(Font.font(Settings.getFontString(), FontWeight.BOLD, 50));
+        button.setPrefSize(600, 100);
         this.setPrefSize(600,100);
         this.getChildren().addAll(button);
+        update();
     }
 
 }
