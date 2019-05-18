@@ -163,20 +163,6 @@ public class YetAnotherSearch extends State {
 
 
         citiesList.setStyle("-fx-background-color: "+ Settings.colorString(Settings.getSecondary()));;
-        ListCell cityCell = new ListCell<CityIDPair>() {
-            @Override
-            protected void updateItem(CityIDPair item, boolean empty) {
-                if(!empty)
-                    setText(item.toString());
-                super.updateItem(item, empty);
-                setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";"+
-                        "-fx-text-fill: "+Settings.colorString(Settings.getPrimary())+";"+
-                        "-fx-border-style: solid inside;"
-                        + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
-                        + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
-            }
-        };
-
         citiesList.setCellFactory(new Callback<ListView<CityIDPair>, ListCell<CityIDPair>>() {
             @Override
             public ListCell<CityIDPair> call(ListView<CityIDPair> param) {
