@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import settings.Settings;
 import util.JaroWinklerDistance;
@@ -157,9 +158,13 @@ public class YetAnotherSearch extends State {
     @Override
     public void update() {
         SplitPane splitPane = (SplitPane) scene.lookup("#splitPane");
-        splitPane.setStyle("-fx-background-color: "+Settings.colorString(Settings.getTertiary()));
+        splitPane.setStyle("-fx-background-color: "+Settings.colorString(Settings.getTertiary())+";");
+       // splitPane.getDividers().forEach(d->d.);
+/*        AnchorPane anchorPane = (AnchorPane) scene.lookup("#anchorPane");
+        anchorPane.setStyle("-fx-background-color: "+Settings.colorString(Settings.getTertiary()));*/
         searchBar.setStyle("-fx-background-color: "+ Settings.colorString(Settings.getSecondary())+";"
-                            + "-fx-text-fill: "+Settings.colorString(Settings.getPrimary()));
+                            + "-fx-text-fill: "+Settings.colorString(Settings.getPrimary())+";"+
+                            "-fx-prompt-text-fill: "+Settings.colorString(Settings.getFadedPrimary()));
 
 
         citiesList.setStyle("-fx-background-color: "+ Settings.colorString(Settings.getSecondary()));;
@@ -169,6 +174,7 @@ public class YetAnotherSearch extends State {
                 return new ListCell<>() {
                     @Override
                     protected void updateItem(CityIDPair item, boolean empty) {
+                        super.updateItem(item, empty);
                         if(!empty)
                             setText(item.toString());
                         super.updateItem(item, empty);
