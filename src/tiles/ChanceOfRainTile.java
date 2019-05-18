@@ -38,6 +38,13 @@ public class ChanceOfRainTile extends Tile {
         else{
             hbox.getChildren().addAll(label,divider,value);
         }
+        label.setFill(Settings.getFadedPrimary());
+        value.setFill(Settings.getPrimary());
+        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+        divider.setStroke(Settings.getFadedPrimary());
+        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
     }
 
     private void setWeatherIcon(){
@@ -90,7 +97,6 @@ public class ChanceOfRainTile extends Tile {
         hbox.setPrefSize(300,125);
         hbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setSpacing(10);
-        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
 
 
@@ -100,7 +106,6 @@ public class ChanceOfRainTile extends Tile {
         divider.setStartY(20);
         divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getFadedPrimary());
 
         label.setTextWidth(150-25);
         value.setTextWidth(120-40);
@@ -109,19 +114,9 @@ public class ChanceOfRainTile extends Tile {
 
 
         //hbox.setBorder(new Border(new BorderStroke(Settings.getTertiary(),BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
 
         chanceOfRain = ((WeatherScene) parent).getChanceOfRain();
         setWeatherIcon();
-
-        if(Settings.isGraphical()){
-            hbox.getChildren().addAll(label,divider,conditionView);
-        }
-        else{
-            hbox.getChildren().addAll(label,divider,value);
-        }
 
         hbox.setMinSize(this.getPrefWidth(),this.getPrefHeight());
 

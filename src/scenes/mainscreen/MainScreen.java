@@ -135,6 +135,6 @@ public class MainScreen extends WeatherScene {
 
     @Override
     public void update() {
-
+        tiles.forEach(t->t.update());
     }
 }
