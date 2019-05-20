@@ -79,7 +79,13 @@ public class MainScreen extends WeatherScene {
 
     @Override
     public void update() {
-
+        windTile.update();
+        headerTile.update();
+        realFeelTile.update();
+        chanceOfRainTile.update();
+        highLowTile.update();
+        humidityTile.update();
+        pollenTile.update();
     }
 
     @Override
