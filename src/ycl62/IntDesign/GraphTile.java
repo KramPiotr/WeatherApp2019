@@ -10,8 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
+import scenes.mainscreen.MainScreen;
 import settings.Settings;
-import skeletons.WeatherScene;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
@@ -19,9 +19,7 @@ import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
@@ -29,10 +27,12 @@ import java.util.Arrays;
  * Forecast graph tile. Shows the temperature highs and lows for 5-6 days starting today.
  */
 public class GraphTile extends Tile {
+    private final double[] fives = {}, sixes = {86.0, 175.0, 264.0, 353.0, 443.0, 532.0};
+    
     private double WIDTH = 588.0, HEIGHT = 200.0;
     private eu.hansolo.tilesfx.Tile chart;
-    String cityName;
     
+    String cityName;
     Series<Node, Double> lows;
     Series<Node, Double> highs;
     String title;
@@ -65,6 +65,7 @@ public class GraphTile extends Tile {
         } catch(DateTimeParseException e) {
             offset = 0;
         }
+        offset = 0;
         //System.out.println(temps.length);
         //System.out.println(offset);
         
@@ -107,7 +108,9 @@ public class GraphTile extends Tile {
                 .decimals(1)
                 .tooltipTimeout(1000.0)
                 .build();
-
+        if(parent instanceof MainScreen){
+            registerForecastListener();
+        }
 //        CategoryAxis xAxis = new CategoryAxis();
 //        NumberAxis yAxis = new NumberAxis(5,30,5);
 //        AreaChart chart2 = new AreaChart(xAxis, yAxis);
@@ -118,10 +121,18 @@ public class GraphTile extends Tile {
         FlowPane pane = new FlowPane(chart);
         pane.setStyle("-fx-padding: -1;" + "-fx-border-style: solid inside;"
                 + "-fx-border-width: 5;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+        pane.setMaxSize(WIDTH, HEIGHT);
         this.getChildren().add(pane);
     }
     
-    public void setWidth(double width){
+    void useWidth(double width){
         WIDTH = width;
+    }
+    
+    private void registerForecastListener(){
+        chart.setOnMouseClicked(e -> {
+            System.out.println(highs.getData().size());
+            System.out.println(e.getSceneX() + " || " + e.getSceneY());
+        });
     }
 }

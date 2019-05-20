@@ -19,6 +19,8 @@ public class HumidityTile extends Tile{
     double humidity;
     AutoSizeText value;
     NumberFormat nf;
+    Line divider;
+    HBox hbox;
 
 
 
@@ -44,29 +46,22 @@ public class HumidityTile extends Tile{
 
 
         //Position label and value
-        HBox hbox = new HBox();
+        hbox = new HBox();
         hbox.setPadding(new Insets(10, 0, 10, 10));
         hbox.setSpacing(20);
-        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
 
 
-        Line divider = new Line();
+        divider = new Line();
         divider.setStartX(0);
         divider.setEndX(0);
         divider.setStartY(20);
         divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getFadedPrimary());
 
         value.setTextWidth(150-35);
         label.setTextWidth(150-35);
 
         hbox.setAlignment(CENTER_LEFT);
-
-        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
-
 
         hbox.getChildren().addAll(label, divider, value);
 
@@ -86,5 +81,17 @@ public class HumidityTile extends Tile{
         value.setText(nf.format(humidity)+"°%");
 
         value.resizeText();
+
+        label.setFill(Settings.getFadedPrimary());
+        value.setFill(Settings.getPrimary());
+
+        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
+
+        divider.setStroke(Settings.getFadedPrimary());
+
+        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+
     }
 }
