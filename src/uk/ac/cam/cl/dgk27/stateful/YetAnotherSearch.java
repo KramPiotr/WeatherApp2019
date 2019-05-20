@@ -186,6 +186,8 @@ public class YetAnotherSearch extends State {
                         super.updateItem(item, empty);
                         if(!empty)
                             setText(item.toString());
+                        else
+                            setText(null);
                         super.updateItem(item, empty);
                         if(isFocused()){
                             setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getPrimary()) + ";"+
