@@ -15,7 +15,6 @@ import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import util.ImageColorer;
 
 import java.text.NumberFormat;
-import java.util.Set;
 
 
 public class HeaderTile extends Tile{
