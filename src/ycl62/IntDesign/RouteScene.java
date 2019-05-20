@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import settings.BackButton;
 import settings.Settings;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
@@ -39,12 +40,16 @@ public class RouteScene extends State {
         vBox.setBackground(new Background(new BackgroundFill(Color.YELLOWGREEN, null, null)));
         scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        
-        StackPane mainPanel = new StackPane(scrollPane, addButton);
+        VBox buttons = new VBox();
+        buttons.getChildren().addAll(addButton, new BackButton(this));
+        buttons.setAlignment(Pos.CENTER);
+        buttons.setSpacing(10);
+
+        BorderPane mainPanel = new BorderPane();
+        mainPanel.setTop(scrollPane);
+        mainPanel.setBottom(buttons);
         mainPanel.setCenterShape(true);
         mainPanel.setPadding(new Insets(10.0, 0, 30.0, 0));
-        StackPane.setAlignment(addButton, Pos.BOTTOM_CENTER);
-        //StackPane.setAlignment(scrollPane, Pos.TOP_CENTER);
         mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
         scene = new Scene(mainPanel);
     }
