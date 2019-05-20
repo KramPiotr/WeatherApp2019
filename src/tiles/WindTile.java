@@ -1,5 +1,6 @@
 package tiles;
 
+import javafx.scene.control.SplitPane;
 import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
@@ -16,6 +17,8 @@ public class WindTile extends Tile {
     double windSpeed;
     AutoSizeText value;
     NumberFormat nf;
+    HBox hbox;
+    Line divider;
     
 
     
@@ -42,13 +45,13 @@ public class WindTile extends Tile {
         }
         
         //Position label and value
-        HBox hbox = new HBox();
+        hbox = new HBox();
         hbox.setPadding(new Insets(10, 0, 10, 10));
         hbox.setSpacing(10);
         hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
 
         
-        Line divider = new Line();
+        divider = new Line();
         divider.setStartX(0);
         divider.setEndX(0);
         divider.setStartY(20);
@@ -86,6 +89,13 @@ public class WindTile extends Tile {
             value.setText(nf.format(windSpeed)+"MPH");
         }
         value.resizeText();
+        value.setFill(Settings.getPrimary());
+        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+        divider.setStroke(Settings.getFadedPrimary());
+        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
+        label.setFill(Settings.getFadedPrimary());
     }
 
 }
