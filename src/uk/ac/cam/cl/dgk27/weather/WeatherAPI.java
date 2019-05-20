@@ -100,6 +100,16 @@ public class WeatherAPI {
 
     /**
      * @param req
+     * @param city_id
+     * @return An array of weather objects. If request is for current time, returns array of size 1
+     * @throws IOException
+     */
+    public static Weather[] makeRequest(RequestType req, int city_id ) throws IOException {
+        return extractJSON("http://api.openweathermap.org/data/2.5/" + ((req == RequestType.Current) ? "weather" : "forecast") + "?id=" + city_id + "&units=" + (metric ? "metric" : "imperial") + "&APPID=" + api_key);
+    }
+
+    /**
+     * @param req
      * @param city_name
      * @param country_code provided in ISO 3166 country codes
      * @return An array of weather objects. If request is for current time, returns array of size 1

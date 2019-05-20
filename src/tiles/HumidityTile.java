@@ -1,3 +1,4 @@
+
 package tiles;
 
 import util.AutoSizeText;
@@ -80,7 +81,7 @@ public class HumidityTile extends Tile{
 
     @Override
     public void update(){
-       humidity = ((WeatherScene) parent).getHumidity();
+        humidity = ((WeatherScene) parent).getHumidity();
 
         value.setText(nf.format(humidity)+"°%");
 
