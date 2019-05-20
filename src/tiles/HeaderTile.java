@@ -94,7 +94,6 @@ public class HeaderTile extends Tile{
         cityPaddingLeft = new HBox();
         cityPaddingRight = new HBox();
         cityPaddingLeft.setMinWidth(140-cityLabel.getLayoutBounds().getWidth()/2);
-        System.out.println(140-cityLabel.getLayoutBounds().getWidth()/2);
         cityPaddingRight.setMinWidth(140-cityLabel.getLayoutBounds().getWidth()/2);
         HBox.setHgrow(cityPaddingLeft, Priority.ALWAYS);
         HBox.setHgrow(cityPaddingRight, Priority.ALWAYS);
