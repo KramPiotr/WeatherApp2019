@@ -26,7 +26,7 @@ public class RouteMultiTile extends GraphTile {
     void getData(){
         double temp;
         try{
-            temp = WeatherAPI.makeRequest(RequestType.Current, cityName)[0].getTemp();
+            temp = convertUnits(WeatherAPI.makeRequest(RequestType.Current, cityName)[0].getTemp());
         } catch(IOException e) {
             e.printStackTrace();
             System.out.println();
