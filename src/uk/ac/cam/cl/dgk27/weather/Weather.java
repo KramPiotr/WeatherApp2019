@@ -109,7 +109,6 @@ public class Weather {
         boolean dayTime = hours > 5 && hours < 18;
         String ret;
 
-        System.out.println(getWeather_main());
         switch (getWeather_main().toLowerCase()) {
             case "clear": ret = "01" + (dayTime ? "d" : "n"); break;
             case "clouds": ret = "02" + (dayTime ? "d" : "n"); break;
