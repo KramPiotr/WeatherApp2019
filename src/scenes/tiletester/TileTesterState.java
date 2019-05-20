@@ -1,12 +1,8 @@
 package scenes.tiletester;
 
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import settings.Settings;
 import skeletons.WeatherScene;
 import tiles.*;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
@@ -27,7 +23,6 @@ public class TileTesterState extends WeatherScene {
     HighLowTile highLowTile;
     HumidityTile humidityTile;
     PollenTile pollenTile;
-    HourlyHeaderTile hourlyHeaderTile;
 
     public TileTesterState(String name) throws IOException {
         super(name);
@@ -55,14 +50,13 @@ public class TileTesterState extends WeatherScene {
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
-        hourlyHeaderTile = new HourlyHeaderTile(this);
 
 
         horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
         horizontal1.getChildren().addAll(realFeelTile,windTile);
         horizontal2.getChildren().addAll(humidityTile,pollenTile);
 
-        mainPanel.getChildren().addAll(hourlyHeaderTile,horizontal,horizontal1,horizontal2);
+        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
 
 
 

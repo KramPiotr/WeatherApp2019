@@ -40,6 +40,7 @@ public class HeaderTile extends Tile{
     BorderPane pane;
     ImageView menuIconView;
 
+
     public HeaderTile(WeatherScene parent) {
         super(parent);
 
