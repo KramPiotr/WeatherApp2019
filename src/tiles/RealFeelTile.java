@@ -17,6 +17,8 @@ public class RealFeelTile extends Tile {
     double realTemperature;
     AutoSizeText value;
     NumberFormat nf;
+    HBox hbox;
+    Line divider;
 
     @Override
     public void update() {
@@ -28,6 +30,13 @@ public class RealFeelTile extends Tile {
             value.setText(nf.format(realTemperature*9.0/5.0+32.0)+"°F");
         }
         value.resizeText();
+        label.setFill(Settings.getFadedPrimary());
+        value.setFill(Settings.getPrimary());
+        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+        divider.setStroke(Settings.getFadedPrimary());
+        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
     }
 
     public RealFeelTile(State parent){
@@ -52,33 +61,24 @@ public class RealFeelTile extends Tile {
         }
 
         //Position label and value
-        HBox hbox = new HBox();
+        hbox = new HBox();
         hbox.setPadding(new Insets(10, 10, 10, 10));
         hbox.setSpacing(10);
         hbox.setPrefSize(300,125);
-        hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
 
 
-        Line divider = new Line();
+        divider = new Line();
         divider.setStartX(0);
         divider.setEndX(0);
         divider.setStartY(20);
         divider.setEndY(125);
         divider.setStrokeWidth(5);
-        divider.setStroke(Settings.getFadedPrimary());
-
         label.setTextWidth(150-25);
         value.setTextWidth(150-40);
 
         hbox.setAlignment(CENTER_LEFT);
-
-        //hbox.setBorder(new Border(new BorderStroke(Settings.getTertiary(),BorderStrokeStyle.SOLID,CornerRadii.EMPTY,BorderWidths.DEFAULT)));
-        hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
         hbox.getChildren().addAll(label,divider,value);
-
         hbox.setMinSize(this.getPrefWidth(),this.getPrefHeight());
 
 
