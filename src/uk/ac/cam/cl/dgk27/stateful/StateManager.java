@@ -80,6 +80,7 @@ public class StateManager extends Application {
         new MainScreen("Main");
         new RouteScene("Route");
         new YetAnotherSearch("Search", "Date");
+        new YetAnotherSearch("SearchToMain", "Main");
         new DateRangeScene("Date");
         new SettingsScene("Settings");
         

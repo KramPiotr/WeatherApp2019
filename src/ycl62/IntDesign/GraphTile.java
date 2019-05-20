@@ -19,6 +19,7 @@ import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -27,7 +28,8 @@ import java.util.Arrays;
  * Forecast graph tile. Shows the temperature highs and lows for 5-6 days starting today.
  */
 public class GraphTile extends Tile {
-    private final double[] fives = {}, sixes = {86.0, 175.0, 264.0, 353.0, 443.0, 532.0};
+    //private final double[] fives = {-14.0, 94.0, 202.0, 310.0, 417.0, 524.0, 632.0}, sixes = {-3.0, 86.0, 175.0, 264.0, 353.0, 443.0, 532.0, 621.0};
+    private final double[] fives = {40.0, 148.0, 256.0, 363.5, 470.5, 578.0}, sixes = {41.5, 130.5, 219.5, 308.5, 398.0, 487.5, 576.5};
     
     private double WIDTH = 588.0, HEIGHT = 200.0;
     private eu.hansolo.tilesfx.Tile chart;
@@ -65,7 +67,6 @@ public class GraphTile extends Tile {
         } catch(DateTimeParseException e) {
             offset = 0;
         }
-        offset = 0;
         //System.out.println(temps.length);
         //System.out.println(offset);
         
@@ -131,8 +132,21 @@ public class GraphTile extends Tile {
     
     private void registerForecastListener(){
         chart.setOnMouseClicked(e -> {
-            System.out.println(highs.getData().size());
-            System.out.println(e.getSceneX() + " || " + e.getSceneY());
+            double x = e.getSceneX();
+            double[] divs;
+            if(highs.getData().size() == 5){
+                divs = fives;
+            } else if(highs.getData().size() == 6){
+                divs = sixes;
+            } else {
+                return;
+            }
+            for(int i = 0; i < divs.length - 1; i++){
+                if(x >= divs[i] && x < divs[i + 1]){
+                    ((MainScreen) parent).switchToDate(LocalDate.now().plusDays(i));
+                    return;
+                }
+            }
         });
     }
 }

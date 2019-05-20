@@ -107,7 +107,7 @@ public class HeaderTile extends Tile{
         searchButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
         searchButton.setOnAction(e->{
-            StateManager.switchTo("Search");
+            StateManager.switchTo("SearchToMain");
         });
 
         topBar.getChildren().add(searchButton);

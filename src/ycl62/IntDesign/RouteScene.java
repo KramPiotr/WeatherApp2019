@@ -12,7 +12,6 @@ import settings.Settings;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
-import uk.ac.cam.cl.dgk27.stateful.YetAnotherSearch;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.Collections;
 public class RouteScene extends State {
     
     private ArrayList<RouteCityTile> cities;
-    private AddButtonTile addButton;
+    private ButtonsTile buttons;
     private VBox vBox;
     private ScrollPane scrollPane;
     
@@ -29,10 +28,9 @@ public class RouteScene extends State {
         super(name);
         cities = new ArrayList<>();
         
-        addButton = new AddButtonTile(this);
-        addButton.setAction(e -> {
-            StateManager.switchTo("Search");
-        });
+        buttons = new ButtonsTile(this);
+        buttons.setAddAction(e -> StateManager.switchTo("Search"));
+        buttons.setBackAction(e-> StateManager.switchTo("Main"));
         
         vBox = new VBox();
         vBox.getChildren().addAll(cities);
@@ -40,10 +38,10 @@ public class RouteScene extends State {
         scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         
-        StackPane mainPanel = new StackPane(scrollPane, addButton);
+        StackPane mainPanel = new StackPane(scrollPane, buttons);
         mainPanel.setCenterShape(true);
         mainPanel.setPadding(new Insets(10.0, 0, 30.0, 0));
-        StackPane.setAlignment(addButton, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(buttons, Pos.BOTTOM_CENTER);
         //StackPane.setAlignment(scrollPane, Pos.TOP_CENTER);
         mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
         scene = new Scene(mainPanel);
@@ -92,7 +90,7 @@ public class RouteScene extends State {
             }
         }
         
-        addButton.update();
+        buttons.update();
         cities.forEach(Tile::update);
     }
 }
