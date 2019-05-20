@@ -12,7 +12,11 @@ import settings.Settings;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
+import uk.ac.cam.cl.dgk27.stateful.YetAnotherSearch;
+import uk.ac.cam.cl.dgk27.weather.RequestType;
+import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +34,7 @@ public class RouteScene extends State {
         
         buttons = new ButtonsTile(this);
         buttons.setAddAction(e -> StateManager.switchTo("Search"));
-        buttons.setBackAction(e-> StateManager.switchTo("Main"));
+        buttons.setBackAction(e -> StateManager.switchTo("Main"));
         
         vBox = new VBox();
         vBox.getChildren().addAll(cities);
@@ -48,7 +52,14 @@ public class RouteScene extends State {
     }
     
     public void addCity(){//String cityName, LocalDate start, LocalDate end){
-        String cityName = "London"; //((YetAnotherSearch) StateManager.get("Search")).getSelected();
+        
+        String cityName;
+        try{
+            cityName = WeatherAPI.makeRequest(RequestType.Current, ((YetAnotherSearch) StateManager.get("Search")).getSelected())[0].getCity_name();
+        } catch(IOException e) {
+            cityName = "London";
+        }
+        
         LocalDate start = ((DateRangeScene) StateManager.get("Date")).getStart();
         LocalDate end = ((DateRangeScene) StateManager.get("Date")).getEnd();
         
