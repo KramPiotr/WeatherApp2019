@@ -1,5 +1,7 @@
 package tiles;
 
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,12 +36,14 @@ public class HeaderTile extends Tile{
     private HBox cityPaddingRight;
 
 
-    Button menuButton;
-    Button searchButton;
+    private Button menuButton;
+    private Button searchButton;
 
-    BorderPane pane;
-    ImageView menuIconView;
-    ImageView searchImage;
+    private BorderPane pane;
+    private ImageView menuIconView;
+    private ImageView searchImage;
+
+    private Button routeButton;
 
 
     public HeaderTile(WeatherScene parent) {
@@ -134,6 +138,7 @@ public class HeaderTile extends Tile{
         conditionView.setPreserveRatio(true);
         center.getChildren().add(conditionView);
 
+
         //Create temperature display
         nf = NumberFormat.getInstance();
         nf.setMinimumFractionDigits(1);
@@ -144,6 +149,16 @@ public class HeaderTile extends Tile{
         temperatureLabel.setSize(200,215-headerSize);
         center.getChildren().add(temperatureLabel);
         center.setAlignment(Pos.CENTER_LEFT);
+
+        //Create routing button
+
+        routeButton = new Button();
+        routeButton.setText("Route Selection");
+        routeButton.setPadding(new Insets(0, 0, 0, 0));
+        routeButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+
+        pane.setBottom(routeButton);
+
 
         pane.setCenter(center);
 
@@ -162,8 +177,8 @@ public class HeaderTile extends Tile{
         String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
         conditionImage = new Image(iconUrl);
         conditionView.setImage(conditionImage);
-        conditionView.setViewport(new Rectangle2D(conditionImage.getWidth()*0.2,conditionImage.getHeight()*0.2,
-                conditionImage.getWidth()*0.6,conditionImage.getHeight()*0.6));
+        conditionView.setViewport(new Rectangle2D(conditionImage.getWidth()*0.15,conditionImage.getHeight()*0.15,
+                conditionImage.getWidth()*0.8,conditionImage.getHeight()*0.8));
         conditionView.setPreserveRatio(true);
         conditionView.setFitWidth(200);
 
@@ -238,6 +253,15 @@ public class HeaderTile extends Tile{
         });
 
         searchButton.setGraphic(ImageColorer.recolor(searchImage,Settings.getSecondary()));
+
+        routeButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+        routeButton.setFont(Font.font(Settings.getFontString(), 50));
+
 
 
     }
