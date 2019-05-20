@@ -18,7 +18,7 @@ public class DateRangeScene extends State {
     private StackPane mainPanel;
     private DatePickerTile p1, p2;
     private Label warning;
-    private AddButtonTile addButton;
+    private ButtonsTile buttons;
     
     public DateRangeScene(String name){
         super(name);
@@ -44,23 +44,24 @@ public class DateRangeScene extends State {
         warning = new Label("");
         warning.setFont(Font.font(Settings.getFontString(), 35));
         
-        addButton = new AddButtonTile(this);
-        addButton.setAction(e -> {
+        buttons = new ButtonsTile(this);
+        buttons.setAddAction(e -> {
             if(!getStart().until(getEnd()).isNegative()){
                 ((RouteScene) StateManager.get("Route")).addCity();
                 StateManager.switchTo("Route");
             }
         });
+        buttons.setBackAction(e -> StateManager.switchTo("Search"));
         
         HBox hBox = new HBox();
         hBox.getChildren().addAll(p1, p2);
         
-        mainPanel = new StackPane(hBox, warning, addButton);
+        mainPanel = new StackPane(hBox, warning, buttons);
         mainPanel.setCenterShape(true);
         mainPanel.setPadding(new Insets(30.0, 0, 30.0, 0));
         StackPane.setAlignment(hBox, Pos.CENTER);
         StackPane.setAlignment(warning, Pos.TOP_CENTER);
-        StackPane.setAlignment(addButton, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(buttons, Pos.BOTTOM_CENTER);
         scene = new Scene(mainPanel);
     }
     
@@ -76,7 +77,7 @@ public class DateRangeScene extends State {
     public void update(){
         p1.update();
         p2.update();
-        addButton.update();
+        buttons.update();
         mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
     }
     

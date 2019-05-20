@@ -1,17 +1,12 @@
 package ycl62.IntDesign;
 
 import javafx.scene.chart.XYChart;
-import skeletons.WeatherScene;
-import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
-import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Random;

@@ -132,8 +132,6 @@ public class GraphTile extends Tile {
     
     private void registerForecastListener(){
         chart.setOnMouseClicked(e -> {
-            System.out.println(highs.getData().size());
-            System.out.println(e.getSceneX() + " || " + e.getSceneY());
             double x = e.getSceneX();
             double[] divs;
             if(highs.getData().size() == 5){
