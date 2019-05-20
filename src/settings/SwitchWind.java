@@ -11,11 +11,11 @@ public class SwitchWind extends SwitchTile{
         super(parent, "Wind speed", "km/h");
         tSwitch.setOnMouseClicked( e-> {
             if (tSwitch.isSelected()) {
-                Settings.setKilometers(true);
+                Settings.setKilometers(false);
                 value.update(secondarySwitchValue);
             }
             else{
-                Settings.setKilometers(false);
+                Settings.setKilometers(true);
                 value.update(defaultSwitchValue);
             }
         });

@@ -109,6 +109,8 @@ public class HighLowTile extends Tile{
             lowValue.setText(nf.format(low*9.0/5.0+32.0)+"°F");
             highValue.setText(nf.format(high*9.0/5.0+32.0)+"°F");
         }
+        lowValue.setFill(Settings.getPrimary());
+        highValue.setFill(Settings.getPrimary());
         lowValue.resizeText();
         highValue.resizeText();
 
