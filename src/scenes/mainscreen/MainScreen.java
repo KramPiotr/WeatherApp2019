@@ -21,7 +21,6 @@ import java.time.LocalDate;
 
 public class MainScreen extends WeatherScene {
     Weather weather;
-    
     WindTile windTile;
     HeaderTile headerTile;
     RealFeelTile realFeelTile;
@@ -65,9 +64,13 @@ public class MainScreen extends WeatherScene {
         horizontal2.getChildren().addAll(humidityTile, pollenTile);
         
         mainPanel.getChildren().addAll(headerTile, horizontal, horizontal1, horizontal2, graphTile);
-        
-        
-        scene = new Scene(mainPanel);
+
+        scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+        mainPanel.setOnKeyTyped(e->{
+            if(e.getCharacter().equals("r")){
+                StateManager.switchTo("Route");
+            }
+        });
     }
     
     @Override
