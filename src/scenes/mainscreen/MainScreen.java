@@ -58,15 +58,17 @@ public class MainScreen extends WeatherScene {
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
-        dailyTile = new GraphTile(this,weather.getCity_name());
-
-        horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
-        horizontal1.getChildren().addAll(realFeelTile,windTile);
-        horizontal2.getChildren().addAll(humidityTile,pollenTile);
-
-        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
-
-        scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+        dailyTile = new GraphTile(this, weather.getCity_name());
+        
+        
+        horizontal.getChildren().addAll(chanceOfRainTile, highLowTile);
+        horizontal1.getChildren().addAll(realFeelTile, windTile);
+        horizontal2.getChildren().addAll(humidityTile, pollenTile);
+        
+        mainPanel.getChildren().addAll(headerTile, horizontal, horizontal1, horizontal2, dailyTile);
+        
+        
+        scene = new Scene(mainPanel);
     }
 
     @Override
@@ -95,6 +97,7 @@ public class MainScreen extends WeatherScene {
         highLowTile.update();
         humidityTile.update();
         pollenTile.update();
+        dailyTile.update();
     }
 
     @Override
