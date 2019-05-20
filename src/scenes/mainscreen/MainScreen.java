@@ -148,7 +148,7 @@ public class MainScreen extends WeatherScene {
         return weather.getDatetime();
     }
 
-    protected void switchToDate(LocalDate date){
+    public void switchToDate(LocalDate date){
         this.daysInAdvance = Math.max(((int) DAYS.between(LocalDate.now(),date)),6);
     }
 
