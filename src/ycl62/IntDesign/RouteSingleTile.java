@@ -1,52 +1,62 @@
-/*package ycl62.IntDesign;
+package ycl62.IntDesign;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import settings.Settings;
 import tiles.Tile;
+import uk.ac.cam.cl.dgk27.weather.RequestType;
+import uk.ac.cam.cl.dgk27.weather.Weather;
+import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.AutoSizeText;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 
 public class RouteSingleTile extends Tile {
+    private double WIDTH = 600, HEIGHT = 150.0;
+    
+    private Weather weather;
+    
     private static int headerSize = 40;
     private double temperature;
-    private String iconCode = "00d";
-    private String city = "_placeholder_";
+    private String iconCode;
+    private String city;
     private AutoSizeText cityLabel;
-    private String date = "_pl_";
+    private String date;
     private AutoSizeText dateLabel;
     private AutoSizeText temperatureLabel;
     private Image conditionImage;
     private ImageView conditionView;
     private NumberFormat nf;
 
-    private HBox cityPaddingLeft;
     private HBox cityPaddingRight;
-
-
+    
     private BorderPane pane;
 
-
-    public RouteSingleTile(RouteScene parent) {
+    public RouteSingleTile(RouteScene parent, String cityName, String date) {
         super(parent);
+        city = cityName;
+        this.date = date;
+        try{
+            weather = WeatherAPI.makeRequest(RequestType.Current, cityName)[0];
+        } catch(IOException e) {
+            System.out.println("Location (" + cityName + ") not found in weather service.");
+            weather = new Weather(0.1, 0.1, "Cloudy", "chance of meatballs", -3.14, 101325, 95.25, -3.142, -3.14, 1E-6, 66.6, 2 * Math.PI, 42.0, "Cambridge", "2012 AD", 123.321);
+        }
 
         pane = new BorderPane();
-        this.setPrefSize(550, 200);
+        this.setPrefSize(WIDTH, HEIGHT);
 
-        pane.setPrefSize(550, 200);
+        pane.setPrefSize(WIDTH, HEIGHT);
 
         pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
 
-        pane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+        pane.setStyle("-fx-padding: 5;" + "-fx-border-style: solid inside;"
                 + "-fx-border-width: 5;" + "-fx-border-insets: -1;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
 
@@ -54,7 +64,7 @@ public class RouteSingleTile extends Tile {
 
         HBox topBar = new HBox();
         pane.setTop(topBar);
-
+        topBar.setPadding(new Insets(0,10,0,10));
         topBar.setSpacing(20);
 
 
@@ -62,13 +72,12 @@ public class RouteSingleTile extends Tile {
         //Add city label
         cityLabel = new AutoSizeText(city, Settings.getPrimary());
         cityLabel.setSize(300, headerSize);
-        cityLabel.setTextAlignment(TextAlignment.CENTER);
-        cityPaddingLeft = new HBox();
+        cityLabel.setTextAlignment(TextAlignment.LEFT);
         cityPaddingRight = new HBox();
-        cityPaddingLeft.setMinWidth(150 - cityLabel.getLayoutBounds().getWidth() / 2);
         cityPaddingRight.setMinWidth(150 - cityLabel.getLayoutBounds().getWidth() / 2);
+        HBox.setHgrow(cityPaddingRight, Priority.ALWAYS);
 
-        topBar.getChildren().addAll(cityPaddingLeft, cityLabel, cityPaddingRight);
+        topBar.getChildren().addAll(cityLabel, cityPaddingRight);
 
 
 
@@ -83,10 +92,10 @@ public class RouteSingleTile extends Tile {
 
         HBox center = new HBox();
         center.setSpacing(100);
-        center.setPadding(new Insets(0, 40, 40, 4));
+        center.setPadding(new Insets(5));
 
         //Create icon
-        iconCode = parent.getCondition();
+        iconCode = null;
         
         
         //String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
@@ -105,7 +114,7 @@ public class RouteSingleTile extends Tile {
 
 
         temperatureLabel = new AutoSizeText("Temp", Settings.getPrimary());
-        temperatureLabel.setSize(200, 185 - headerSize);
+        temperatureLabel.setSize(200, 100);
         center.getChildren().add(temperatureLabel);
         center.setAlignment(Pos.CENTER_LEFT);
 
@@ -119,18 +128,16 @@ public class RouteSingleTile extends Tile {
 
     @Override
     public void update() {
-        temperature = parent.getTemperature();
-        city = ( parent).getLocation();
-        date = ( parent).getDate();
+        temperature = weather.getTemp();
 
-        iconCode = ( parent).getCondition();
+        iconCode = weather.getIcon();
         String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
         conditionImage = new Image(iconUrl);
         conditionView.setImage(conditionImage);
         conditionView.setViewport(new Rectangle2D(conditionImage.getWidth() * 0.15, conditionImage.getHeight() * 0.15,
                 conditionImage.getWidth() * 0.8, conditionImage.getHeight() * 0.8));
         conditionView.setPreserveRatio(true);
-        conditionView.setFitWidth(200);
+        conditionView.setFitWidth(100);
 
 
         cityLabel.setText(city);
@@ -143,7 +150,6 @@ public class RouteSingleTile extends Tile {
             temperatureLabel.setText(nf.format(temperature * 9.0 / 5.0 + 32.0) + "°F");
         }
         cityLabel.resizeText();
-        cityPaddingLeft.setMinWidth(150 - cityLabel.getLayoutBounds().getWidth() / 2);
         cityPaddingRight.setMinWidth(150 - cityLabel.getLayoutBounds().getWidth() / 2);
 
         dateLabel.resizeText();
@@ -155,9 +161,9 @@ public class RouteSingleTile extends Tile {
         temperatureLabel.setFill(Settings.getPrimary());
         cityLabel.setFill(Settings.getPrimary());
         dateLabel.setFill(Settings.getPrimary());
-        pane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+        pane.setStyle("-fx-padding: 5;" + "-fx-border-style: solid inside;"
                 + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
 
     }
-}*/
+}

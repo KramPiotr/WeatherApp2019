@@ -1,6 +1,5 @@
 package ycl62.IntDesign;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.Background;

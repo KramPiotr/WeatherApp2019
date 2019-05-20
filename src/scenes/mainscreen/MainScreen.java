@@ -15,6 +15,8 @@ import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -158,13 +160,14 @@ public class MainScreen extends WeatherScene {
     @Override
     public String getDate() {
         if(weather.getDatetime().equals("")){
-            return LocalDate.now().getDayOfMonth() +"/"+String.format("%02d", (LocalDate.now().getMonthValue()));
+            return LocalDate.now().plusDays(daysInAdvance).format(DateTimeFormatter.ofPattern("d MMM"));
         }
-        return weather.getDatetime();
+        return LocalDateTime.parse(weather.getDatetime().replace(" ", "T")).plusDays(daysInAdvance).format(DateTimeFormatter.ofPattern("d MMM"));
     }
 
-    public void switchToDate(LocalDate date){
-        this.daysInAdvance = Math.max(((int) DAYS.between(LocalDate.now(),date)),6);
+    public void switchToDate(int daysInAdvance){
+        this.daysInAdvance = daysInAdvance;
+        update();
     }
 
 

@@ -12,6 +12,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import scenes.mainscreen.MainScreen;
 import settings.Settings;
+import skeletons.WeatherScene;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
@@ -19,7 +20,6 @@ import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -47,6 +47,7 @@ public class GraphTile extends Tile {
     }
     
     void getData(){
+        cityName = ((WeatherScene)parent).getLocation();
         double[] temps;
         String[] dates;
         try{
@@ -59,10 +60,7 @@ public class GraphTile extends Tile {
                 units = " (°F)";
             }
             dates = Arrays.stream(weather).map(Weather::getDatetime).toArray(String[]::new);
-            Arrays.stream(weather).forEach(w -> System.out.println(w.getDatetime() + ": " + w.getTemp() + " || " + w.getHumidity() + " || " + w.getTemp_max()));
         } catch(IOException e) {
-            e.printStackTrace();
-            System.out.println();
             System.out.println("Location (" + cityName + ") not found in weather service.");
             temps = new double[]{-273.15}; //Placeholder value
             dates = new String[]{"2012AD"}; //Placeholder value
@@ -108,7 +106,7 @@ public class GraphTile extends Tile {
                         new TilesFXSeries(lows, Settings.getPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getPrimary()), new Stop(0.6, Color.TRANSPARENT))),
                         new TilesFXSeries(highs, Settings.getFadedPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getFadedPrimary()), new Stop(0.7, Color.TRANSPARENT))))
                 .backgroundColor(Settings.getSecondary())
-                .foregroundBaseColor(Settings.getFadedPrimary())
+                .foregroundBaseColor(Settings.getPrimary())
                 .smoothing(true)
                 .dataPointsVisible(true)
                 .snapToTicks(true)
@@ -150,7 +148,7 @@ public class GraphTile extends Tile {
             }
             for(int i = 0; i < divs.length - 1; i++){
                 if(x >= divs[i] && x < divs[i + 1]){
-                    ((MainScreen) parent).switchToDate(LocalDate.now().plusDays(i));
+                    ((MainScreen) parent).switchToDate(i);
                     return;
                 }
             }

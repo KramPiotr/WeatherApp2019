@@ -65,7 +65,7 @@ public class HeaderTile extends Tile{
         HBox topBar = new HBox();
         pane.setTop(topBar);
 
-        topBar.setSpacing(20);
+        topBar.setSpacing(16);
 
         //Add menu button
         menuButton = new Button();
@@ -93,8 +93,10 @@ public class HeaderTile extends Tile{
         cityLabel.setTextAlignment(TextAlignment.CENTER);
         cityPaddingLeft = new HBox();
         cityPaddingRight = new HBox();
-        cityPaddingLeft.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
-        cityPaddingRight.setMinWidth(150-cityLabel.getLayoutBounds().getWidth()/2);
+        cityPaddingLeft.setMinWidth(140-cityLabel.getLayoutBounds().getWidth()/2);
+        cityPaddingRight.setMinWidth(140-cityLabel.getLayoutBounds().getWidth()/2);
+        HBox.setHgrow(cityPaddingLeft, Priority.ALWAYS);
+        HBox.setHgrow(cityPaddingRight, Priority.ALWAYS);
 
         topBar.getChildren().addAll(cityPaddingLeft,cityLabel,cityPaddingRight);
 
@@ -127,7 +129,7 @@ public class HeaderTile extends Tile{
 
         HBox center = new HBox();
         center.setSpacing(100);
-        center.setPadding(new Insets(0,40,40,4));
+        center.setPadding(new Insets(0,40,4,4));
 
         //Create icon
         iconCode = parent.getCondition();

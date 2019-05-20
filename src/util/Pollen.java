@@ -1,7 +1,5 @@
 package util;
 
-import javafx.scene.Node;
-
 public enum Pollen {
     NONE ("None"),
     LOW ("Low"),
