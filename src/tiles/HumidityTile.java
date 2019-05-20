@@ -40,7 +40,7 @@ public class HumidityTile extends Tile{
         //Set text in label and value
         label = new AutoSizeText("Humidity:", Settings.getFadedPrimary());
         humidity = parent.getHumidity();
-        value = new AutoSizeText(nf.format(humidity)+"°%",Settings.getPrimary());
+        value = new AutoSizeText(nf.format(humidity)+"%",Settings.getPrimary());
 
 
 
