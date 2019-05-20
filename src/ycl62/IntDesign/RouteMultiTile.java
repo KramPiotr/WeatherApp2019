@@ -1,7 +1,6 @@
 package ycl62.IntDesign;
 
 import javafx.scene.chart.XYChart;
-import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
@@ -14,7 +13,7 @@ import java.util.Random;
 public class RouteMultiTile extends GraphTile {
     private LocalDate start, end;
     
-    public RouteMultiTile(State parent, String cityName, LocalDate start, LocalDate end){
+    public RouteMultiTile(RouteScene parent, String cityName, LocalDate start, LocalDate end){
         super(parent, cityName);
         useWidth(586);
         this.start = start;
@@ -28,8 +27,6 @@ public class RouteMultiTile extends GraphTile {
         try{
             temp = convertUnits(WeatherAPI.makeRequest(RequestType.Current, cityName)[0].getTemp());
         } catch(IOException e) {
-            e.printStackTrace();
-            System.out.println();
             System.out.println("Location (" + cityName + ") not found in weather service.");
             temp = 25.0; //Placeholder value
         }

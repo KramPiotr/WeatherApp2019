@@ -3,9 +3,9 @@ package ycl62.IntDesign;
 import tiles.Tile;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class RouteCityTile extends Tile implements Comparable<RouteCityTile> {
-    private final double WIDTH = 600.0, HEIGHT = 200.0;
     private Tile tile;
     private String cityName;
     private LocalDate start, end;
@@ -16,9 +16,8 @@ public class RouteCityTile extends Tile implements Comparable<RouteCityTile> {
         this.start = start;
         this.end = end;
         if(start.equals(end)){
-            //tile = new RouteSingleTile(parent);
+            tile = new RouteSingleTile(parent, cityName, start.format(DateTimeFormatter.ofPattern("d MMM")));
         } else {
-            System.out.println("graph");
             tile = new RouteMultiTile(parent, cityName, start, end);
         }
         this.getChildren().add(tile);

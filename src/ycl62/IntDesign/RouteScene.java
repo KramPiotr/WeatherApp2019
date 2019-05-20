@@ -27,6 +27,7 @@ public class RouteScene extends State {
     private ButtonsTile buttons;
     private VBox vBox;
     private ScrollPane scrollPane;
+    private StackPane mainPanel;
     
     public RouteScene(String name){
         super(name);
@@ -42,17 +43,15 @@ public class RouteScene extends State {
         scrollPane = new ScrollPane(vBox);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         
-        StackPane mainPanel = new StackPane(scrollPane, buttons);
+        mainPanel = new StackPane(scrollPane, buttons);
         mainPanel.setCenterShape(true);
         mainPanel.setPadding(new Insets(10.0, 0, 30.0, 0));
         StackPane.setAlignment(buttons, Pos.BOTTOM_CENTER);
         //StackPane.setAlignment(scrollPane, Pos.TOP_CENTER);
-        mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
         scene = new Scene(mainPanel);
     }
     
-    public void addCity(){//String cityName, LocalDate start, LocalDate end){
-        
+    public void addCity(){
         String cityName;
         try{
             cityName = WeatherAPI.makeRequest(RequestType.Current, ((YetAnotherSearch) StateManager.get("Search")).getSelected())[0].getCity_name();
@@ -68,7 +67,7 @@ public class RouteScene extends State {
         vBox.getChildren().clear();
         vBox.getChildren().addAll(cities);
         update();
-        System.out.println(vBox.getChildren().size());
+        //System.out.println(vBox.getChildren().size());
     }
     
     @Override
@@ -86,7 +85,7 @@ public class RouteScene extends State {
     @Override
     public void update(){
         for(Node node : scrollPane.getChildrenUnmodifiable()){
-            System.out.println(node);
+            //System.out.println(node);
             if(node instanceof ScrollBar){
                 ScrollBar scrollBar = (ScrollBar) node;
                 scrollBar.getChildrenUnmodifiable().forEach(c -> {
@@ -103,5 +102,6 @@ public class RouteScene extends State {
         
         buttons.update();
         cities.forEach(Tile::update);
+        mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
     }
 }
