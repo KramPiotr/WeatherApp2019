@@ -43,7 +43,7 @@ public class ChanceOfRainTile extends Tile {
         hbox.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
         divider.setStroke(Settings.getFadedPrimary());
         hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: -1;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
     }
 
