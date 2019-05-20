@@ -67,6 +67,12 @@ public class MainScreen extends WeatherScene {
         mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
 
         scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+
+        mainPanel.setOnKeyTyped(e->{
+            if(e.getCharacter().equals("r")){
+                StateManager.switchTo("Route");
+            }
+        });
     }
 
     @Override
@@ -95,6 +101,7 @@ public class MainScreen extends WeatherScene {
         highLowTile.update();
         humidityTile.update();
         pollenTile.update();
+        dailyTile.update();
     }
 
     @Override

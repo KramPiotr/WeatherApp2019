@@ -33,6 +33,7 @@ public class GraphTile extends Tile {
     
     private double WIDTH = 588.0, HEIGHT = 200.0;
     private eu.hansolo.tilesfx.Tile chart;
+    private String units;
     
     String cityName;
     Series<Node, Double> lows;
@@ -50,7 +51,13 @@ public class GraphTile extends Tile {
         String[] dates;
         try{
             Weather[] weather = WeatherAPI.makeRequest(RequestType.FiveDay, cityName);
-            temps = Arrays.stream(weather).mapToDouble(Weather::getTemp).toArray();
+            if(Settings.isCelsius()){
+                temps = Arrays.stream(weather).mapToDouble(Weather::getTemp).toArray();
+                units = " (°C)";
+            } else {
+                temps = Arrays.stream(weather).mapToDouble(w -> w.getTemp() * 9.0 / 5.0 + 32.0).toArray();
+                units = " (°F)";
+            }
             dates = Arrays.stream(weather).map(Weather::getDatetime).toArray(String[]::new);
             Arrays.stream(weather).forEach(w -> System.out.println(w.getDatetime() + ": " + w.getTemp() + " || " + w.getHumidity() + " || " + w.getTemp_max()));
         } catch(IOException e) {
@@ -81,8 +88,8 @@ public class GraphTile extends Tile {
             }
             
             LocalDateTime d = LocalDateTime.parse(dates[i].replace(" ", "T"));
-            lows.getData().add(new Data(d.getDayOfWeek().name().substring(0, 3), low));
-            highs.getData().add(new Data(d.getDayOfWeek().name().substring(0, 3), high));
+            lows.getData().add(new Data(d.getDayOfWeek().name().substring(0, 3), Math.round(low * 10) / 10.0));
+            highs.getData().add(new Data(d.getDayOfWeek().name().substring(0, 3), Math.round(high * 10) / 10.0));
             //System.out.println(i + ": " + low + " -- " + high + " || " + d.getDayOfWeek().name().substring(0, 3));
         }
     }
@@ -96,7 +103,7 @@ public class GraphTile extends Tile {
                 .chartType(ChartType.AREA)
                 .skinType(SkinType.SMOOTHED_CHART)
                 .prefSize(WIDTH, HEIGHT)
-                .title(title)
+                .title(title + units)
                 .tilesFxSeries(
                         new TilesFXSeries(lows, Settings.getPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getPrimary()), new Stop(0.6, Color.TRANSPARENT))),
                         new TilesFXSeries(highs, Settings.getFadedPrimary(), new LinearGradient(0.0, 0.0, 0.0, 1.0, true, CycleMethod.NO_CYCLE, new Stop(0.0, Settings.getFadedPrimary()), new Stop(0.7, Color.TRANSPARENT))))

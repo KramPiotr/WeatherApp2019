@@ -109,12 +109,11 @@ public class Weather {
         boolean dayTime = hours > 5 && hours < 18;
         String ret;
 
-        switch (getWeather_main()) {
-            case "clear sky": ret = "01" + (dayTime ? "d" : "n"); break;
-            case "few clouds": ret = "02" + (dayTime ? "d" : "n"); break;
-            case "scattered clouds": ret = "03" + (dayTime ? "d" : "n"); break;
-            case "broken clouds": ret = "04" + (dayTime ? "d" : "n"); break;
-            case "shower rain": ret = "09" + (dayTime ? "d" : "n"); break;
+        System.out.println(getWeather_main());
+        switch (getWeather_main().toLowerCase()) {
+            case "clear": ret = "01" + (dayTime ? "d" : "n"); break;
+            case "clouds": ret = "02" + (dayTime ? "d" : "n"); break;
+            case "drizzle": ret = "09" + (dayTime ? "d" : "n"); break;
             case "rain": ret = "10" + (dayTime ? "d" : "n"); break;
             case "thunderstorm": ret = "11" + (dayTime ? "d" : "n"); break;
             case "snow": ret = "13" + (dayTime ? "d" : "n"); break;
