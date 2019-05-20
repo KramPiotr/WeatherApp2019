@@ -4,7 +4,6 @@ import scenes.mainscreen.MainScreen;
 import tiles.RealFeelTile;
 import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
-import uk.ac.cam.cl.dgk27.stateful.YetAnotherWeatherScene;
 
 import java.io.IOException;
 

@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import skeletons.WeatherScene;
 import tiles.*;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
+import uk.ac.cam.cl.dgk27.stateful.YetAnotherSearch;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
@@ -70,7 +71,14 @@ public class MainScreen extends WeatherScene {
 
     @Override
     protected void enable() {
+        int temp_id = ((YetAnotherSearch) StateManager.get("SearchToMain")).getSelected();
+        if (temp_id != -1) { // ie a search has been called
+            try {
+                weather = WeatherAPI.makeRequest(RequestType.Current, temp_id)[0];
+            } catch(IOException e) {
 
+            }
+        }
     }
 
     @Override
