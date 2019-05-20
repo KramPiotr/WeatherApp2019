@@ -90,6 +90,7 @@ public class HighLowTile extends Tile{
 
         hbox.setMinSize(this.getPrefWidth(), this.getPrefHeight());
         hbox.setPrefSize(300,125);
+        hbox.setMaxWidth(300);
 
 
         this.getChildren().addAll(hbox);

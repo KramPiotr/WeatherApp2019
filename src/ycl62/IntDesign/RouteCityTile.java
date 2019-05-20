@@ -16,7 +16,7 @@ public class RouteCityTile extends Tile implements Comparable<RouteCityTile> {
         this.start = start;
         this.end = end;
         if(start.equals(end)){
-            tile = new RouteSingleTile(parent);
+            //tile = new RouteSingleTile(parent);
         } else {
             System.out.println("graph");
             tile = new RouteMultiTile(parent, cityName, start, end);

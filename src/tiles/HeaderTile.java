@@ -1,5 +1,6 @@
 package tiles;
 
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import util.AutoSizeText;
@@ -43,15 +44,15 @@ public class HeaderTile extends Tile{
     private ImageView menuIconView;
     private ImageView searchImage;
 
-    private Button routeButton;
 
 
     public HeaderTile(WeatherScene parent) {
         super(parent);
 
         pane = new BorderPane();
-        this.setPrefSize(600,250);
-        pane.setPrefSize(600,250);
+        this.setPrefSize(600,225);
+        
+        pane.setPrefSize(600,225);
 
         pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
@@ -126,7 +127,7 @@ public class HeaderTile extends Tile{
 
         HBox center = new HBox();
         center.setSpacing(100);
-        center.setPadding(new Insets(0,40,40,04));
+        center.setPadding(new Insets(0,40,40,4));
 
         //Create icon
         iconCode = parent.getCondition();
@@ -146,18 +147,9 @@ public class HeaderTile extends Tile{
 
 
         temperatureLabel = new AutoSizeText("Temp",Settings.getPrimary());
-        temperatureLabel.setSize(200,215-headerSize);
+        temperatureLabel.setSize(200,185-headerSize);
         center.getChildren().add(temperatureLabel);
         center.setAlignment(Pos.CENTER_LEFT);
-
-        //Create routing button
-
-        routeButton = new Button();
-        routeButton.setText("Route Selection");
-        routeButton.setPadding(new Insets(0, 0, 0, 0));
-        routeButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
-
-        pane.setBottom(routeButton);
 
 
         pane.setCenter(center);
@@ -253,16 +245,6 @@ public class HeaderTile extends Tile{
         });
 
         searchButton.setGraphic(ImageColorer.recolor(searchImage,Settings.getSecondary()));
-
-        routeButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
-                "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                "-fx-padding: 0;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
-                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
-
-        routeButton.setFont(Font.font(Settings.getFontString(), 50));
-
-
 
     }
 }
