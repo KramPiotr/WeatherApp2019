@@ -1,12 +1,8 @@
 package scenes.mainscreen;
 
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import settings.Settings;
 import skeletons.WeatherScene;
 import tiles.*;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
@@ -14,9 +10,12 @@ import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.Pollen;
+import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class MainScreen extends WeatherScene {
     Weather weather;
@@ -28,6 +27,9 @@ public class MainScreen extends WeatherScene {
     HighLowTile highLowTile;
     HumidityTile humidityTile;
     PollenTile pollenTile;
+    GraphTile dailyTile;
+
+    int daysInAdvance=0;
 
     public MainScreen(String name) throws IOException {
         super(name);
@@ -55,15 +57,13 @@ public class MainScreen extends WeatherScene {
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
-
+        dailyTile = new GraphTile(this,weather.getCity_name());
 
         horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
         horizontal1.getChildren().addAll(realFeelTile,windTile);
         horizontal2.getChildren().addAll(humidityTile,pollenTile);
 
         mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
-
-
 
         scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
     }
@@ -91,12 +91,12 @@ public class MainScreen extends WeatherScene {
 
     @Override
     public double getTemperature() {
-        return weather.getTemp();
+        return weather.getTemp()+(0.5-Math.random())*2*daysInAdvance;
     }
 
     @Override
     public double getWindSpeed() {
-        return weather.getWind_speed();
+        return Math.max(0,weather.getWind_speed()+(0.5-Math.random())*4*daysInAdvance);
     }
 
     @Override
@@ -106,17 +106,17 @@ public class MainScreen extends WeatherScene {
 
     @Override
     public double getChanceOfRain() {
-        return 30;
+        return Math.max(Math.min(100,weather.getClouds()+(0.5-Math.random())*daysInAdvance),0);
     }
 
     @Override
     public double getLow() {
-        return weather.getTemp_min();
+        return weather.getTemp_min()+(0.5-Math.random())*daysInAdvance;
     }
 
     @Override
     public double getHigh() {
-        return weather.getTemp_max();
+        return weather.getTemp_max()+(0.5-Math.random())*daysInAdvance;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class MainScreen extends WeatherScene {
 
     @Override
     public double getHumidity() {
-        return weather.getHumidity();
+        return weather.getHumidity()+(0.5-Math.random())*10*daysInAdvance;
     }
 
 
@@ -143,13 +143,13 @@ public class MainScreen extends WeatherScene {
     @Override
     public String getDate() {
         if(weather.getDatetime().equals("")){
-            return "00/00";
+            return LocalDate.now().getDayOfMonth() +"/"+String.format("%02d", (LocalDate.now().getMonthValue()));
         }
         return weather.getDatetime();
     }
-    
+
     protected void switchToDate(LocalDate date){
-    
+        this.daysInAdvance = Math.max(((int) DAYS.between(LocalDate.now(),date)),6);
     }
 
 
