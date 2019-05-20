@@ -37,10 +37,14 @@ public class HeaderTile extends Tile{
     Button menuButton;
     Button searchButton;
 
+    BorderPane pane;
+    ImageView menuIconView;
+
+
     public HeaderTile(WeatherScene parent) {
         super(parent);
 
-        BorderPane pane = new BorderPane();
+        pane = new BorderPane();
         this.setPrefSize(600,250);
         pane.setPrefSize(600,250);
 
@@ -61,7 +65,7 @@ public class HeaderTile extends Tile{
         menuButton = new Button();
 
         Image menuIcon = new Image("/icons/hamburger.png");
-        ImageView menuIconView = new ImageView(menuIcon);
+        menuIconView = new ImageView(menuIcon);
 
         menuIconView.setPreserveRatio(true);
         menuIconView.setFitHeight(headerSize);
@@ -101,7 +105,7 @@ public class HeaderTile extends Tile{
         searchButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
         searchButton.setOnAction(e->{
-            StateManager.switchTo("Search");
+            StateManager.switchTo("SearchToMain");
         });
 
         topBar.getChildren().add(searchButton);
@@ -178,6 +182,17 @@ public class HeaderTile extends Tile{
 
         dateLabel.resizeText();
         temperatureLabel.resizeText();
+
+        //Set colors:
+        menuButton.setGraphic(ImageColorer.recolor(menuIconView, Settings.getPrimary()));
+        pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+        temperatureLabel.setFill(Settings.getPrimary());
+        cityLabel.setFill(Settings.getPrimary());
+        dateLabel.setFill(Settings.getPrimary());
+        pane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
 
     }
 }

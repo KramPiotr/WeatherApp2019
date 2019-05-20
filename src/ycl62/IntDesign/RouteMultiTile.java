@@ -21,7 +21,7 @@ public class RouteMultiTile extends GraphTile {
     
     public RouteMultiTile(State parent, String cityName, LocalDate start, LocalDate end){
         super(parent, cityName);
-        setWidth(575);
+        useWidth(586);
         this.start = start;
         this.end = end;
         title = cityName + ", " + start.format(DateTimeFormatter.ofPattern("dd LLL")) + " - " + end.format(DateTimeFormatter.ofPattern("dd LLL"));

@@ -16,6 +16,7 @@ import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.Pollen;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class MainScreen extends WeatherScene {
     Weather weather;
@@ -145,6 +146,10 @@ public class MainScreen extends WeatherScene {
             return "00/00";
         }
         return weather.getDatetime();
+    }
+    
+    protected void switchToDate(LocalDate date){
+    
     }
 
 
