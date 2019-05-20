@@ -67,7 +67,7 @@ public class WindTile extends Tile {
         hbox.setAlignment(CENTER_LEFT);
 
         hbox.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
-                + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
+                + "-fx-border-width: 5;" + "-fx-border-insets: -1;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
         hbox.getChildren().addAll(label, divider, value);
         

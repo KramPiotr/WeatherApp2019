@@ -101,6 +101,7 @@ public class MainScreen extends WeatherScene {
         highLowTile.update();
         humidityTile.update();
         pollenTile.update();
+        dailyTile.update();
     }
 
     @Override
