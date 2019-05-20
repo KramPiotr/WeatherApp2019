@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import settings.Settings;
 import util.JaroWinklerDistance;
@@ -79,7 +78,7 @@ public class YetAnotherSearch extends State {
                 Double jwd = JaroWinklerDistance.apply(s, l.name);
             })
             .filter(l -> l.jwd > 0.75)
-            .sorted((a, b) -> (int)-Math.signum(a.jwd - b.jwd))
+            .sorted((a, b) -> (int)-Math.signum(a.jwd - b.jwd)).unordered()
             .limit(100)
             .map(l -> {
                 Location temp = cities.get(l.id);
@@ -127,6 +126,7 @@ public class YetAnotherSearch extends State {
                       items.clear();
                       if (newValue.compareTo("") != 0)
                           items.addAll(searchCities(newValue));
+                      citiesList.getSelectionModel().clearSelection();
                   }
             });
 
@@ -151,6 +151,9 @@ public class YetAnotherSearch extends State {
 
     @Override
     protected void disable() {
+        searchBar.clear();
+        citiesList.getItems().clear();
+        citiesList.getSelectionModel().clearSelection();
     }
 
     @Override
@@ -189,14 +192,14 @@ public class YetAnotherSearch extends State {
                                     "-fx-background-color: " + Settings.colorString(Settings.getPrimary()) + ";"+
                                     "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
                                     "-fx-border-style: solid inside;"
-                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
                                     + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
                         }
                         else {
                             setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";" +
                                     "-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";" +
                                     "-fx-border-style: solid inside;"
-                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;"
+                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
                                     + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
                         }
                     }
