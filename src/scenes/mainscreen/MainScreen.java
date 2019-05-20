@@ -14,13 +14,14 @@ import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.Pollen;
+import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
 public class MainScreen extends WeatherScene {
     Weather weather;
-
+    
     WindTile windTile;
     HeaderTile headerTile;
     RealFeelTile realFeelTile;
@@ -28,16 +29,17 @@ public class MainScreen extends WeatherScene {
     HighLowTile highLowTile;
     HumidityTile humidityTile;
     PollenTile pollenTile;
-
-    public MainScreen(String name) throws IOException {
+    GraphTile graphTile;
+    
+    public MainScreen(String name) throws IOException{
         super(name);
     }
-
+    
     @Override
-    protected void initialise() {
-        try {
-            weather = WeatherAPI.makeRequest(RequestType.Current,"London","GBR")[0];
-        } catch (IOException e) {
+    protected void initialise(){
+        try{
+            weather = WeatherAPI.makeRequest(RequestType.Current, "London", "GBR")[0];
+        } catch(IOException e) {
             e.printStackTrace();
         }
         VBox mainPanel = new VBox();
@@ -55,31 +57,31 @@ public class MainScreen extends WeatherScene {
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
-
-
-        horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
-        horizontal1.getChildren().addAll(realFeelTile,windTile);
-        horizontal2.getChildren().addAll(humidityTile,pollenTile);
-
-        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
-
-
-
-        scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+        graphTile = new GraphTile(this, weather.getCity_name());
+        
+        
+        horizontal.getChildren().addAll(chanceOfRainTile, highLowTile);
+        horizontal1.getChildren().addAll(realFeelTile, windTile);
+        horizontal2.getChildren().addAll(humidityTile, pollenTile);
+        
+        mainPanel.getChildren().addAll(headerTile, horizontal, horizontal1, horizontal2, graphTile);
+        
+        
+        scene = new Scene(mainPanel);
     }
-
+    
     @Override
-    protected void enable() {
-
+    protected void enable(){
+    
     }
-
+    
     @Override
-    protected void disable() {
-
+    protected void disable(){
+    
     }
-
+    
     @Override
-    public void update() {
+    public void update(){
         windTile.update();
         headerTile.update();
         realFeelTile.update();
@@ -87,70 +89,71 @@ public class MainScreen extends WeatherScene {
         highLowTile.update();
         humidityTile.update();
         pollenTile.update();
+        graphTile.update();
     }
-
+    
     @Override
-    public double getTemperature() {
+    public double getTemperature(){
         return weather.getTemp();
     }
-
+    
     @Override
-    public double getWindSpeed() {
+    public double getWindSpeed(){
         return weather.getWind_speed();
     }
-
+    
     @Override
-    public Pollen getPollen() {
+    public Pollen getPollen(){
         return Pollen.getRandomPollen();
     }
-
+    
     @Override
-    public double getChanceOfRain() {
+    public double getChanceOfRain(){
         return 30;
     }
-
+    
     @Override
-    public double getLow() {
+    public double getLow(){
         return weather.getTemp_min();
     }
-
+    
     @Override
-    public double getHigh() {
+    public double getHigh(){
         return weather.getTemp_max();
     }
-
+    
     @Override
-    public String getCondition() {
+    public String getCondition(){
         return weather.getIcon();
     }
-
+    
     @Override
-    public double getHumidity() {
+    public double getHumidity(){
         return weather.getHumidity();
     }
-
-
+    
+    
     @Override
-    public double getRealTemperature() {
-        return weather.getTemp()-Math.random()*(weather.getTemp()-weather.getTemp_min());
+    public double getRealTemperature(){
+        return weather.getTemp() - Math.random() * (weather.getTemp() - weather.getTemp_min());
     }
-
+    
     @Override
-    public String getLocation() {
+    public String getLocation(){
         return weather.getCity_name();
     }
-
+    
     @Override
-    public String getDate() {
+    public String getDate(){
         if(weather.getDatetime().equals("")){
             return "00/00";
         }
         return weather.getDatetime();
     }
     
-    protected void switchToDate(LocalDate date){
-    
+    public void switchToDate(LocalDate date){
+        System.out.println("I: " + date);
     }
-
-
+    
+    
 }
