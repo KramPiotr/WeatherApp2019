@@ -47,7 +47,7 @@ public class DateRangeScene extends State {
         buttons = new ButtonsTile(this);
         buttons.setAddAction(e -> {
             if(!getStart().until(getEnd()).isNegative()){
-                //((RouteScene) StateManager.get("Route")).addCity();
+                ((RouteScene) StateManager.get("Route")).addCity();
                 StateManager.switchTo("Route");
             }
         });

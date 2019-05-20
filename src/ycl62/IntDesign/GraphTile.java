@@ -52,13 +52,7 @@ public class GraphTile extends Tile {
         String[] dates;
         try{
             Weather[] weather = WeatherAPI.makeRequest(RequestType.FiveDay, cityName);
-            if(Settings.isCelsius()){
-                temps = Arrays.stream(weather).mapToDouble(Weather::getTemp).toArray();
-                units = " (°C)";
-            } else {
-                temps = Arrays.stream(weather).mapToDouble(w -> w.getTemp() * 9.0 / 5.0 + 32.0).toArray();
-                units = " (°F)";
-            }
+            temps = Arrays.stream(weather).mapToDouble(w -> convertUnits(w.getTemp())).toArray();
             dates = Arrays.stream(weather).map(Weather::getDatetime).toArray(String[]::new);
         } catch(IOException e) {
             System.out.println("Location (" + cityName + ") not found in weather service.");
@@ -153,5 +147,15 @@ public class GraphTile extends Tile {
                 }
             }
         });
+    }
+    
+    double convertUnits(double d){
+        if(Settings.isCelsius()){
+            units = " (°C)";
+            return d;
+        } else {
+            units = " (°F)";
+            return d * 9.0 / 5.0 + 32.0;
+        }
     }
 }
