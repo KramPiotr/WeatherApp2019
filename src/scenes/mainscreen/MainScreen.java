@@ -64,7 +64,7 @@ public class MainScreen extends WeatherScene {
         horizontal1.getChildren().addAll(realFeelTile,windTile);
         horizontal2.getChildren().addAll(humidityTile,pollenTile);
 
-        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
+        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2,dailyTile);
 
         scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
 
