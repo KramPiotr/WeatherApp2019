@@ -2,10 +2,8 @@ package uk.ac.cam.cl.dgk27.stateful;
 
 import javafx.scene.Scene;
 
-import java.io.IOException;
-
 public abstract class State {
-    String name;
+    public final String name;
     protected Scene scene;
     boolean enabled = false;
 

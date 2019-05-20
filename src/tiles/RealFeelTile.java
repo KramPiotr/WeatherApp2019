@@ -1,5 +1,6 @@
 package tiles;
 
+import uk.ac.cam.cl.dgk27.stateful.State;
 import util.AutoSizeText;
 import settings.Settings;
 import javafx.geometry.Insets;
@@ -29,7 +30,7 @@ public class RealFeelTile extends Tile {
         value.resizeText();
     }
 
-    public RealFeelTile(WeatherScene parent){
+    public RealFeelTile(State parent){
         super(parent);
 
         //Create number format for temperature

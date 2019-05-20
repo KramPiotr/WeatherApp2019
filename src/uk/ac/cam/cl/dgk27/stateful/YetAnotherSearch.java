@@ -137,6 +137,7 @@ public class YetAnotherSearch extends State {
                     if (item != null) {
                         selectedCityID = ((CityIDPair)item).id;
                         // TODO: implement going to routing (getSelected)
+                        StateManager.switchTo("Date");
                         System.out.println("clicked on " + item);
                     }
                 }

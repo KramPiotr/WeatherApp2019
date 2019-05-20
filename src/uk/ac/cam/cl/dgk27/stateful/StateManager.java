@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import scenes.mainscreen.MainScreen;
 import settings.SettingsScene;
 import skeletons.WeatherScene;
+import ycl62.IntDesign.DateRangeScene;
 import ycl62.IntDesign.RouteScene;
 
 import java.io.IOException;
@@ -54,6 +55,10 @@ public class StateManager extends Application {
         }
     }
     
+    public static State get(String name){
+        return states.get(name);
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception{
         primary = primaryStage;
@@ -63,7 +68,7 @@ public class StateManager extends Application {
         primaryStage.setWidth(WIDTH);
         //primaryStage.getIcons().add(new Image("file:foo.ico"));
         
-        switchTo("Search");
+        switchTo("Main");
     }
     
     public static void main(String[] args) throws IOException{
@@ -72,11 +77,12 @@ public class StateManager extends Application {
         JFXPanel fxPanel = new JFXPanel();
         
         // TODO: Add states here
-        new YetAnotherSearch("Search");
-        new YetAnotherWeatherScene("Weather");
+//        new YetAnotherWeatherScene("Weather"); // extends State.java
         new MainScreen("Main");
         new RouteScene("Route");
-        new SettingsScene("Settings"); // extends State.java
+        new YetAnotherSearch("Search");
+        new DateRangeScene("Date");
+        new SettingsScene("Settings");
         
         launch(args);
     }

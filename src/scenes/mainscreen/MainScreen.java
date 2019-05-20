@@ -15,7 +15,6 @@ import tiles.HeaderTile;
 import tiles.RealFeelTile;
 import tiles.Tile;
 import tiles.WindTile;
-import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
@@ -123,7 +122,7 @@ public class MainScreen extends WeatherScene {
         mainPanel.setCenterShape(true);
         mainPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+        scene = new Scene(mainPanel);
     }
 
     @Override

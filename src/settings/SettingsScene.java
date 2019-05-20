@@ -12,9 +12,6 @@ import uk.ac.cam.cl.dgk27.stateful.State;
 
 import java.util.List;
 
-import static uk.ac.cam.cl.dgk27.stateful.StateManager.HEIGHT;
-import static uk.ac.cam.cl.dgk27.stateful.StateManager.WIDTH;
-
 public class SettingsScene extends State {
     List<Tile> tiles;
 
@@ -33,7 +30,7 @@ public class SettingsScene extends State {
         VBox vBox = new VBox();
         initialiseTiles();
         vBox.getChildren().addAll(tiles);
-        scene = new Scene(vBox, WIDTH, HEIGHT);
+        scene = new Scene(vBox);
     }
 
     @Override
