@@ -1,23 +1,26 @@
 package tiles;
 
-import util.AutoSizeText;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import settings.Settings;
 import skeletons.WeatherScene;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
+import util.AutoSizeText;
 import util.ImageColorer;
 
 import java.text.NumberFormat;
 
-
-public class HeaderTile extends Tile{
+public class HourlyHeaderTile extends Tile {
     private static int headerSize = 40;
     private double temperature;
     private String iconCode = "00d";
@@ -32,15 +35,14 @@ public class HeaderTile extends Tile{
 
     private HBox cityPaddingLeft;
     private HBox cityPaddingRight;
+    private BorderPane pane;
 
 
     Button menuButton;
-    Button searchButton;
-
-    BorderPane pane;
+    Button backButton;
     ImageView menuIconView;
 
-    public HeaderTile(WeatherScene parent) {
+    public HourlyHeaderTile(WeatherScene parent) {
         super(parent);
 
         pane = new BorderPane();
@@ -91,23 +93,20 @@ public class HeaderTile extends Tile{
 
         topBar.getChildren().addAll(cityPaddingLeft,cityLabel,cityPaddingRight);
 
-        //Add search button
-        searchButton = new Button();
+        //Add back button
+        backButton = new Button();
 
-        ImageView searchImage = new ImageView(new Image("/icons/location.png"));
-        searchImage.setPreserveRatio(true);
-        searchImage.setFitHeight(headerSize);
+        backButton.setText("Back");
 
-        searchButton.setGraphic(ImageColorer.recolor(searchImage,Settings.getPrimary()));
-        searchButton.setStyle("-fx-focus-color: transparent;");
-        searchButton.setPadding(new Insets(0, 0, 0, 0));
-        searchButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
 
-        searchButton.setOnAction(e->{
+        backButton.setPadding(new Insets(0, 0, 0, 0));
+        backButton.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
+
+        backButton.setOnAction(e->{
             StateManager.switchTo("Search");
         });
 
-        topBar.getChildren().add(searchButton);
+        topBar.getChildren().add(backButton);
 
         //Add date text
         dateLabel = new AutoSizeText(date,Settings.getPrimary());
@@ -166,8 +165,26 @@ public class HeaderTile extends Tile{
         conditionView.setFitWidth(200);
 
 
-        cityLabel.setText(city);
-        dateLabel.setText(date);
+        backButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getSecondary())+";"+
+                "-fx-text-fill: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+        backButton.setOnAction(e->{
+            StateManager.switchTo("Main");
+        });
+
+
+        menuButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getSecondary())+";"+
+                "-fx-padding: 0;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: 0;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+        backButton.setFont(Font.font(Settings.getFontString(), 20));
+
+        backButton.setPrefSize(60,headerSize);
+
 
         if(Settings.isCelsius()){
             temperatureLabel.setText(nf.format(temperature)+"°C");
@@ -181,6 +198,10 @@ public class HeaderTile extends Tile{
 
         dateLabel.resizeText();
         temperatureLabel.resizeText();
+
+        cityLabel.setText(city);
+        dateLabel.setText("       "+date);
+
 
         //Set colors:
         menuButton.setGraphic(ImageColorer.recolor(menuIconView, Settings.getPrimary()));
