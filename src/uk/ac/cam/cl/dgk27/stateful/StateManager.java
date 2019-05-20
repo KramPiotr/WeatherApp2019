@@ -5,7 +5,6 @@ import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;
 import scenes.mainscreen.MainScreen;
 import settings.SettingsScene;
-import skeletons.WeatherScene;
 import ycl62.IntDesign.DateRangeScene;
 import ycl62.IntDesign.RouteScene;
 
@@ -80,7 +79,7 @@ public class StateManager extends Application {
 //        new YetAnotherWeatherScene("Weather"); // extends State.java
         new MainScreen("Main");
         new RouteScene("Route");
-        new YetAnotherSearch("Search");
+        new YetAnotherSearch("Search", "Date");
         new DateRangeScene("Date");
         new SettingsScene("Settings");
         

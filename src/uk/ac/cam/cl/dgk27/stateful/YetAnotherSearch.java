@@ -89,9 +89,11 @@ public class YetAnotherSearch extends State {
 
     private boolean inited = false;
     private int selectedCityID = -1;
+    private String stateToSwitchTo;
 
-    public YetAnotherSearch(String name) {
+    public YetAnotherSearch(String name, String stateToSwitchTo) {
         super(name);
+        this.stateToSwitchTo = stateToSwitchTo;
     }
 
     /**
@@ -137,7 +139,7 @@ public class YetAnotherSearch extends State {
                     if (item != null) {
                         selectedCityID = ((CityIDPair)item).id;
                         // TODO: implement going to routing (getSelected)
-                        StateManager.switchTo("Date");
+                        StateManager.switchTo(stateToSwitchTo);
                         System.out.println("clicked on " + item);
                     }
                 }
@@ -146,8 +148,6 @@ public class YetAnotherSearch extends State {
             inited = true;
         }
     }
-
-
 
     @Override
     protected void disable() {
@@ -184,25 +184,26 @@ public class YetAnotherSearch extends State {
                     @Override
                     protected void updateItem(CityIDPair item, boolean empty) {
                         super.updateItem(item, empty);
-                        if(!empty)
+                        if(!empty) {
                             setText(item.toString());
-                        else
+
+                            if (isFocused()) {
+                                setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getPrimary()) + ";" +
+                                        "-fx-background-color: " + Settings.colorString(Settings.getPrimary()) + ";" +
+                                        "-fx-text-fill: " + Settings.colorString(Settings.getSecondary()) + ";" +
+                                        "-fx-border-style: solid inside;"
+                                        + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
+                                        + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+                            } else {
+                                setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";" +
+                                        "-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";" +
+                                        "-fx-border-style: solid inside;"
+                                        + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
+                                        + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+                            }
+                        } else {
                             setText(null);
-                        super.updateItem(item, empty);
-                        if(isFocused()){
-                            setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getPrimary()) + ";"+
-                                    "-fx-background-color: " + Settings.colorString(Settings.getPrimary()) + ";"+
-                                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
-                                    "-fx-border-style: solid inside;"
-                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
-                                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
-                        }
-                        else {
-                            setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";" +
-                                    "-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";" +
-                                    "-fx-border-style: solid inside;"
-                                    + "-fx-border-width: 1;" + "-fx-border-insets: 0;" + "-fx-font-size:16.0;"
-                                    + "-fx-border-radius: 0;" + "-fx-border-color: " + Settings.colorString(Settings.getTertiary()) + ";");
+                            setStyle("-fx-control-inner-background: " + Settings.colorString(Settings.getSecondary()) + ";");
                         }
                     }
                 };
