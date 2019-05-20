@@ -39,6 +39,7 @@ public class HeaderTile extends Tile{
 
     BorderPane pane;
     ImageView menuIconView;
+    ImageView searchImage;
 
 
     public HeaderTile(WeatherScene parent) {
@@ -95,7 +96,7 @@ public class HeaderTile extends Tile{
         //Add search button
         searchButton = new Button();
 
-        ImageView searchImage = new ImageView(new Image("/icons/location.png"));
+        searchImage = new ImageView(new Image("/icons/location.png"));
         searchImage.setPreserveRatio(true);
         searchImage.setFitHeight(headerSize);
 
@@ -184,7 +185,8 @@ public class HeaderTile extends Tile{
         temperatureLabel.resizeText();
 
         //Set colors:
-        menuButton.setGraphic(ImageColorer.recolor(menuIconView, Settings.getPrimary()));
+        menuButton.setGraphic(ImageColorer.recolor(menuIconView, Settings.getSecondary()));
+        searchButton.setGraphic(ImageColorer.recolor(searchImage, Settings.getSecondary()));
         pane.setBackground(new Background(new BackgroundFill(Settings.getSecondary(),null,null)));
         temperatureLabel.setFill(Settings.getPrimary());
         cityLabel.setFill(Settings.getPrimary());
@@ -192,6 +194,50 @@ public class HeaderTile extends Tile{
         pane.setStyle("-fx-padding: 10;" + "-fx-border-style: solid inside;"
                 + "-fx-border-width: 5;" + "-fx-border-insets: 0;"
                 + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+
+
+        menuButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+        searchButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+
+        menuButton.setOnMousePressed(e -> {
+            menuButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+        menuButton.setOnMouseReleased(e -> {
+            menuButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+
+        searchButton.setOnMousePressed(e -> {
+            searchButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getFadedPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+        searchButton.setOnMouseReleased(e -> {
+            searchButton.setStyle("-fx-background-color: "+Settings.colorString(Settings.getPrimary())+";"+
+                    "-fx-text-fill: "+Settings.colorString(Settings.getSecondary())+";"+
+                    "-fx-padding: 0;" + "-fx-border-style: solid inside;"
+                    + "-fx-border-width: 3;" + "-fx-border-insets: -1;"
+                    + "-fx-border-radius: 0;" + "-fx-border-color: "+ Settings.colorString(Settings.getTertiary())+";");
+        });
+
+        searchButton.setGraphic(ImageColorer.recolor(searchImage,Settings.getSecondary()));
 
 
     }
