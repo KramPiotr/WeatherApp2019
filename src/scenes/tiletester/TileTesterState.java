@@ -1,12 +1,12 @@
-package scenes.tiletester;
+/*package scenes.mainscreen;
 
-import javafx.event.EventHandler;
+import eu.hansolo.tilesfx.weather.DarkSky;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
-import settings.Settings;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import settings.SwitchTemperature;
 import skeletons.WeatherScene;
 import tiles.*;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
@@ -14,62 +14,115 @@ import uk.ac.cam.cl.dgk27.weather.RequestType;
 import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.Pollen;
+import ycl62.IntDesign.GraphTile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TileTesterState extends WeatherScene {
-    Weather weather;
+public class MainScreen extends WeatherScene {
 
-    WindTile windTile;
-    HeaderTile headerTile;
-    RealFeelTile realFeelTile;
-    ChanceOfRainTile chanceOfRainTile;
-    HighLowTile highLowTile;
-    HumidityTile humidityTile;
-    PollenTile pollenTile;
+    private GridPane mainPanel;
+    private List<Tile> tiles;
+    protected Weather city;
 
-    public TileTesterState(String name) throws IOException {
+    public MainScreen(String name) throws IOException {
         super(name);
+        this.city = WeatherAPI.makeRequest(RequestType.Current, "Paris")[0];
+        init();
+    }
+
+    public MainScreen(String name, Weather city){
+        super(name);
+        this.city = city;
+        init();
     }
 
     @Override
-    protected void initialise() {
-        try {
-            weather = WeatherAPI.makeRequest(RequestType.Current,"London","GBR")[0];
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        VBox mainPanel = new VBox();
-        HBox horizontal = new HBox();
-        HBox horizontal1 = new HBox();
-        HBox horizontal2 = new HBox();
-        mainPanel.setSpacing(0);
-        horizontal.setSpacing(0);
-        horizontal.setSpacing(0);
-        horizontal2.setSpacing(0);
-        windTile = new WindTile(this);
-        realFeelTile = new RealFeelTile(this);
-        headerTile = new HeaderTile(this);
-        chanceOfRainTile = new ChanceOfRainTile(this);
-        highLowTile = new HighLowTile(this);
-        humidityTile = new HumidityTile(this);
-        pollenTile = new PollenTile(this);
+    public double getTemperature() {
+        return city.getTemp();
+    }
 
+    @Override
+    public double getWindSpeed() {
+        return city.getWind_speed();
+    }
 
-        horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
-        horizontal1.getChildren().addAll(realFeelTile,windTile);
-        horizontal2.getChildren().addAll(humidityTile,pollenTile);
+    @Override
+    public Pollen getPollen() {
+        return Pollen.getRandomPollen();
+    }
+    @Override
+    public double getChanceOfRain() {
+        return -1;
+    }
 
-        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2);
+    @Override
+    public double getLow() {
+        return city.getTemp_min();
+    }
 
+    @Override
+    public double getHigh() {
+        return city.getTemp_max();
+    }
 
+    @Override
+    public String getCondition() {
+        return city.getIcon();
+    }
 
-        scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
+    @Override
+    public double getHumidity() {
+        return city.getHumidity();
+    }
+
+    @Override
+    public double getRealTemperature() {
+        return city.getTemp()-city.getWind_speed()*0.3;
+    }
+
+    @Override
+    public String getLocation() {
+        return city.getCity_name();
+    }
+
+    @Override
+    public String getDate() {
+        return city.getDatetime();
+    }
+
+    // instead of using initialise - not all data available at creation
+    private void init() {
+        tiles = new ArrayList<>();
+        HeaderTile headerTile = new HeaderTile(this);
+        tiles.add(headerTile);
+        RealFeelTile realFeelTile = new RealFeelTile(this);
+        tiles.add(realFeelTile);
+        WindTile windTile = new WindTile(this);
+        tiles.add(windTile);
+        GraphTile graphTile = new GraphTile(this, "Paris");
+        tiles.add(graphTile);
+
+        mainPanel = new GridPane();
+        mainPanel.addRow(0, headerTile);
+        mainPanel.addRow(1, realFeelTile, windTile);
+        mainPanel.addRow(2, new SwitchTemperature(this), new WindTile(this));
+        mainPanel.addRow(3, new WindTile(this), new WindTile(this));
+        mainPanel.addRow(4, graphTile);
+        mainPanel.setAlignment(Pos.TOP_LEFT);
+        mainPanel.setCenterShape(true);
+        mainPanel.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        scene = new Scene(mainPanel);
+    }
+
+    @Override
+    protected void initialise(){
     }
 
     @Override
     protected void enable() {
-
     }
 
     @Override
@@ -79,67 +132,6 @@ public class TileTesterState extends WeatherScene {
 
     @Override
     public void update() {
-
+        tiles.forEach(t->t.update());
     }
-
-    @Override
-    public double getTemperature() {
-        return weather.getTemp();
-    }
-
-    @Override
-    public double getWindSpeed() {
-        return weather.getWind_speed();
-    }
-
-    @Override
-    public Pollen getPollen() {
-        return Pollen.getRandomPollen();
-    }
-
-    @Override
-    public double getChanceOfRain() {
-        return 30;
-    }
-
-    @Override
-    public double getLow() {
-        return weather.getTemp_min();
-    }
-
-    @Override
-    public double getHigh() {
-        return weather.getTemp_max();
-    }
-
-    @Override
-    public String getCondition() {
-        return weather.getIcon();
-    }
-
-    @Override
-    public double getHumidity() {
-        return weather.getHumidity();
-    }
-
-
-    @Override
-    public double getRealTemperature() {
-        return weather.getTemp()-Math.random()*(weather.getTemp()-weather.getTemp_min());
-    }
-
-    @Override
-    public String getLocation() {
-        return weather.getCity_name();
-    }
-
-    @Override
-    public String getDate() {
-        if(weather.getDatetime().equals("")){
-            return "00/00";
-        }
-        return weather.getDatetime();
-    }
-
-
-}
+}*/
