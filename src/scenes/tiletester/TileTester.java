@@ -20,14 +20,14 @@ public class TileTester extends Application {
 
         primaryStage.setTitle("Tile Tester");
 
-        TileTesterState state = new TileTesterState("Tile tester");
+        //TileTesterState state = new TileTesterState("Tile tester");
 
         primaryStage.setTitle("Tile tester");
         primaryStage.setResizable(false);
         primaryStage.setHeight(StateManager.HEIGHT);
         primaryStage.setWidth(StateManager.WIDTH);
 
-        primaryStage.setScene(state.getScene());
+       // primaryStage.setScene(state.getScene());
 
         primaryStage.show();
 
