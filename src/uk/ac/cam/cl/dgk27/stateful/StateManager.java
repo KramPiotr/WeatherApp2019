@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import scenes.mainscreen.MainScreen;
 import settings.SettingsScene;
 import ycl62.IntDesign.DateRangeScene;
-import ycl62.IntDesign.RouteScene;
+//import ycl62.IntDesign.RouteScene;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,7 +78,7 @@ public class StateManager extends Application {
         // TODO: Add states here
 //        new YetAnotherWeatherScene("Weather"); // extends State.java
         new MainScreen("Main");
-        new RouteScene("Route");
+       // new RouteScene("Route");
         new YetAnotherSearch("Search", "Date");
         new YetAnotherSearch("SearchToMain", "Main");
         new DateRangeScene("Date");
