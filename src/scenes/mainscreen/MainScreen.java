@@ -12,6 +12,7 @@ import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 import util.Pollen;
 import ycl62.IntDesign.GraphTile;
+import ycl62.IntDesign.HourlyGraphTile;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class MainScreen extends WeatherScene {
     HumidityTile humidityTile;
     PollenTile pollenTile;
     GraphTile dailyTile;
+    HourlyGraphTile hourlyGraphTile;
 
     int daysInAdvance=0;
 
@@ -61,12 +63,13 @@ public class MainScreen extends WeatherScene {
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
         dailyTile = new GraphTile(this,weather.getCity_name());
+        hourlyGraphTile = new HourlyGraphTile(this,weather.getCity_name());
 
         horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
         horizontal1.getChildren().addAll(realFeelTile,windTile);
         horizontal2.getChildren().addAll(humidityTile,pollenTile);
 
-        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2,dailyTile);
+        mainPanel.getChildren().addAll(headerTile,horizontal,horizontal1,horizontal2,dailyTile,hourlyGraphTile);
 
         scene = new Scene(mainPanel, StateManager.WIDTH, StateManager.HEIGHT);
 
@@ -104,6 +107,7 @@ public class MainScreen extends WeatherScene {
         humidityTile.update();
         pollenTile.update();
         dailyTile.update();
+        hourlyGraphTile.update();
     }
 
     @Override
