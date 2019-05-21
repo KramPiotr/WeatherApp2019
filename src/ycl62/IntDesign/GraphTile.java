@@ -31,7 +31,7 @@ public class GraphTile extends Tile {
     //private final double[] fives = {-14.0, 94.0, 202.0, 310.0, 417.0, 524.0, 632.0}, sixes = {-3.0, 86.0, 175.0, 264.0, 353.0, 443.0, 532.0, 621.0};
     private final double[] fives = {40.0, 148.0, 256.0, 363.5, 470.5, 578.0}, sixes = {41.5, 130.5, 219.5, 308.5, 398.0, 487.5, 576.5};
     
-    private double WIDTH = 591.0, HEIGHT = 200.0;
+    private double WIDTH = 591.0, HEIGHT = 150.0;
     private eu.hansolo.tilesfx.Tile chart;
     private String units;
     
@@ -43,7 +43,7 @@ public class GraphTile extends Tile {
     public GraphTile(State parent, int cityID){
         super(parent);
         this.cityID = cityID;
-        title = "Temp Highs/Lows";
+        title = "Daily Highs/Lows";
     }
     
     void getData(){

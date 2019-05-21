@@ -127,11 +127,11 @@ public class RouteSingleTile extends Tile {
         temperature = weather.getTemp();
         
         iconCode = weather.getIcon();
-        String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+        String iconUrl = "icons/weatherIcons/" + iconCode + ".png";
         conditionImage = new Image(iconUrl);
         conditionView.setImage(conditionImage);
-        conditionView.setViewport(new Rectangle2D(conditionImage.getWidth() * 0.15, conditionImage.getHeight() * 0.15,
-                conditionImage.getWidth() * 0.8, conditionImage.getHeight() * 0.8));
+        conditionView.setViewport(new Rectangle2D(0, 0,
+                conditionImage.getWidth(), conditionImage.getHeight()));
         conditionView.setPreserveRatio(true);
         conditionView.setFitWidth(100);
         
