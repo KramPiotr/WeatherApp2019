@@ -2,6 +2,7 @@ package ycl62.IntDesign;
 
 import javafx.scene.chart.XYChart;
 import uk.ac.cam.cl.dgk27.weather.RequestType;
+import uk.ac.cam.cl.dgk27.weather.Weather;
 import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
 import java.io.IOException;
@@ -18,18 +19,23 @@ public class RouteMultiTile extends GraphTile {
         useWidth(586);
         this.start = start;
         this.end = end;
-        title = this.cityID + ", " + start.format(DateTimeFormatter.ofPattern("dd LLL")) + " - " + end.format(DateTimeFormatter.ofPattern("dd LLL"));
     }
     
     @Override
     void getData(){
         double temp;
+        String cityName;
         try{
-            temp = convertUnits(WeatherAPI.makeRequest(RequestType.Current, cityID)[0].getTemp());
+            Weather weather = WeatherAPI.makeRequest(RequestType.Current, cityID)[0];
+            temp = convertUnits(weather.getTemp());
+            cityName = weather.getCity_name();
         } catch(IOException e) {
             System.out.println("Location ID (" + cityID + ") not found in weather service.");
             temp = 25.0; //Placeholder value
+            cityName = "Cambridge";
         }
+        
+        title = cityName + ", " + start.format(DateTimeFormatter.ofPattern("dd LLL")) + " - " + end.format(DateTimeFormatter.ofPattern("dd LLL"));
         
         Random r = new Random(System.currentTimeMillis());
         for(int i = 0; i <= ChronoUnit.DAYS.between(start, end); i++){
