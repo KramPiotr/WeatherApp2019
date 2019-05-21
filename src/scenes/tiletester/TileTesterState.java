@@ -136,6 +136,9 @@ public class TileTesterState extends WeatherScene {
         }
         return weather.getDatetime();
     }
-
-
+    
+    @Override
+    public int getID() {
+        return weather.getID();
+    }
 }

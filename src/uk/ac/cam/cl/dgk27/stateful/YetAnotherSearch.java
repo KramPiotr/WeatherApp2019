@@ -75,7 +75,7 @@ public class YetAnotherSearch extends State {
         return cities.values().stream()
             .map(l -> new Object() {
                 int id = l.id;
-                Double jwd = JaroWinklerDistance.apply(s, l.name);
+                Double jwd = JaroWinklerDistance.apply(s.toLowerCase(), l.name.toLowerCase());
             })
             .filter(l -> l.jwd > 0.75)
             .sorted((a, b) -> (int)-Math.signum(a.jwd - b.jwd)).unordered()
@@ -140,7 +140,7 @@ public class YetAnotherSearch extends State {
                         selectedCityID = ((CityIDPair)item).id;
                         // TODO: implement going to routing (getSelected)
                         StateManager.switchTo(stateToSwitchTo);
-                        System.out.println("clicked on " + item);
+                        //System.out.println("clicked on " + item);
                     }
                 }
             });

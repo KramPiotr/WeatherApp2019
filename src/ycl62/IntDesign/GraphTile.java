@@ -35,29 +35,29 @@ public class GraphTile extends Tile {
     private eu.hansolo.tilesfx.Tile chart;
     private String units;
     
-    String cityName;
+    int cityID;
     Series<Node, Double> lows;
     Series<Node, Double> highs;
     String title;
     
-    public GraphTile(State parent, String cityName){
+    public GraphTile(State parent, int cityID){
         super(parent);
-        this.cityName = cityName;
+        this.cityID = cityID;
         title = "Temp Highs/Lows";
     }
     
     void getData(){
-        cityName = ((WeatherScene)parent).getLocation();
+        cityID = ((WeatherScene) parent).getID();
         double[] temps;
         String[] dates;
         try{
-            Weather[] weather = WeatherAPI.makeRequest(RequestType.FiveDay, cityName);
+            Weather[] weather = WeatherAPI.makeRequest(RequestType.FiveDay, cityID);
             temps = Arrays.stream(weather).mapToDouble(w -> convertUnits(w.getTemp())).toArray();
             dates = Arrays.stream(weather).map(Weather::getDatetime).toArray(String[]::new);
         } catch(IOException e) {
-            System.out.println("Location (" + cityName + ") not found in weather service.");
-            temps = new double[]{-273.15}; //Placeholder value
-            dates = new String[]{"2012AD"}; //Placeholder value
+            System.out.println("Location ID (" + cityID + ") not found in weather service.");
+            temps = new double[]{-273.15, 273.15, -273.15, 273.15, -273.15, 273.15, -273.15, 273.15, -273.15, 273.15, -273.15, 273.15, -273.15, 273.15, -273.15, 273.15}; //Placeholder value
+            dates = new String[]{"2019-05-21 00:00:00", "", "", "", "", "", "", "", "2019-05-22 00:00:00", "", "", "", "", "", "", ""}; //Placeholder value
         }
         
         int offset;

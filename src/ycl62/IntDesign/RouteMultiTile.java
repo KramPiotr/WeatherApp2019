@@ -13,21 +13,21 @@ import java.util.Random;
 public class RouteMultiTile extends GraphTile {
     private LocalDate start, end;
     
-    public RouteMultiTile(RouteScene parent, String cityName, LocalDate start, LocalDate end){
-        super(parent, cityName);
+    public RouteMultiTile(RouteScene parent, int cityID, LocalDate start, LocalDate end){
+        super(parent, cityID);
         useWidth(586);
         this.start = start;
         this.end = end;
-        title = cityName + ", " + start.format(DateTimeFormatter.ofPattern("dd LLL")) + " - " + end.format(DateTimeFormatter.ofPattern("dd LLL"));
+        title = this.cityID + ", " + start.format(DateTimeFormatter.ofPattern("dd LLL")) + " - " + end.format(DateTimeFormatter.ofPattern("dd LLL"));
     }
     
     @Override
     void getData(){
         double temp;
         try{
-            temp = convertUnits(WeatherAPI.makeRequest(RequestType.Current, cityName)[0].getTemp());
+            temp = convertUnits(WeatherAPI.makeRequest(RequestType.Current, cityID)[0].getTemp());
         } catch(IOException e) {
-            System.out.println("Location (" + cityName + ") not found in weather service.");
+            System.out.println("Location ID (" + cityID + ") not found in weather service.");
             temp = 25.0; //Placeholder value
         }
         

@@ -7,18 +7,18 @@ import java.time.format.DateTimeFormatter;
 
 public class RouteCityTile extends Tile implements Comparable<RouteCityTile> {
     private Tile tile;
-    private String cityName;
+    private int cityID;
     private LocalDate start, end;
     
-    public RouteCityTile(RouteScene parent, String cityName, LocalDate start, LocalDate end){
+    public RouteCityTile(RouteScene parent, int cityID, LocalDate start, LocalDate end){
         super(parent);
-        this.cityName = cityName;
+        this.cityID = cityID;
         this.start = start;
         this.end = end;
         if(start.equals(end)){
-            tile = new RouteSingleTile(parent, cityName, start.format(DateTimeFormatter.ofPattern("d MMM")));
+            tile = new RouteSingleTile(parent, cityID, start.format(DateTimeFormatter.ofPattern("d MMM")));
         } else {
-            tile = new RouteMultiTile(parent, cityName, start, end);
+            tile = new RouteMultiTile(parent, cityID, start, end);
         }
         this.getChildren().add(tile);
     }
@@ -34,7 +34,7 @@ public class RouteCityTile extends Tile implements Comparable<RouteCityTile> {
         if(d == 0){
             int e = end.compareTo(o.end);
             if(e == 0){
-                return cityName.compareTo(o.cityName);
+                return cityID - o.cityID;
             }
             return e;
         }

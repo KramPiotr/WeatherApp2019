@@ -13,6 +13,7 @@ import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class DateRangeScene extends State {
     private StackPane mainPanel;
@@ -29,20 +30,19 @@ public class DateRangeScene extends State {
         p1 = new DatePickerTile(this, "From", LocalDate.now());
         p2 = new DatePickerTile(this, "To", LocalDate.now().plusDays(1));
         EventHandler<MouseEvent> handler = e -> {
-            if(getStart().until(getEnd()).isNegative()){
-                warning.setText("Invalid date range");
-                warning.setStyle("-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";");
+            long d = ChronoUnit.DAYS.between(getStart(), getEnd()) + 1;
+            if(d > 0){
+                warning.setText(d == 1 ? "1 day" : d + " days");
             } else {
-                warning.setText("");
-                warning.setStyle("-fx-text-fill: " + Settings.colorString(Settings.getSecondary()) + ";");
+                warning.setText("Invalid date range");
             }
             update();
         };
         p1.setOnMouseMoved(handler);
         p2.setOnMouseMoved(handler);
         
-        warning = new Label("");
-        warning.setFont(Font.font(Settings.getFontString(), 35));
+        warning = new Label("2 days");
+        warning.setFont(Font.font(Settings.getFontString(), 30));
         
         buttons = new ButtonsTile(this);
         buttons.setAddAction(e -> {
@@ -58,7 +58,7 @@ public class DateRangeScene extends State {
         
         mainPanel = new StackPane(hBox, warning, buttons);
         mainPanel.setCenterShape(true);
-        mainPanel.setPadding(new Insets(30.0, 0, 30.0, 0));
+        mainPanel.setPadding(new Insets(60.0, 0, 30.0, 0));
         StackPane.setAlignment(hBox, Pos.CENTER);
         StackPane.setAlignment(warning, Pos.TOP_CENTER);
         StackPane.setAlignment(buttons, Pos.BOTTOM_CENTER);
@@ -78,6 +78,7 @@ public class DateRangeScene extends State {
         p1.update();
         p2.update();
         buttons.update();
+        warning.setStyle("-fx-text-fill: " + Settings.colorString(Settings.getPrimary()) + ";");
         mainPanel.setBackground(new Background(new BackgroundFill(Settings.getSecondary(), null, null)));
     }
     

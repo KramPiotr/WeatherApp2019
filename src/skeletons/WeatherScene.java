@@ -50,4 +50,6 @@ public abstract class WeatherScene extends State {
     public abstract String getLocation();
     
     public abstract String getDate();
+    
+    public abstract int getID();
 }

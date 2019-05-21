@@ -18,8 +18,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class MainScreen extends WeatherScene {
     Weather weather;
 
@@ -60,7 +58,7 @@ public class MainScreen extends WeatherScene {
         highLowTile = new HighLowTile(this);
         humidityTile = new HumidityTile(this);
         pollenTile = new PollenTile(this);
-        dailyTile = new GraphTile(this,weather.getCity_name());
+        dailyTile = new GraphTile(this, weather.getID());
 
         horizontal.getChildren().addAll(chanceOfRainTile,highLowTile);
         horizontal1.getChildren().addAll(realFeelTile,windTile);
@@ -84,7 +82,7 @@ public class MainScreen extends WeatherScene {
             try {
                 weather = WeatherAPI.makeRequest(RequestType.Current, temp_id)[0];
             } catch(IOException e) {
-
+                System.out.println("IOE caught");
             }
         }
     }
@@ -163,6 +161,11 @@ public class MainScreen extends WeatherScene {
             return LocalDate.now().plusDays(daysInAdvance).format(DateTimeFormatter.ofPattern("d MMM"));
         }
         return LocalDateTime.parse(weather.getDatetime().replace(" ", "T")).plusDays(daysInAdvance).format(DateTimeFormatter.ofPattern("d MMM"));
+    }
+    
+    @Override
+    public int getID() {
+        return weather.getID();
     }
 
     public void switchToDate(int daysInAdvance){

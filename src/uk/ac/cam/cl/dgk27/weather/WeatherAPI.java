@@ -24,7 +24,7 @@ public class WeatherAPI {
     private static Weather[] extractJSON(String url) throws IOException {
         // ccleve @ https://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code
         JSONObject obj = new JSONObject(new Scanner(new URL(url).openStream(), "UTF-8").useDelimiter("\\A").next());
-
+        
         if (checkMultiDay(obj)) {
             int i = 0;
             JSONObject city = obj.getJSONObject("city");
@@ -47,7 +47,7 @@ public class WeatherAPI {
                 rtn[i] = new Weather(
                         safeGetDouble(coordObj, "lon"), safeGetDouble(coordObj,"lat"), weather.getString("main"), weather.getString("description"),
                         safeGetDouble(main,"temp"), safeGetDouble(main,"pressure"), safeGetDouble(main,"humidity"), safeGetDouble(main,"temp_min"), safeGetDouble(main,"temp_max"),
-                        0d, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), city.getString("name"), datetime, dt
+                        0d, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), city.getString("name"), city.getInt("id"), datetime, dt
                 );
                 i++;
             }
@@ -68,7 +68,7 @@ public class WeatherAPI {
         w1 = new Weather(
                 safeGetDouble(coordObj, "lon"), safeGetDouble(coordObj,"lat"), weather.getString("main"), weather.getString("description"),
                 safeGetDouble(main,"temp"), safeGetDouble(main,"pressure"), safeGetDouble(main,"humidity"), safeGetDouble(main,"temp_min"), safeGetDouble(main,"temp_max"),
-                vis, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), name, "", dt
+                vis, safeGetDouble(wind,"speed"), safeGetDouble(wind,"deg"), safeGetDouble(clouds,"all"), name, obj.getInt("id"), "", dt
         );
 
         return new Weather[] {w1};

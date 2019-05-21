@@ -10,9 +10,10 @@ public class Weather {
     private double visibility, wind_speed, wind_deg;
     private double clouds;
     private String city_name, datetime;
+    private int id;
     private double timestamp;
 
-    public Weather(double lon, double lat, String weather_main, String weather_description, double temp, double pressure, double humidity, double temp_min, double temp_max, double visibility, double wind_speed, double wind_deg, double clouds, String city_name, String datetime, double timestamp) {
+    public Weather(double lon, double lat, String weather_main, String weather_description, double temp, double pressure, double humidity, double temp_min, double temp_max, double visibility, double wind_speed, double wind_deg, double clouds, String city_name, int id, String datetime, double timestamp) {
         this.lon = lon;
         this.lat = lat;
         this.weather_main = weather_main;
@@ -27,6 +28,7 @@ public class Weather {
         this.wind_deg = wind_deg;
         this.clouds = clouds;
         this.city_name = city_name;
+        this.id = id;
         this.datetime = datetime;
         this.timestamp = timestamp;
     }
@@ -96,7 +98,11 @@ public class Weather {
     public String getCity_name() {
         return city_name;
     }
-
+    
+    public int getID() {
+        return id;
+    }
+    
     public double getTimestamp() {
         return timestamp;
     }

@@ -13,10 +13,7 @@ import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
 import uk.ac.cam.cl.dgk27.stateful.StateManager;
 import uk.ac.cam.cl.dgk27.stateful.YetAnotherSearch;
-import uk.ac.cam.cl.dgk27.weather.RequestType;
-import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,17 +49,11 @@ public class RouteScene extends State {
     }
     
     public void addCity(){
-        String cityName;
-        try{
-            cityName = WeatherAPI.makeRequest(RequestType.Current, ((YetAnotherSearch) StateManager.get("Search")).getSelected())[0].getCity_name();
-        } catch(IOException e) {
-            cityName = "London";
-        }
-        
+        int cityID = ((YetAnotherSearch) StateManager.get("Search")).getSelected();
         LocalDate start = ((DateRangeScene) StateManager.get("Date")).getStart();
         LocalDate end = ((DateRangeScene) StateManager.get("Date")).getEnd();
         
-        cities.add(new RouteCityTile(this, cityName, start, end));
+        cities.add(new RouteCityTile(this, cityID, start, end));
         Collections.sort(cities);
         vBox.getChildren().clear();
         vBox.getChildren().addAll(cities);
