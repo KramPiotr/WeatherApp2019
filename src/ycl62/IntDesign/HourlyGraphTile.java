@@ -1,6 +1,6 @@
 package ycl62.IntDesign;
 
-import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.Tile.*;
 import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.chart.TilesFXSeries;
 import javafx.scene.Node;
@@ -10,21 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
-import scenes.mainscreen.MainScreen;
 import settings.Settings;
 import skeletons.WeatherScene;
+import tiles.Tile;
 import uk.ac.cam.cl.dgk27.stateful.State;
-import uk.ac.cam.cl.dgk27.weather.RequestType;
-import uk.ac.cam.cl.dgk27.weather.Weather;
-import uk.ac.cam.cl.dgk27.weather.WeatherAPI;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
-
-public class HourlyGraphTile extends tiles.Tile {
+public class HourlyGraphTile extends Tile {
     //private final double[] fives = {-14.0, 94.0, 202.0, 310.0, 417.0, 524.0, 632.0}, sixes = {-3.0, 86.0, 175.0, 264.0, 353.0, 443.0, 532.0, 621.0};
     private final double[] fives = {40.0, 148.0, 256.0, 363.5, 470.5, 578.0}, sixes = {41.5, 130.5, 219.5, 308.5, 398.0, 487.5, 576.5};
 
@@ -36,19 +27,16 @@ public class HourlyGraphTile extends tiles.Tile {
     private double low;
     private double high;
 
-    String cityName;
     XYChart.Series<Node, Double> lows;
     XYChart.Series<Node, Double> highs;
     String title;
 
-    public HourlyGraphTile(State parent, String cityName){
+    public HourlyGraphTile(State parent){
         super(parent);
-        this.cityName = cityName;
         title = "Hourly Highs/Lows";
     }
 
     void getData(){
-        cityName = ((WeatherScene)parent).getLocation();
         temp = ((WeatherScene)parent).getTemperature();
         low = ((WeatherScene)parent).getLow();
         high = ((WeatherScene)parent).getHigh();
@@ -75,8 +63,8 @@ public class HourlyGraphTile extends tiles.Tile {
                 times[i]=((i)%12+1)+"pm";
             }
             //Add data to graphs
-            lows.getData().add(new XYChart.Data(times[i],convertUnits(tLows[i])));
-            highs.getData().add(new XYChart.Data(times[i],convertUnits(tHighs[i])));
+            lows.getData().add(new XYChart.Data(times[i],Math.round(convertUnits(tLows[i]) * 10) / 10.0));
+            highs.getData().add(new XYChart.Data(times[i],Math.round(convertUnits(tHighs[i]) * 10) / 10.0));
         }
 
 
@@ -88,8 +76,8 @@ public class HourlyGraphTile extends tiles.Tile {
         highs = new XYChart.Series<>();
         getData();
         chart = TileBuilder.create()
-                .chartType(Tile.ChartType.AREA)
-                .skinType(Tile.SkinType.SMOOTHED_CHART)
+                .chartType(ChartType.AREA)
+                .skinType(SkinType.SMOOTHED_CHART)
                 .prefSize(WIDTH, HEIGHT)
                 .title(title + units)
                 .tilesFxSeries(
@@ -100,13 +88,11 @@ public class HourlyGraphTile extends tiles.Tile {
                 .smoothing(true)
                 .dataPointsVisible(true)
                 .snapToTicks(true)
-                .textSize(Tile.TextSize.BIGGER)
+                .textSize(TextSize.BIGGER)
                 .decimals(1)
                 .tooltipTimeout(1000.0)
                 .build();
-        if(parent instanceof MainScreen){
-            registerForecastListener();
-        }
+        
 //        CategoryAxis xAxis = new CategoryAxis();
 //        NumberAxis yAxis = new NumberAxis(5,30,5);
 //        AreaChart chart2 = new AreaChart(xAxis, yAxis);
@@ -123,26 +109,6 @@ public class HourlyGraphTile extends tiles.Tile {
 
     void useWidth(double width){
         WIDTH = width;
-    }
-
-    private void registerForecastListener(){
-        chart.setOnMouseClicked(e -> {
-            double x = e.getSceneX();
-            double[] divs;
-            if(highs.getData().size() == 5){
-                divs = fives;
-            } else if(highs.getData().size() == 6){
-                divs = sixes;
-            } else {
-                return;
-            }
-            for(int i = 0; i < divs.length - 1; i++){
-                if(x >= divs[i] && x < divs[i + 1]){
-                    ((MainScreen) parent).switchToDate(i);
-                    return;
-                }
-            }
-        });
     }
 
     double convertUnits(double d){
