@@ -54,7 +54,7 @@ public class YetAnotherSearch extends State {
     private Map<Integer, Location> cities;
     private void loadFile(String file){
         cities = new HashMap<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(new File("").getAbsolutePath() + "/src/" + file))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File("").getAbsolutePath() + "/" + file))) {
             String line = br.readLine(); // header
 
             while ((line = br.readLine()) != null) {

@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Interactive_Design_Group11_1819:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Interactive_Design_Group11_1819_jar</output-path>
+    <root id="archive" name="Interactive_Design_Group11_1819.jar">
+      <element id="module-output" name="Interactive_Design_Group11_1819" />
+      <element id="library" level="project" name="lib" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/tilesfx-1.6.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/json-20180813.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/controlsfx-9.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
